@@ -14,4 +14,11 @@ func main() {
 
     arr3 := arr2[0:2]
     fmt.Println(arr3)
+
+    arr4 := [...]int {4, 4, 4, 4}
+    fmt.Println(arr4)
+
+    for i,v := range arr4 {
+        fmt.Println(i, v)
+    }
 }
