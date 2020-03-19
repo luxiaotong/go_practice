@@ -80,9 +80,13 @@ func main() {
     //Channel Buffer
     /*
     ch := make(chan string, 2)
+    //ch := make(chan string)
+    //go func() {
+    //    ch <- "hello"
+    //}()
     ch <- "hello"
     ch <- "world"
-    ch <- "three" //Wrong
+    //ch <- "three" //Wrong
     msg := <-ch
     fmt.Println(msg)
     msg = <-ch
@@ -91,8 +95,6 @@ func main() {
 
     //Channel Select
     /*
-    ch1 := make(chan string)
-    ch2 := make(chan string)
     go func() {
         for {
             ch1 <- "Every 500ms"
@@ -117,12 +119,13 @@ func main() {
     */
 
     //Worker Pool
+    /*
     jobs := make(chan int, 100)
     results := make(chan int, 100)
     go worker(jobs, results)
-    go worker(jobs, results)
-    go worker(jobs, results)
-    go worker(jobs, results)
+    //go worker(jobs, results)
+    //go worker(jobs, results)
+    //go worker(jobs, results)
     for i:=0;i<100;i++ {
         jobs <- i
     }
@@ -130,4 +133,5 @@ func main() {
     for j:=0;j<100;j++ {
         fmt.Println(<-results)
     }
+    */
 }
