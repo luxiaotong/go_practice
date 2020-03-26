@@ -5,4 +5,5 @@ go 1.14
 require (
 	github.com/dgraph-io/badger v1.6.0
 	github.com/graphql-go/graphql v0.7.9
+	github.com/tjfoc/gmsm v1.3.0 // indirect
 )
