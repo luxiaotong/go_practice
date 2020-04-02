@@ -16,10 +16,10 @@ var AppConfig *AppConfigEntity
 
 func main() {
 	AppConfig = initConf()
-	fmt.Printf("config : %s\n", AppConfig.HTTP_PORT)
+	fmt.Printf("config : %s\n", AppConfig.PORT)
 	router := router.InitRouter()
 	s := &http.Server{
-		Addr:           fmt.Sprintf("%s:%s", AppConfig.HTTP_HOST, AppConfig.HTTP_PORT),
+		Addr:           fmt.Sprintf("%s:%s", AppConfig.HOST, AppConfig.PORT),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
