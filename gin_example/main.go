@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/luxiaotong/go_practice/gin_example/api/database"
 	"github.com/luxiaotong/go_practice/gin_example/api/router"
 
 	"github.com/gin-gonic/gin"
@@ -26,6 +27,7 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	s.ListenAndServe()
+	database.Eloquent.Close()
 }
 
 func initConf() *AppConfigEntity {
