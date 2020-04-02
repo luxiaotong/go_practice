@@ -37,3 +37,23 @@ func Databases() []DBName {
 	fmt.Printf("dbname: %v\n", DBNames)
 	return DBNames
 }
+
+//Tables list all tables
+func Tables(dbname string) []string {
+	// Show Tables
+	rows, err := database.Eloquent.Raw("SHOW TABLES FROM " + dbname).Rows()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("All Tables:")
+	var tbName string
+	var TableNames []string
+	for rows.Next() {
+		rows.Scan(&tbName)
+		fmt.Println(tbName)
+		TableNames = append(TableNames, tbName)
+	}
+
+	return TableNames
+}
