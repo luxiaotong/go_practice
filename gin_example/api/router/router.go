@@ -23,6 +23,7 @@ func InitRouter() *gin.Engine {
 
 	router.GET("/getDatabaseList", apis.GetDatabaseList)
 	router.GET("/getTableList", apis.GetTableList)
+	router.GET("/getColumnList", apis.GetColumnList)
 
 	router.LoadHTMLGlob("templates/*")
 	router.GET("/index", func(c *gin.Context) {

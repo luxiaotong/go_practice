@@ -12,9 +12,6 @@ type DBName struct {
 	Name string `json:"db_name"`
 }
 
-//DBNames 包含一组数据库名字
-var DBNames []DBName
-
 //Databases list all databases
 func Databases() []DBName {
 
@@ -24,8 +21,7 @@ func Databases() []DBName {
 		log.Fatal(err)
 	}
 
-	//rows.Scan(&DBNames)
-
+	var DBNames []DBName
 	fmt.Println("All Databases:")
 	var dbName string
 	for rows.Next() {
@@ -48,12 +44,33 @@ func Tables(dbname string) []string {
 
 	fmt.Println("All Tables:")
 	var tbName string
-	var TableNames []string
+	var tbNames []string
 	for rows.Next() {
 		rows.Scan(&tbName)
 		fmt.Println(tbName)
-		TableNames = append(TableNames, tbName)
+		tbNames = append(tbNames, tbName)
 	}
 
-	return TableNames
+	return tbNames
+}
+
+//Columns list all columns
+func Columns(dbname string, tablename string) []string {
+	// Show Columns
+	query := fmt.Sprintf("SELECT COLUMN_NAME FROM information_schema.columns "+
+		"WHERE table_schema='%s' AND table_name='%s'", dbname, tablename)
+	rows, err := database.Eloquent.Raw(query).Rows()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("All Columns:")
+	var colName string
+	var colNames []string
+	for rows.Next() {
+		rows.Scan(&colName)
+		fmt.Println(colName)
+		colNames = append(colNames, colName)
+	}
+
+	return colNames
 }

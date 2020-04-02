@@ -16,10 +16,22 @@ func GetDatabaseList(c *gin.Context) {
 	})
 }
 
-//GetTableList is a function to list all tables
+//GetTableList is a function to list all tables of the database
 func GetTableList(c *gin.Context) {
 	dbname := c.Query("dbname")
 	result := models.Tables(dbname)
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": result,
+	})
+}
+
+//GetColumnList is a function to list all columns of the table
+func GetColumnList(c *gin.Context) {
+	dbname := c.Query("dbname")
+	tablename := c.Query("tablename")
+	result := models.Columns(dbname, tablename)
 
 	c.JSON(http.StatusOK, gin.H{
 		"code": 1,
