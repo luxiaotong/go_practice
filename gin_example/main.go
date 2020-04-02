@@ -11,6 +11,7 @@ import (
 	"github.com/itkinside/itkconfig"
 )
 
+//AppConfig contains configs of application
 var AppConfig *AppConfigEntity
 
 func main() {
@@ -39,9 +40,10 @@ func initConf() *AppConfigEntity {
 	return AppConfig
 }
 
+// AppConfigEntity contains config
 type AppConfigEntity struct {
-	HTTP_HOST string
-	HTTP_PORT string
-	DEBUG     string
-	APP_NAME  string
+	HOST    string
+	PORT    string
+	DEBUG   string
+	APPNAME string
 }
