@@ -1,11 +1,14 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/itkinside/itkconfig"
+	"fmt"
 	"net/http"
 	"time"
-	"fmt"
+
+	"github.com/luxiaotong/go_practice/gin_example/api/router"
+
+	"github.com/gin-gonic/gin"
+	"github.com/itkinside/itkconfig"
 )
 
 var AppConfig *AppConfigEntity
@@ -13,24 +16,7 @@ var AppConfig *AppConfigEntity
 func main() {
 	AppConfig = initConf()
 	fmt.Printf("config : %s\n", AppConfig.HTTP_PORT)
-
-	router := gin.Default()
-
-	router.Static("/assets", "./assets")
-
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-
-	router.LoadHTMLGlob("templates/*")
-	router.GET("/index", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"welcome": "Welcome! Thanks for using gintool",
-		})
-	})
-
+	router := router.InitRouter()
 	s := &http.Server{
 		Addr:           fmt.Sprintf("%s:%s", AppConfig.HTTP_HOST, AppConfig.HTTP_PORT),
 		Handler:        router,
@@ -42,9 +28,7 @@ func main() {
 }
 
 func initConf() *AppConfigEntity {
-	AppConfig := &AppConfigEntity{
-
-	}
+	AppConfig := &AppConfigEntity{}
 	itkconfig.LoadConfig("app.conf", AppConfig)
 	if AppConfig.DEBUG == "false" {
 		gin.SetMode(gin.ReleaseMode)
