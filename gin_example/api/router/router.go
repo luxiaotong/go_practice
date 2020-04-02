@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/luxiaotong/go_practice/gin_example/api/apis"
 )
 
 //InitRouter is a function to Init Router
@@ -19,6 +20,8 @@ func InitRouter() *gin.Engine {
 			"message": "pong",
 		})
 	})
+
+	router.GET("/getDatabaseList", apis.GetDatabaseList)
 
 	router.LoadHTMLGlob("templates/*")
 	router.GET("/index", func(c *gin.Context) {
