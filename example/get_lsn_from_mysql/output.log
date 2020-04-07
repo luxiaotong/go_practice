@@ -1,0 +1,148 @@
+---
+LOG
+---
+Log sequence number          46884727
+Log buffer assigned up to    46884727
+Log buffer completed up to   46884727
+Log written up to            46884727
+Log flushed up to            46884727
+Added dirty pages up to      46884727
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14379 log i/o's done, 0.65 log i/o's/second
+----------------------
+
+LSN after create database:
+---
+LOG
+---
+Log sequence number          46885239
+Log buffer assigned up to    46885239
+Log buffer completed up to   46885239
+Log written up to            46885239
+Log flushed up to            46885239
+Added dirty pages up to      46884727
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14382 log i/o's done, 3.00 log i/o's/second
+----------------------
+
+LSN after create table:
+---
+LOG
+---
+Log sequence number          46921701
+Log buffer assigned up to    46921701
+Log buffer completed up to   46921701
+Log written up to            46921701
+Log flushed up to            46921701
+Added dirty pages up to      46884727
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14434 log i/o's done, 52.00 log i/o's/second
+----------------------
+
+LSN after add column:
+---
+LOG
+---
+Log sequence number          46940227
+Log buffer assigned up to    46940227
+Log buffer completed up to   46940227
+Log written up to            46940227
+Log flushed up to            46940227
+Added dirty pages up to      46940227
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14454 log i/o's done, 20.00 log i/o's/second
+----------------------
+
+LSN after add row:
+---
+LOG
+---
+Log sequence number          46940626
+Log buffer assigned up to    46940626
+Log buffer completed up to   46940615
+Log written up to            46940615
+Log flushed up to            46940615
+Added dirty pages up to      46940227
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14455 log i/o's done, 1.00 log i/o's/second
+----------------------
+
+LSN after update row:
+---
+LOG
+---
+Log sequence number          46942254
+Log buffer assigned up to    46942254
+Log buffer completed up to   46942082
+Log written up to            46942082
+Log flushed up to            46942082
+Added dirty pages up to      46942082
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14458 log i/o's done, 3.00 log i/o's/second
+----------------------
+
+LSN after delete softly:
+---
+LOG
+---
+Log sequence number          46943914
+Log buffer assigned up to    46943914
+Log buffer completed up to   46943914
+Log written up to            46943914
+Log flushed up to            46943769
+Added dirty pages up to      46943914
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14463 log i/o's done, 5.00 log i/o's/second
+----------------------
+
+LSN after delete permanently:
+---
+LOG
+---
+Log sequence number          46945528
+Log buffer assigned up to    46945528
+Log buffer completed up to   46945528
+Log written up to            46945528
+Log flushed up to            46945347
+Added dirty pages up to      46945347
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14466 log i/o's done, 3.00 log i/o's/second
+----------------------
+
+LSN after drop table:
+---
+LOG
+---
+Log sequence number          46956866
+Log buffer assigned up to    46956866
+Log buffer completed up to   46956866
+Log written up to            46956866
+Log flushed up to            46956866
+Added dirty pages up to      46956866
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14489 log i/o's done, 23.00 log i/o's/second
+----------------------
+
+LSN after drop database:
+---
+LOG
+---
+Log sequence number          46957541
+Log buffer assigned up to    46957541
+Log buffer completed up to   46957470
+Log written up to            46957470
+Log flushed up to            46957470
+Added dirty pages up to      46957317
+Pages flushed up to          46884727
+Last checkpoint at           46884727
+14492 log i/o's done, 3.00 log i/o's/second
+----------------------
