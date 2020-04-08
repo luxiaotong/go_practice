@@ -1,11 +1,18 @@
 package main
 
-import "github.com/luxiaotong/go_practice/example/source_database_abstracter/dbi"
+import (
+	"log"
+
+	"github.com/luxiaotong/go_practice/example/source_database_abstracter/db"
+)
 
 func main() {
-	d := dbi.Open("mysql")
-	d.DBObj.GetDatabaseList()
-	d.DBObj.GetTableList("DBNAME")
-	d.DBObj.GetColumnList("TBNAME")
-	defer d.DBObj.Close()
+	d, err := db.GetDB("mysql", "127.0.0.1", 6379, "root", "", "csse_covid_19_daily_reports")
+	if err != nil {
+		log.Fatal("GetDB Failed: ", err)
+	}
+	// defer d.DBObj.Close()
+
+	d.GetTableList()
+	d.GetColumnList("TBNAME")
 }
