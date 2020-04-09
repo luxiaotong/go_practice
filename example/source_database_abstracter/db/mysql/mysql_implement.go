@@ -29,14 +29,14 @@ func (m *Impl) GetTableList() []dbi.TableInfo {
 	return []dbi.TableInfo{}
 }
 
-//GetColumnList 是用于获取指定表的字段列表
+//GetTableDetail 是用于获取指定表的字段列表
 //	参数
 //		tbname
 //	返回
 //		ColumnList
-func (m *Impl) GetColumnList(tbname string) dbi.ColumnList {
-	fmt.Println("MySQL GetColumnList from ", tbname)
-	return dbi.ColumnList{}
+func (m *Impl) GetTableDetail(tbname string) dbi.TableDetail {
+	fmt.Println("MySQL GetTableDetail from ", tbname)
+	return dbi.TableDetail{}
 }
 
 //GetDataList 是用于获取指定表的数据列表
