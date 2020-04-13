@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sort"
 )
 
@@ -105,6 +106,40 @@ B:
 	h := Sequence{9, 8, 7, 6, 5, 4, 3, 2, 2}
 	sort.Sort(h)
 	fmt.Println("sort: ", h)
+
+	// Concurrency
+	// sem := make(chan int, 2)
+	// go func() {
+	// 	for i := 0; i < 10; i++ {
+	// 		fmt.Println("send:", i)
+	// 		sem <- i
+	// 	}
+	// 	close(sem)
+	// }()
+	// for s := range sem {
+	// 	fmt.Println("receive: ", s)
+	// }
+
+	sem := make(chan int, 2)
+	go func() {
+		sem <- 1
+		fmt.Println("send:", 1)
+		sem <- 2
+		fmt.Println("send:", 2)
+		sem <- 3
+		fmt.Println("send:", 3)
+		sem <- 4
+		fmt.Println("send:", 4)
+		sem <- 5
+		fmt.Println("send:", 5)
+		close(sem)
+	}()
+
+	for s := range sem {
+		fmt.Println("receive: ", s)
+	}
+	fmt.Println("NumCPU: ", runtime.NumCPU())
+
 }
 
 // Defer
