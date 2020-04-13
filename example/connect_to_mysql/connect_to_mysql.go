@@ -28,15 +28,17 @@ func main() {
 
 	fmt.Println()
 	// Show Tables
-	rows, err = db.Raw("SHOW TABLES FROM csse_covid_19_daily_reports;").Rows()
+	// rows, err = db.Raw("SHOW TABLES FROM csse_covid_19_daily_reports;").Rows()
+	rows, err = db.Raw("SELECT TABLE_NAME, TABLE_TYPE FROM information_schema.tables where table_schema='csse_covid_19_daily_reports';").Rows()
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("All Tables:")
-	var tbName string
+	var tbName, tbType string
 	for rows.Next() {
-		rows.Scan(&tbName)
-		fmt.Println(tbName)
+		rows.Scan(&tbName, &tbType)
+		fmt.Println(tbName, tbType)
 	}
 
 	fmt.Println()
