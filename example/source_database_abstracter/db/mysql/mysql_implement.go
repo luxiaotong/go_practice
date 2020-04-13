@@ -19,43 +19,43 @@ func (m *Impl) Connect() {
 	// m.GormDB = db
 }
 
-//GetTableList 是用于获取指定数据库的Table列表
+//TableList 是用于获取指定数据库的Table列表
 //	参数
 //
 //	返回
 //		[]TableInfo
-func (m *Impl) GetTableList() []dbi.TableInfo {
+func (m *Impl) TableList() ([]dbi.TableInfo, error) {
 	fmt.Println("MySQL GetTableList from ", m.DBName)
-	return []dbi.TableInfo{}
+	return []dbi.TableInfo{}, nil
 }
 
-//GetTableDetail 是用于获取指定表的字段列表
+//TableDetail 是用于获取指定表的字段列表
 //	参数
 //		tbname
 //	返回
 //		ColumnList
-func (m *Impl) GetTableDetail(tbname string) dbi.TableDetail {
+func (m *Impl) TableDetail(tbname string) (dbi.TableDetail, error) {
 	fmt.Println("MySQL GetTableDetail from ", tbname)
-	return dbi.TableDetail{}
+	return dbi.TableDetail{}, nil
 }
 
-//GetDataList 是用于获取指定表的数据列表
+//DataList 是用于获取指定表的数据列表
 //	参数
 //		tbname
 //		pageNo
 //		pageSize
 //	返回
 //		DataList
-func (m *Impl) GetDataList(tbname string, pageNo, pageSize int) dbi.DataList {
+func (m *Impl) DataList(tbname string, pageNo, pageSize int) (dbi.DataList, error) {
 	//SELECT ALL，不需要选择字段
 	fmt.Println("MySQL GetDataList from ", tbname)
-	return dbi.DataList{}
+	return dbi.DataList{}, nil
 }
 
-//GetLSN 是用于获取指定数据库的Log Sequence Number
-func (m *Impl) GetLSN() string {
+//LastModified 是用于获取指定数据库的Log Sequence Number
+func (m *Impl) LastModified() (string, error) {
 	fmt.Println("MySQL GetLSN")
-	return "TODO"
+	return "TODO", nil
 }
 
 //Close 是用于关闭数据库连接
