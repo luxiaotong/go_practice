@@ -24,19 +24,21 @@ func main() {
 		rows.Scan(&dbName)
 		fmt.Println(dbName)
 	}
+
 	fmt.Println()
 	// Show Tables
-	rows, err = db.Raw("SELECT table_name FROM information_schema.tables" +
+	rows, err = db.Raw("SELECT table_name, table_type FROM information_schema.tables" +
 		" WHERE table_catalog='csse_covid_19_daily_reports'" +
-		" AND table_schema='public';").Rows()
+		" AND table_schema=ANY (current_schemas(false));").Rows()
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("All Tables in csse_covid_19_daily_reports:")
 	var tbName string
+	var tbType string
 	for rows.Next() {
-		rows.Scan(&tbName)
-		fmt.Println(tbName)
+		rows.Scan(&tbName, &tbType)
+		fmt.Println(tbName, tbType)
 	}
 
 	fmt.Println()
