@@ -5,11 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/luxiaotong/go_practice/gin_example/api/database"
-	"github.com/luxiaotong/go_practice/gin_example/api/router"
-
 	"github.com/gin-gonic/gin"
 	"github.com/itkinside/itkconfig"
+	"github.com/luxiaotong/go_practice/gin_example/api/database"
+	"github.com/luxiaotong/go_practice/gin_example/api/router"
 )
 
 //AppConfig contains configs of application
