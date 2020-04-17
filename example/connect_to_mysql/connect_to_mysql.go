@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 
@@ -9,7 +10,19 @@ import (
 )
 
 func main() {
+
+	db1, err := sql.Open("mysql", "root:@(127.0.0.1:6666)/csse_covid_19_daily_reports")
+	fmt.Println(db1)
+	err = db1.Ping()
+	fmt.Println(err)
+
+	db2, err := sql.Open("mysql", "root:@(127.0.0.1:3306)/csse_covid_19_daily_reports")
+	fmt.Println(db1)
+	err = db2.Ping()
+	fmt.Println(err)
+
 	db, err := gorm.Open("mysql", "root:@(127.0.0.1)/?charset=utf8&parseTime=True&loc=Local")
+	// db, err := gorm.Open("mysql", "root:@(127.0.0.1:6377)/csse_covid_19_daily_reports?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		log.Fatal(err)
 	}
