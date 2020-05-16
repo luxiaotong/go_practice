@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title></title>
+
+    </head>
+
+    <body>
+
+        <div class="invoiceContainer">
+
+            <div class="invoiceHeade">
+
+                <div class="headeLeft"></div>
+
+                <div class="headeMiddle">
+
+                    <span class="title">xxx增值税电子普通发票</span>
+
+                    <hr/>
+
+                    <hr/>
+
+                </div>
+
+                <div class="headeRight">
+
+                    <ul >
+
+                        <li>
+
+                            <label>
+                                发票代码：
+                            </label>
+                            <span>1234</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>
+                                发票号码：
+                            </label>
+                            <span>223</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>
+                                开票日期：
+                            </label>
+                            <span>2019年11月11日</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>
+                                校&nbsp;&nbsp;验&nbsp;&nbsp;码：
+                            </label>
+                            <span>111111</span>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="invoiceBody">
+
+                <div class="userInfo">
+
+                    <div class="buy">购买方</div>
+
+                    <div class="buyInfo">
+
+                        <ul>
+
+                            <li>
+
+                                <label>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                                <span>xxxxxxx公司</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>纳税人识别号：</label>
+                                <span>12443536377484848</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>地址、&nbsp;&nbsp;&nbsp;电话：</label>
+                                <span>11223443532</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>开户行及账号：</label>
+                                <span>中国农业银行</span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="password">密码区</div>
+
+                </div>
+
+                <div class="Table"></div>
+
+                <div class="saleInfo">
+
+                    <div class="total">价税合计(大写)</div>
+
+                    <span class="max">肆佰陆拾</span>
+
+                    <div class="total2">(小写) ￥460.00
+                    </div>
+
+                </div>
+
+                <div class="userInfo2">
+
+                    <div class="buy">销售方</div>
+
+                    <div class="buyInfo">
+
+                        <ul>
+
+                            <li>
+
+                                <label>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                                <span>xxxxxxx公司</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>纳税人识别号：</label>
+                                <span>12443536377484848</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>地址、&nbsp;&nbsp;&nbsp;电话：</label>
+                                <span>11223443532</span>
+
+                            </li>
+
+                            <li>
+
+                                <label>开户行及账号：</label>
+                                <span>中国农业银行</span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="remark">备注</div>
+
+                </div>
+
+                <div class="userInfo3">
+
+                    <ul class="invoicetFooter">
+
+                        <li>
+
+                            <label>收款人：</label>
+                            <span>张三</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>复核：</label>
+                            <span>李四</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>开票人：</label>
+                            <span>王五</span>
+
+                        </li>
+
+                        <li>
+
+                            <label>销售方：（章）</label>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
+
+<style>
+
+    .headeRight {
+
+        width: 240px;
+
+        height: 100%;
+
+        font-size: 16px;
+
+        line-height: 30px;
+
+        text-align: left;
+
+        float: left;
+
+    }
+
+    .headeRight > ul {
+
+        display: inline-block;
+
+        margin-left: 16px;
+
+        margin-top: 10px;
+
+    }
+
+    .invoicetFooter > li {
+
+        margin-top: 16px;
+
+        margin-right: 100px;
+
+        margin-left: 11px;
+
+        display: inline-block;
+
+        float: left;
+
+    }
+
+    .max {
+
+        /* text-align: center; */
+
+        display: inline-block;
+
+        margin-top: 5px;
+
+        margin-left: 4px;
+
+    }
+
+    .total {
+
+        width: 270px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        border-right: 1px solid black;
+
+        float: left;
+
+    }
+
+    .total2 {
+
+        width: 270px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        margin-right: 130px;
+
+        float: right;
+
+    }
+
+    .buyer {
+
+        width: 30px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        /* line-height: 33px; */
+
+        text-align: center;
+
+        border-right: 1px solid black;
+
+        float: left;
+
+    }
+
+    .title {
+
+        font-size: 33px;
+
+        display: inline-block;
+
+        margin-top: 50px;
+
+        font-family: "仿宋";
+
+    }
+
+    .headeMiddle {
+
+        width: 400px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        float: left;
+
+    }
+
+    .headeLeft {
+
+        width: 300px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        float: left;
+
+    }
+
+    .buy {
+
+        width: 30px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        border-right: 1px solid black;
+
+        border-left: 1px solid black;
+
+        float: left;
+
+    }
+
+    .buyInfo {
+
+        width: 510px;
+
+        height: 100%;
+
+        font-size: 16px;
+
+        line-height: 25px;
+
+        text-align: left;
+
+        border-right: 1px solid black;
+
+        float: left;
+
+    }
+
+    .password {
+
+        width: 30px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 30px;
+
+        text-align: center;
+
+        border-right: 1px solid black;
+
+        float: left;
+
+    }
+
+    .remark {
+
+        width: 30px;
+
+        height: 100%;
+
+        font-size: 17px;
+
+        line-height: 50px;
+
+        text-align: center;
+
+        border-right: 1px solid black;
+
+        float: left;
+
+    }
+
+    ul {
+
+        list-style-type: none;
+
+        margin: 0;
+
+        padding-left: 5px;
+
+    }
+
+    .invoiceContainer {
+
+        width: 1000px;
+
+        margin: 0 auto;
+
+        border-top: 1px solid black;
+
+        /* border-left:1px solid black; */
+
+        /* border-right:1px solid black; */
+
+    }
+
+    .invoiceHeade {
+
+        width: 1000px;
+
+        height: 140px;
+
+        border-bottom: 1px solid black;
+
+        border-left: 1px solid black;
+
+        border-right: 1px solid black;
+
+    }
+
+    .userInfo {
+
+        width: 1000px;
+
+        height: 100px;
+
+        border-bottom: 1px solid black;
+
+        border-right: 1px solid black;
+
+    }
+
+    .userInfo2 {
+
+        width: 1000px;
+
+        height: 100px;
+
+        border-right: 1px solid black;
+
+    }
+
+    .userInfo3 {
+
+        width: 1000px;
+
+        height: 100px;
+
+        border-top: 1px solid black;
+
+    }
+
+    .Table {
+
+        width: 999px;
+
+        height: 400px;
+
+        border-bottom: 1px solid black;
+
+        border-left: 1px solid black;
+
+        border-right: 1px solid black;
+
+    }
+
+    .sum {
+
+        width: 1000px;
+
+        height: 50px;
+
+        border-bottom: 1px solid black;
+
+    }
+
+    .saleInfo {
+
+        width: 999px;
+
+        height: 40px;
+
+        border-bottom: 1px solid black;
+
+        border-right: 1px solid black;
+
+        border-left: 1px solid black;
+
+    }
+</style>
