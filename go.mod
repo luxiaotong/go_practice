@@ -4,6 +4,8 @@ go 1.14
 
 require (
 	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.5.0
+	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
+	github.com/chromedp/chromedp v0.5.3
 	github.com/dgraph-io/badger v1.6.0
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-sql-driver/mysql v1.4.1
@@ -13,6 +15,7 @@ require (
 	github.com/jinzhu/gorm v1.9.12
 	github.com/melmango/gintool v0.0.0-20160627102924-847a011078ef // indirect
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
+	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/tjfoc/gmsm v1.3.0
 	google.golang.org/grpc v1.28.0
 )

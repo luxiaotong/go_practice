@@ -1,5 +1,5 @@
-go.sum
 .DS_Store
 gin_example/gin_example
 graphql_example/tmp/blocks/000000.vlog
 graphql_example/tmp/blocks/LOCK
+*.pdf
