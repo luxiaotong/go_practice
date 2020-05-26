@@ -16,6 +16,8 @@ require (
 	github.com/melmango/gintool v0.0.0-20160627102924-847a011078ef // indirect
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
+	github.com/signintech/gopdf v0.9.8
+	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
 	google.golang.org/grpc v1.28.0
 )

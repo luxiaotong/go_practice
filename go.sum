@@ -101,11 +101,15 @@ github.com/pdfcpu/pdfcpu v0.3.2/go.mod h1:/ULj8B76ZnB4445B0yuSASQqlN0kEO+khtEnmP
 github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341 h1:y9XzIBFBtiy6eGb2kV4SwjXnpaJ3vcfBmThM8ZmscFc=
 github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341/go.mod h1:qQrwSVNK8CkWP7k/6qRJXCCaoOI6c1cdLu/0pcNjYgE=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
+github.com/phpdave11/gofpdi v1.0.8 h1:9HRg0Z0qDfWeMU7ska+YNQ13RHxTxqP5KTg/dBl4o7c=
+github.com/phpdave11/gofpdi v1.0.8/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
+github.com/signintech/gopdf v0.9.8 h1:tafWEjYhorfHMl9JT9II43fvf5XhUwrjUKVNwQqqyJQ=
+github.com/signintech/gopdf v0.9.8/go.mod h1:MrARAC6LaOgbnV6vrC5885VuoWCXazhAqx8L8zmjYy4=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
 github.com/spf13/cast v1.3.0/go.mod h1:Qx5cxh0v+4UWYiBimWS+eyWzqEqokIECu5etghLkUJE=
 github.com/spf13/cobra v0.0.5/go.mod h1:3K3wKZymM7VvHMDS9+Akkh4K60UwM26emMESw8tLCHU=
@@ -116,6 +120,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
+github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc h1:Hlqfa8RMB03m/k0EQu8DbOsUMyf0O/1q2mSBvuilFgQ=
+github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc/go.mod h1:/A5EsG5tSUn3x8x7wSoN86nGXyaox35G4Nm4sPNwEtk=
 github.com/tjfoc/gmsm v1.3.0 h1:i7c6Za/IlgBvnGxYpfD7L3TGuaS+v6oGcgq+J9/ecEA=
 github.com/tjfoc/gmsm v1.3.0/go.mod h1:HaUcFuY0auTiaHB9MHFGCPx5IaLhTUd2atbCFBQXn9w=
 github.com/ugorji/go v1.1.7 h1:/68gy2h+1mWMrwZFeD1kQialdSzAb432dtpeJ42ovdo=
