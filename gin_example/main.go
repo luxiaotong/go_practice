@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	_ "net/http/pprof"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,10 @@ func main() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+	go func() {
+		http.ListenAndServe("127.0.0.1:6060", nil)
+	}()
+
 	s.ListenAndServe()
 	database.Eloquent.Close()
 }
