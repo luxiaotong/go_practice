@@ -40,7 +40,7 @@ func NewProof(b *Block) *ProofOfWork {
 func (pow *ProofOfWork) InitData(nonce int64) []byte {
 	data := bytes.Join(
 		[][]byte{
-			pow.Block.Data,
+			pow.Block.HashTransactions(),
 			pow.Block.PrevHash,
 			ToHex(nonce),
 			ToHex(Difficulty),
