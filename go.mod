@@ -16,11 +16,13 @@ require (
 	github.com/itkinside/itkconfig v0.0.0-20140516004822-fe0812395f80
 	github.com/jinzhu/gorm v1.9.12
 	github.com/melmango/gintool v0.0.0-20160627102924-847a011078ef // indirect
+	github.com/mr-tron/base58 v1.2.0
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/signintech/gopdf v0.9.8
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
+	golang.org/x/crypto v0.0.0-20191219195013-becbf705a915
 	golang.org/x/sys v0.0.0-20200610111108-226ff32320da // indirect
 	google.golang.org/grpc v1.28.0
 )
