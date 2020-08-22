@@ -1,22 +1,42 @@
 package blockchain
 
+import (
+	"bytes"
+
+	"github.com/luxiaotong/go_practice/tensor_programming_blockchain/wallet"
+)
+
 // Output means where the money go to
 type TxOutput struct {
-	Value  int
-	PubKey string
+	Value      int
+	PubKeyHash []byte
 }
 
 // Input means where the money come from
 type TxInput struct {
-	ID  []byte
-	Out int
-	Sig string
+	ID        []byte
+	Out       int
+	Signature []byte
+	PubKey    []byte
 }
 
-func (in *TxInput) CanUnlock(data string) bool {
-	return in.Sig == data
+func NewTXOutput(value int, address string) *TxOutput {
+	txo := &TxOutput{value, nil}
+	txo.Lock([]byte(address))
+	return txo
 }
 
-func (out *TxOutput) CanBeUnlocked(data string) bool {
-	return out.PubKey == data
+func (in *TxInput) UsesKey(pubKeyHash []byte) bool {
+	lockingHash := wallet.PublicKeyHash(in.PubKey)
+	return bytes.Equal(lockingHash, pubKeyHash)
+}
+
+func (out *TxOutput) Lock(address []byte) {
+	pubKeyHash := wallet.Base58Decode(address)
+	pubKeyHash = pubKeyHash[1 : len(pubKeyHash)-4]
+	out.PubKeyHash = pubKeyHash
+}
+
+func (out *TxOutput) IsLockedWithKey(pubKeyHash []byte) bool {
+	return bytes.Equal(out.PubKeyHash, pubKeyHash)
 }
