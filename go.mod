@@ -25,4 +25,5 @@ require (
 	golang.org/x/crypto v0.0.0-20191219195013-becbf705a915
 	golang.org/x/sys v0.0.0-20200610111108-226ff32320da // indirect
 	google.golang.org/grpc v1.28.0
+	gopkg.in/vrecan/death.v3 v3.0.1
 )

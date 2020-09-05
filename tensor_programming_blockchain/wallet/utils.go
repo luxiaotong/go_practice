@@ -8,6 +8,7 @@ import (
 
 func Base58Encode(input []byte) []byte {
 	encode := base58.Encode(input)
+
 	return []byte(encode)
 }
 
@@ -16,5 +17,8 @@ func Base58Decode(input []byte) []byte {
 	if err != nil {
 		log.Panic(err)
 	}
+
 	return decode
 }
+
+// 0 O l I + /

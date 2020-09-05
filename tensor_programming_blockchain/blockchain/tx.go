@@ -7,7 +7,6 @@ import (
 	"github.com/luxiaotong/go_practice/tensor_programming_blockchain/wallet"
 )
 
-// Output means where the money go to
 type TxOutput struct {
 	Value      int
 	PubKeyHash []byte
@@ -17,7 +16,6 @@ type TxOutputs struct {
 	Outputs []TxOutput
 }
 
-// Input means where the money come from
 type TxInput struct {
 	ID        []byte
 	Out       int
@@ -25,15 +23,10 @@ type TxInput struct {
 	PubKey    []byte
 }
 
-func NewTXOutput(value int, address string) *TxOutput {
-	txo := &TxOutput{value, nil}
-	txo.Lock([]byte(address))
-	return txo
-}
-
 func (in *TxInput) UsesKey(pubKeyHash []byte) bool {
 	lockingHash := wallet.PublicKeyHash(in.PubKey)
-	return bytes.Equal(lockingHash, pubKeyHash)
+
+	return bytes.Compare(lockingHash, pubKeyHash) == 0
 }
 
 func (out *TxOutput) Lock(address []byte) {
@@ -43,7 +36,14 @@ func (out *TxOutput) Lock(address []byte) {
 }
 
 func (out *TxOutput) IsLockedWithKey(pubKeyHash []byte) bool {
-	return bytes.Equal(out.PubKeyHash, pubKeyHash)
+	return bytes.Compare(out.PubKeyHash, pubKeyHash) == 0
+}
+
+func NewTXOutput(value int, address string) *TxOutput {
+	txo := &TxOutput{value, nil}
+	txo.Lock([]byte(address))
+
+	return txo
 }
 
 func (outs TxOutputs) Serialize() []byte {
