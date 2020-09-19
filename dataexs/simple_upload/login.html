@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <form id="form" action="" method="post">
+        　　　mobile: <input id="mobile" type="text" name="mobile" value="18500022713" /> <br />
+        　　　password: <input id="password" type="text" name="password" value="123456" /> <br />
+        　　　<input id="login" type="button" value="Login" />
+    </form>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            // click on button submit
+            $("#login").on('click', function () {
+                u = $("#mobile").val()
+                p = $("#password").val()
+                // send ajax
+                $.ajax({
+                    url: '/user/signin', // url where to submit the request
+                    type: "POST", // type of action POST || GET
+                    dataType: 'json', // data type
+                    contentType: "application/json",
+                    data: JSON.stringify({ mobile: u, password: p }), // post data || get data
+                    success: function (result) {
+                        // you can see the result from the console
+                        // tab of the developer tools
+                        console.log(result);
+                        var storage = window.localStorage;
+                        storage["token"] = result.data.token
+                        window.location.href = "/upload.html"
+                    },
+                    error: function (xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                })
+            });
+        });
+
+    </script>
+</body>
+
+</html>

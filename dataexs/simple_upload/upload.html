@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <!-- <form id="upload-form" action="http://127.0.0.1:8085/upload/file?api_type=logo" method="post"
+        enctype="multipart/form-data">
+        　　　<input type="file" id="upload" name="file" /> <br />
+        　　　<input type="submit" value="Upload" />
+    </form> -->
+    <form enctype="multipart/form-data">
+        <input id="file" type="file" name="file" /> <br />
+        <input id="upload" type="button" value="Upload" />
+    </form>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+    <script type="application/javascript">
+        $("#upload").click(function () {
+            var storage = window.localStorage;
+            token = storage.getItem("token")
+            var files = $('#file').prop('files');
+            var data = new FormData();
+            data.append('file', files[0]);
+            data.append('api_type', "logo");
+            $.ajax({
+                type: 'POST',
+                // url: "http://127.0.0.1:8085/upload/file?api_type=logo",
+                // url: "http://139.9.119.21:58098/upload/file?api_type=logo",
+                // url: "http://172.16.3.31:8085/upload/file?api_type=logo",
+                url: "http://upload.datassets.cn/upload/file?api_type=logo",
+                data: data,
+                crossDomain: true,
+                cache: false,
+                processData: false,
+                contentType: false,
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    "Authorization": "Bearer " + token,
+                },
+                success: function (ret) {
+                    alert(ret);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

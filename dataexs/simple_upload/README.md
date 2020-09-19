@@ -1,0 +1,1 @@
+需要将html文件放入 platform/static 目录中
