@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JWT</title>
+</head>
+
+<body>
+    <h1>JWT</h1>
+    <p id="token"></p>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            var storage = window.localStorage;
+            console.log(storage["token"])
+            $("#token").text(storage["token"])
+        });
+    </script>
+</body>
+
+</html>

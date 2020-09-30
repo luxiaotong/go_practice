@@ -33,7 +33,8 @@
                         console.log(result);
                         var storage = window.localStorage;
                         storage["token"] = result.data.token
-                        window.location.href = "/upload.html"
+                        // window.location.href = "/upload.html"
+                        window.location.href = "/jwt.html"
                     },
                     error: function (xhr, resp, text) {
                         console.log(xhr, resp, text);
