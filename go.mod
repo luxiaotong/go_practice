@@ -18,6 +18,7 @@ require (
 	github.com/ianlancetaylor/demangle v0.0.0-20200524003926-2c5affb30a03 // indirect
 	github.com/itkinside/itkconfig v0.0.0-20140516004822-fe0812395f80
 	github.com/jinzhu/gorm v1.9.12
+	github.com/lib/pq v1.1.1
 	github.com/melmango/gintool v0.0.0-20160627102924-847a011078ef // indirect
 	github.com/mr-tron/base58 v1.2.0
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
