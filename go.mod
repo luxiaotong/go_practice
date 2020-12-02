@@ -7,6 +7,7 @@ require (
 	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
 	github.com/chromedp/chromedp v0.5.3
 	github.com/dgraph-io/badger v1.6.0
+	github.com/ethereum/go-ethereum v1.9.24
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-redis/redis/v8 v8.1.3
 	github.com/go-sql-driver/mysql v1.4.1
@@ -27,8 +28,7 @@ require (
 	github.com/signintech/gopdf v0.9.8
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
-	golang.org/x/crypto v0.0.0-20191219195013-becbf705a915
-	golang.org/x/sys v0.0.0-20200610111108-226ff32320da // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	google.golang.org/grpc v1.28.0
 	gopkg.in/vrecan/death.v3 v3.0.1
 )
