@@ -26,9 +26,11 @@ require (
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/pkg/errors v0.8.1
 	github.com/signintech/gopdf v0.9.8
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	google.golang.org/grpc v1.28.0
 	gopkg.in/vrecan/death.v3 v3.0.1
+	rsc.io/qr v0.2.0
 )
