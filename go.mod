@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.5.0
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
 	github.com/chromedp/chromedp v0.5.3
 	github.com/dgraph-io/badger v1.6.0
@@ -27,6 +28,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/signintech/gopdf v0.9.8
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
+	github.com/tealeg/xlsx v1.0.5
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
