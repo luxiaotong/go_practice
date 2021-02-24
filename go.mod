@@ -28,6 +28,7 @@ require (
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/pkg/errors v0.8.1
 	github.com/signintech/gopdf v0.9.8
+	github.com/sijms/go-ora v0.0.0-20210206233335-d862030c0c12
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/tealeg/xlsx v1.0.5
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc

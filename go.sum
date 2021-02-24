@@ -250,6 +250,8 @@ github.com/shirou/gopsutil v2.20.5+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/signintech/gopdf v0.9.8 h1:tafWEjYhorfHMl9JT9II43fvf5XhUwrjUKVNwQqqyJQ=
 github.com/signintech/gopdf v0.9.8/go.mod h1:MrARAC6LaOgbnV6vrC5885VuoWCXazhAqx8L8zmjYy4=
+github.com/sijms/go-ora v0.0.0-20210206233335-d862030c0c12 h1:dCGf7n2UEoAOQ3elfvK3pMqWoknemMC+YbURrqwmz5c=
+github.com/sijms/go-ora v0.0.0-20210206233335-d862030c0c12/go.mod h1:5lB62c+JHe5Q+/5knBlCzxwL5P4WYP+B6+X7DoLQBfc=
 github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e h1:MRM5ITcdelLK2j1vwZ3Je0FKVCfqOLp5zO6trqMLYs0=
 github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e/go.mod h1:XV66xRDqSt+GTGFMVlhk3ULuV0y9ZmzeVGR4mloJI3M=
 github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
