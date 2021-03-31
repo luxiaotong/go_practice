@@ -8,6 +8,10 @@ require (
 	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
 	github.com/chromedp/chromedp v0.5.3
 	github.com/dgraph-io/badger v1.6.0
+	github.com/docker/distribution v2.7.1+incompatible // indirect
+	github.com/docker/docker v1.4.2-0.20180625184442-8e610b2b55bf
+	github.com/docker/go-connections v0.4.0
+	github.com/docker/go-units v0.4.0 // indirect
 	github.com/ethereum/go-ethereum v1.9.24
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-redis/redis/v8 v8.1.3
@@ -24,6 +28,8 @@ require (
 	github.com/mattn/go-oci8 v0.1.1
 	github.com/melmango/gintool v0.0.0-20160627102924-847a011078ef // indirect
 	github.com/mr-tron/base58 v1.2.0
+	github.com/opencontainers/go-digest v1.0.0 // indirect
+	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/pkg/errors v0.8.1
