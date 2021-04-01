@@ -28,6 +28,11 @@ func main() {
 		ExposedPorts: nat.PortSet{
 			nat.Port(port): {},
 		},
+		Healthcheck: &container.HealthConfig{
+			Test:     []string{"CMD-SHELL", "pg_isready -U postgres"},
+			Interval: 5 * time.Second,
+			Retries:  0,
+		},
 	}, &container.HostConfig{
 		PublishAllPorts: true,
 		Binds:           []string{"/Users/luxiaotong/code/go_practice/docker_postgres/data:/var/lib/postgresql/data"},
@@ -49,6 +54,7 @@ func main() {
 		panic(err)
 	}
 	hostPort := inspect.NetworkSettings.Ports[nat.Port(port)][0].HostPort
+	fmt.Println("health: ", inspect.State.Health)
 
 	connStr := fmt.Sprintf("user=postgres password=postgres host=127.0.0.1 port=%s sslmode=disable", hostPort)
 	db, err := sql.Open("postgres", connStr)
