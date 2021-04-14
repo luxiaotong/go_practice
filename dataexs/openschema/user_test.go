@@ -26,14 +26,17 @@ var (
 )
 
 type UserRequest struct {
-	Username string `json:"username"`
-	Mobile   string `json:"mobile"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	FirmName string `json:"firm_name"`
-	FirmAbbr string `json:"firm_abbr"`
-	Logo     string `json:"logo"`
+	Username  string `json:"username"`
+	Mobile    string `json:"mobile"`
+	Password  string `json:"password"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	FirmName  string `json:"firm_name"`
+	FirmAbbr  string `json:"firm_abbr"`
+	Logo      string `json:"logo"`
+	Specialty string `json:"specialty"`
+	Award     string `json:"award"`
+	Desc      string `json:"desc"`
 }
 
 type SignInRequest struct {
@@ -125,7 +128,7 @@ func testUpdateUser(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("user/pass response: %v\n", resp.Body())
+	fmt.Printf("user/info update response: %v\n", resp.Body())
 }
 
 func testUpdateUser_Logo(t *testing.T) {
@@ -163,7 +166,7 @@ func testUpdateUser_Logo(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("user/pass response: %v\n", resp.Body())
+	fmt.Printf("user/info with logo response: %v\n", resp.Body())
 }
 
 func clearUser() {
@@ -180,4 +183,25 @@ func clearUser() {
 		return
 	}
 	clearLogo(uid)
+}
+
+func testCertifyUser(t *testing.T) {
+	req := UserRequest{
+		Specialty: "specialty",
+		Award:     "award",
+		Desc:      "desc",
+	}
+	resp := e.PUT("/user/certify").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("user/certify response: %v\n", resp.Body())
+}
+
+func testGetUser(t *testing.T) {
+	resp := e.GET("/user/info").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		Expect().Status(http.StatusOK)
+	fmt.Printf("user/info get response: %v\n", resp.Body())
 }

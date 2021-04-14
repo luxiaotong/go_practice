@@ -19,5 +19,7 @@ func TestAll(t *testing.T) {
 	t.Run("testUploadFile", testUploadFile)
 	t.Run("testUpdateUser", testUpdateUser)
 	t.Run("testUpdateUser_Logo", testUpdateUser_Logo)
+	t.Run("testCertifyUser", testCertifyUser)
+	t.Run("testGetUser", testGetUser)
 	defer clearUser()
 }
