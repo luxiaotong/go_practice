@@ -10,6 +10,7 @@ require (
 	github.com/chromedp/chromedp v0.5.3
 	github.com/corneldamian/httpway v0.0.0-20161128172351-c06076be89c8
 	github.com/dgraph-io/badger v1.6.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.4.2-0.20180625184442-8e610b2b55bf
 	github.com/docker/go-connections v0.4.0
