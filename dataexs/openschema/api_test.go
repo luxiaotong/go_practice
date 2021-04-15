@@ -25,5 +25,6 @@ func TestAll(t *testing.T) {
 
 	t.Run("testAdminSignIn", testAdminSignIn)
 	t.Run("testGetUsers", testGetUsers)
+	t.Run("testAdminUpdateUser", testAdminUpdateUser)
 	t.Run("testAdminGetUser", testAdminGetUser)
 }

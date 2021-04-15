@@ -52,3 +52,20 @@ func testAdminGetUser(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("user/info %d response: %v\n", uid, resp.Body())
 }
+
+func testAdminUpdateUser(t *testing.T) {
+	req := &UserRequest{
+		ID:       uid,
+		Mobile:   "18500022713",
+		Name:     "shannon",
+		Email:    "shannon@datassets.cn",
+		FirmName: "firm_name_2",
+		FirmAbbr: "firm_abbr_2",
+		Role:     20,
+	}
+	resp := e.PUT("/user/info").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("user/info update %d response: %v\n", uid, resp.Body())
+}

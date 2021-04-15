@@ -38,6 +38,7 @@ type UserRequest struct {
 	Specialty string `json:"specialty"`
 	Award     string `json:"award"`
 	Desc      string `json:"desc"`
+	Role      int32  `json:"role"`
 }
 
 type SignInRequest struct {
