@@ -26,6 +26,7 @@ var (
 )
 
 type UserRequest struct {
+	ID        int64  `json:"id,string"`
 	Username  string `json:"username"`
 	Mobile    string `json:"mobile"`
 	Password  string `json:"password"`
@@ -199,9 +200,10 @@ func testCertifyUser(t *testing.T) {
 }
 
 func testGetUser(t *testing.T) {
-	resp := e.GET("/user/info").
+	req := &UserRequest{}
+	resp := e.POST("/user/info").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
-		Expect().Status(http.StatusOK)
+		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("user/info get response: %v\n", resp.Body())
 }

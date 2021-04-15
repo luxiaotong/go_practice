@@ -23,6 +23,7 @@ func TestAll(t *testing.T) {
 	t.Run("testGetUser", testGetUser)
 	defer clearUser()
 
-	t.Run("testRootSignIn", testRootSignIn)
+	t.Run("testAdminSignIn", testAdminSignIn)
 	t.Run("testGetUsers", testGetUsers)
+	t.Run("testAdminGetUser", testAdminGetUser)
 }
