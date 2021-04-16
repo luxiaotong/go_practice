@@ -12,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/go-redis/redis"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/assert"
 )
@@ -23,13 +24,24 @@ var (
 	cookieVal string
 	token     string
 	uid       int64
+	vcode     string
 )
+
+type SendCodeRequest struct {
+	Mobile string `json:"mobile"`
+	Type   int32  `json:"type"`
+}
+
+type AccountRequest struct {
+	Username string `json:"username"`
+	Mobile   string `json:"mobile"`
+	Password string `json:"password"`
+	Vcode    string `json:"vcode"`
+}
 
 type UserRequest struct {
 	ID        int64  `json:"id,string"`
-	Username  string `json:"username"`
 	Mobile    string `json:"mobile"`
-	Password  string `json:"password"`
 	Name      string `json:"name"`
 	Email     string `json:"email"`
 	FirmName  string `json:"firm_name"`
@@ -51,15 +63,30 @@ type PassRequest struct {
 	Old string `json:"old"`
 }
 
+func testSendCode(t *testing.T) {
+	req := SendCodeRequest{
+		Mobile: "18500022713",
+		Type:   1,
+	}
+	resp := e.POST("/verification/send_code").
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("user/pass response: %v\n", resp.Body())
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "139.9.119.21:56379",
+		Password: "",
+		DB:       15,
+	})
+	_ = rdb.Get("sms://18500022713_1").Scan(&vcode)
+	fmt.Println("vcode: ", vcode)
+}
+
 func testSignUp(t *testing.T) {
-	req := UserRequest{
+	req := AccountRequest{
 		Username: "shannon",
 		Password: "123456",
 		Mobile:   "18500022713",
-		Name:     "shannon",
-		Email:    "shannon.lu@datassets.cn",
-		FirmName: "abcabcabc",
-		FirmAbbr: "abc",
+		Vcode:    vcode,
 	}
 	resp := e.POST("/user/signup").WithJSON(req).Expect().Status(http.StatusOK)
 	cookieVal = resp.Cookie(CookieSecret).Value().Raw()
@@ -108,7 +135,7 @@ func testSignIn(t *testing.T) {
 
 func testUserPass(t *testing.T) {
 	req := PassRequest{
-		Old: "123456",
+		Old: "",
 		New: "123456",
 	}
 	resp := e.POST("/user/pass").
@@ -180,10 +207,10 @@ func clearUser() {
 	}
 	defer db.Close()
 
-	if _, err := db.Exec("delete from users where id=$1", uid); err != nil {
-		fmt.Println("delete error: ", err)
-		return
-	}
+	// if _, err := db.Exec("delete from users where id=$1", uid); err != nil {
+	// 	fmt.Println("delete error: ", err)
+	// 	return
+	// }
 	clearLogo(uid)
 }
 

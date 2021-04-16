@@ -19,6 +19,7 @@ require (
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/gavv/httpexpect v2.0.0+incompatible
 	github.com/gin-gonic/gin v1.6.2
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v8 v8.1.3
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.4.2
