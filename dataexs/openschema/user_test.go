@@ -51,6 +51,7 @@ type UserRequest struct {
 	Award     string `json:"award"`
 	Desc      string `json:"desc"`
 	Role      int32  `json:"role"`
+	Status    int32  `json:"status"`
 }
 
 type SignInRequest struct {
@@ -207,10 +208,10 @@ func clearUser() {
 	}
 	defer db.Close()
 
-	// if _, err := db.Exec("delete from users where id=$1", uid); err != nil {
-	// 	fmt.Println("delete error: ", err)
-	// 	return
-	// }
+	if _, err := db.Exec("delete from users where id=$1", uid); err != nil {
+		fmt.Println("delete error: ", err)
+		return
+	}
 	clearLogo(uid)
 }
 

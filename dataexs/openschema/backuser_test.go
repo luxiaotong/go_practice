@@ -61,9 +61,20 @@ func testAdminUpdateUser(t *testing.T) {
 		Email:    "shannon@datassets.cn",
 		FirmName: "firm_name_2",
 		FirmAbbr: "firm_abbr_2",
-		Role:     20,
 	}
 	resp := e.PUT("/user/info").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("user/info update %d response: %v\n", uid, resp.Body())
+}
+
+func testAuditUser(t *testing.T) {
+	req := &UserRequest{
+		ID:     uid,
+		Status: 30,
+	}
+	resp := e.POST("/user/audit").
 		WithHeader("Authorization", "Bearer "+adminToken).
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
