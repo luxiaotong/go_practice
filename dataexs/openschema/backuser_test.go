@@ -78,5 +78,17 @@ func testAuditUser(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+adminToken).
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("user/info update %d response: %v\n", uid, resp.Body())
+	fmt.Printf("audit %d response: %v\n", uid, resp.Body())
+}
+
+func testFreezeUser(t *testing.T) {
+	req := &UserRequest{
+		ID:      uid,
+		Enabled: false,
+	}
+	resp := e.POST("/user/freeze").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("freeze %d response: %v\n", uid, resp.Body())
 }

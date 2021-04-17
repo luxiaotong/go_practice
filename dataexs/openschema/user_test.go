@@ -52,6 +52,7 @@ type UserRequest struct {
 	Desc      string `json:"desc"`
 	Role      int32  `json:"role"`
 	Status    int32  `json:"status"`
+	Enabled   bool   `json:"enabled"`
 }
 
 type SignInRequest struct {
