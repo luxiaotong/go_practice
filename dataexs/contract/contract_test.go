@@ -96,8 +96,10 @@ func wsStartContractByYPK(t *testing.T) {
 			return
 		}
 		if resp.Action == "onListContractProcess" {
+			log.Println("contract process: ", resp)
+		}
+		if resp.Action == "onStartContract" {
 			log.Println("start contract by ypk response: ", resp)
-			break
 		}
 	}
 }

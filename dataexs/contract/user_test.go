@@ -67,8 +67,8 @@ func wsLogin(t *testing.T) {
 }
 
 func mockManager(priv *sm2.PrivateKey) {
-	mockPrivateKey := "4345aed948b0547e70ce4038c797680541fcd2f2d9a60e49f41891c6fcca6f69"
-	mockPublicKey := "04a64b55e6575ea1bbb17cd7e2be739f3deff7ef47f5ca38b44f6d84aedc321a369757e150476967b45c9d8c82f8c9af8a2528dadb01a5d0669966300b2ea5d12f"
+	mockPrivateKey := "2e4cbecd9737b8123cad0ebe80d4bcc88dcf0a39d9a6e6b5f789d5fd916a634a"
+	mockPublicKey := "041e032bdec78467dc51a4755a33b80bd75718300a5da6e464f13c3dc6c25bf7d0bba4bade32bc81edd1522f3ec5e0e2a44f711593302dd8c9247dc34342e93384"
 
 	d := new(big.Int)
 	d.SetString(mockPrivateKey, 16)
