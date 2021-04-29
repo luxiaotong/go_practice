@@ -31,4 +31,9 @@ func TestAll(t *testing.T) {
 	t.Run("testFreezeUser", testFreezeUser)
 	t.Run("testAdminGetUser", testAdminGetUser)
 	t.Run("testGetUsers", testGetUsers)
+
+	t.Run("testAddTag", testAddTag)
+	t.Run("testGetTags", testGetTags)
+	t.Run("testOpTag", testOpTag)
+	defer clearTags()
 }
