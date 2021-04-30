@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
 	"image"
 	"image/color"
@@ -9,6 +10,8 @@ import (
 	"net/http"
 	"os"
 	"testing"
+
+	"github.com/rs/zerolog/log"
 )
 
 const mediasDIR = "/Users/luxiaotong/code/datassets.cn/medias/"
@@ -38,4 +41,55 @@ func testUploadFile(t *testing.T) {
 func clearLogo(uid int64) {
 	logo := mediasDIR + fmt.Sprintf("firm/%d.logo.jpg", uid)
 	_ = os.Remove(logo)
+}
+
+var (
+	dictDefinition string
+	dictVote       string
+)
+
+func testUploadFile_Definition(t *testing.T) {
+	f, _ := ioutil.TempFile("", "definition.*.csv")
+	log.Print("tmp definition csv: ", f.Name())
+	defer f.Close()
+	w := csv.NewWriter(f)
+	data := [][]string{
+		{"字段名称", "字段类型", "备注"},
+		{"field1", "int", ""},
+		{"field2", "varchar", ""},
+	}
+	_ = w.WriteAll(data)
+
+	resp := e.POST("/upload/file").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithMultipart().
+		WithFile("file", f.Name()).WithFormField("api_type", "definition_fields").
+		Expect().Status(http.StatusOK)
+	log.Print("/upload/file definition result: ", resp.Body())
+	dictDefinition = resp.JSON().Object().Value("data").Object().Value("name").String().Raw()
+	dictDefinition = dictDefinition[6:]
+}
+
+func testUploadFile_Vote(t *testing.T) {
+	f, _ := ioutil.TempFile("", "vote.*.csv")
+	log.Print("tmp vote csv: ", f.Name())
+	defer f.Close()
+	w := csv.NewWriter(f)
+	data := [][]string{
+		{"字段名称", "字段类型", "备注", "schema表英文名称", "schema表中文注释", "分类"},
+		{"field1", "int", "", "label1", "label cn", "tag1"},
+		{"field2", "varchar", "", "label2", "label cn", "tag1"},
+	}
+	_ = w.WriteAll(data)
+
+	resp := e.POST("/upload/file").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithMultipart().
+		WithFile("file", f.Name()).WithFormField("api_type", "vote_fields").
+		Expect().Status(http.StatusOK)
+	log.Print("/upload/file vote result: ", resp.Body())
+	dictVote = resp.JSON().Object().Value("data").Object().Value("name").String().Raw()
+	dictVote = dictVote[6:]
 }

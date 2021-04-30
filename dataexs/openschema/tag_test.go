@@ -42,8 +42,8 @@ func testAddTag(t *testing.T) {
 func testOpTag(t *testing.T) {
 	req := &TagRequest{
 		ID:     tagID,
-		Status: 20,
-		Reason: "refuse",
+		Status: 30,
+		// Reason: "refuse",
 	}
 	resp := e.POST("/tag/status").
 		WithHeader("Authorization", "Bearer "+adminToken).
