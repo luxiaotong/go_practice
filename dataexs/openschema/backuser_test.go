@@ -61,6 +61,7 @@ func testAdminUpdateUser(t *testing.T) {
 		Email:    "shannon@datassets.cn",
 		FirmName: "firm_name_2",
 		FirmAbbr: "firm_abbr_2",
+		Role:     50,
 	}
 	resp := e.PUT("/user/info").
 		WithHeader("Authorization", "Bearer "+adminToken).
