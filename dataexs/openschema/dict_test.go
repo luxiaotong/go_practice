@@ -10,13 +10,23 @@ import (
 var dictID string
 
 type DictRequest struct {
-	ID      int64  `json:"id,string"`
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Title   string `json:"title"`
-	Desc    string `json:"desc"`
-	Type    int32  `json:"type"`
-	Attach  string `json:"attach"`
+	ID      int64    `json:"id,string"`
+	Name    string   `json:"name"`
+	Version string   `json:"version"`
+	Title   string   `json:"title"`
+	Desc    string   `json:"desc"`
+	Type    int32    `json:"type"`
+	Attach  string   `json:"attach"`
+	Fields  []*Field `json:"fields"`
+}
+
+type Field struct {
+	SrcName    string   `json:"src_name"`
+	SrcType    string   `json:"src_type"`
+	SrcComment string   `json:"src_comment"`
+	LabelEN    string   `json:"label_en"`
+	CommentCN  string   `json:"comment_cn"`
+	Tags       []string `json:"tags"`
 }
 
 func testAddDict(t *testing.T) {
@@ -26,6 +36,10 @@ func testAddDict(t *testing.T) {
 		Title:   "vote title",
 		Desc:    "dict vote desc",
 		Type:    20,
+		Fields: []*Field{
+			&Field{"field1", "varchar", "", "label1", "comment1", []string{tagName}},
+			&Field{"field2", "varchar", "", "label2", "comment2", []string{tagName}},
+		},
 	}
 	resp := e.POST("/dict").
 		WithHeader("Authorization", "Bearer "+token).
