@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"testing"
 )
 
@@ -34,6 +35,10 @@ type GetDictsRequest struct {
 	Tag    string `json:"tag"`
 	Status int32  `json:"status"`
 	Type   int32  `json:"type"`
+}
+
+type GetFieldsRequest struct {
+	DictID int64 `json:"dict_id,string"`
 }
 
 func testAddDict(t *testing.T) {
@@ -100,4 +105,22 @@ func testSearchDicts(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dicts/search response: %v\n", resp.Body())
+}
+
+func testGetDict(t *testing.T) {
+	resp := e.GET("/dict/info/"+dictID).
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/info dictID response: %v\n", resp.Body())
+}
+
+func testGetFields(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &GetFieldsRequest{id}
+	resp := e.POST("/dict/fields").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/fields %v response: %v\n", id, resp.Body())
 }

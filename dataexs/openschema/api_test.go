@@ -44,4 +44,6 @@ func TestAll(t *testing.T) {
 	t.Run("testAddDict", testAddDict)
 	t.Run("testGetDicts", testGetDicts)
 	t.Run("testSearchDicts", testSearchDicts)
+	t.Run("testGetDict", testGetDict)
+	t.Run("testGetFields", testGetFields)
 }
