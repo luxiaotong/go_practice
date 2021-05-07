@@ -29,6 +29,13 @@ type Field struct {
 	Tags       []string `json:"tags"`
 }
 
+type GetDictsRequest struct {
+	Query  string `json:"q"`
+	Tag    string `json:"tag"`
+	Status int32  `json:"status"`
+	Type   int32  `json:"type"`
+}
+
 func testAddDict(t *testing.T) {
 	req := &DictRequest{
 		Name:    "dict vote",
@@ -72,4 +79,25 @@ func testGetDictAttach_Vote(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	log.Printf("/dict/attach vote response: %v\n", resp.Body())
+}
+
+func testGetDicts(t *testing.T) {
+	req := &GetDictsRequest{}
+	resp := e.POST("/dicts/gets").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dicts/admin response: %v\n", resp.Body())
+}
+
+func testSearchDicts(t *testing.T) {
+	req := &GetDictsRequest{
+		Tag:  tagName,
+		Type: 20,
+	}
+	resp := e.POST("/dicts/search").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dicts/search response: %v\n", resp.Body())
 }

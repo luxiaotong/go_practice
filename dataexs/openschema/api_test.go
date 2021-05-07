@@ -37,9 +37,11 @@ func TestAll(t *testing.T) {
 	t.Run("testOpTag", testOpTag)
 	defer clearTags()
 
-	t.Run("testUploadFile_Definition", testUploadFile_Definition)
-	t.Run("testGetDictAttach_Definition", testGetDictAttach_Definition)
-	t.Run("testUploadFile_Vote", testUploadFile_Vote)
-	t.Run("testGetDictAttach_Vote", testGetDictAttach_Vote)
+	// t.Run("testUploadFile_Definition", testUploadFile_Definition)
+	// t.Run("testGetDictAttach_Definition", testGetDictAttach_Definition)
+	// t.Run("testUploadFile_Vote", testUploadFile_Vote)
+	// t.Run("testGetDictAttach_Vote", testGetDictAttach_Vote)
 	t.Run("testAddDict", testAddDict)
+	t.Run("testGetDicts", testGetDicts)
+	t.Run("testSearchDicts", testSearchDicts)
 }
