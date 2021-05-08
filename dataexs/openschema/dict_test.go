@@ -19,6 +19,8 @@ type DictRequest struct {
 	Type    int32    `json:"type"`
 	Attach  string   `json:"attach"`
 	Fields  []*Field `json:"fields"`
+	Status  int32    `json:"status"`
+	Reason  string   `json:"reason"`
 }
 
 type Field struct {
@@ -123,4 +125,56 @@ func testGetFields(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dict/fields %v response: %v\n", id, resp.Body())
+}
+
+func testOpDict(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID:     id,
+		Status: 20,
+	}
+	resp := e.POST("/dict/status").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/status %v response: %v\n", dictID, resp.Body())
+}
+
+func testEditDict(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID:      id,
+		Name:    "dict vote222",
+		Version: "v1222",
+		Title:   "vote title222",
+		Desc:    "dict vote desc22",
+	}
+	resp := e.PUT("/dict").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict edit %v response: %v\n", dictID, resp.Body())
+
+	req = &DictRequest{
+		ID:     id,
+		Status: 20,
+	}
+	resp = e.POST("/dict/status").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/status %v response: %v\n", dictID, resp.Body())
+}
+
+func testAuditDict(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID:     id,
+		Status: 40,
+	}
+	resp := e.POST("/dict/audit").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/audit %v response: %v\n", dictID, resp.Body())
 }
