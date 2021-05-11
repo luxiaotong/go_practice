@@ -178,3 +178,14 @@ func testAuditDict(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dict/audit %v response: %v\n", dictID, resp.Body())
 }
+
+func testDeleteDict(t *testing.T) {
+	req := &DictRequest{
+		ID: 1390963635957796864,
+	}
+	resp := e.DELETE("/dict").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict delete response: %v\n", resp.Body())
+}
