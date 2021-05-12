@@ -50,4 +50,6 @@ func TestAll(t *testing.T) {
 	t.Run("testAuditDict", testAuditDict)
 	t.Run("testSearchDicts", testSearchDicts)
 	// t.Run("testDeleteDict", testDeleteDict)
+	// t.Run("testFillField", testFillField)
+	t.Run("testVoteField", testVoteField)
 }

@@ -8,7 +8,10 @@ import (
 	"testing"
 )
 
-var dictID string
+var (
+	dictID  string
+	fieldID string
+)
 
 type DictRequest struct {
 	ID      int64    `json:"id,string"`
@@ -16,20 +19,12 @@ type DictRequest struct {
 	Version string   `json:"version"`
 	Title   string   `json:"title"`
 	Desc    string   `json:"desc"`
+	Tags    []string `json:"tags"`
 	Type    int32    `json:"type"`
 	Attach  string   `json:"attach"`
 	Fields  []*Field `json:"fields"`
 	Status  int32    `json:"status"`
 	Reason  string   `json:"reason"`
-}
-
-type Field struct {
-	SrcName    string   `json:"src_name"`
-	SrcType    string   `json:"src_type"`
-	SrcComment string   `json:"src_comment"`
-	LabelEN    string   `json:"label_en"`
-	CommentCN  string   `json:"comment_cn"`
-	Tags       []string `json:"tags"`
 }
 
 type GetDictsRequest struct {
@@ -51,9 +46,43 @@ func testAddDict(t *testing.T) {
 		Desc:    "dict vote desc",
 		Type:    20,
 		Fields: []*Field{
-			&Field{"field1", "varchar", "", "label1", "comment1", []string{tagName}},
-			&Field{"field2", "varchar", "", "label2", "comment2", []string{tagName}},
+			&Field{
+				SrcName:    "field1",
+				SrcType:    "varchar",
+				SrcComment: "",
+				LabelEN:    "label1",
+				CommentCN:  "comment1",
+				Tags:       []string{tagName},
+			},
+			&Field{
+				SrcName:    "field2",
+				SrcType:    "varchar",
+				SrcComment: "",
+				LabelEN:    "label2",
+				CommentCN:  "comment2",
+				Tags:       []string{tagName},
+			},
 		},
+		// Type: 10,
+		// Fields: []*Field{
+		// 	&Field{
+		// 		SrcName:    "field1",
+		// 		SrcType:    "varchar",
+		// 		SrcComment: "",
+		// 		LabelEN:    "",
+		// 		CommentCN:  "",
+		// 		Tags:       []string{},
+		// 	},
+		// 	&Field{
+		// 		SrcName:    "field2",
+		// 		SrcType:    "varchar",
+		// 		SrcComment: "",
+		// 		LabelEN:    "",
+		// 		CommentCN:  "",
+		// 		Tags:       []string{},
+		// 	},
+		// },
+		// Tags: []string{tagName},
 	}
 	resp := e.POST("/dict").
 		WithHeader("Authorization", "Bearer "+token).
@@ -125,6 +154,11 @@ func testGetFields(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dict/fields %v response: %v\n", id, resp.Body())
+
+	fieldID = resp.JSON().Object().Value("data").
+		Object().Value("list").Array().Element(0).
+		Object().Value("id").String().Raw()
+	fmt.Println("field id: ", fieldID)
 }
 
 func testOpDict(t *testing.T) {
