@@ -38,7 +38,43 @@ type GetFieldsRequest struct {
 	DictID int64 `json:"dict_id,string"`
 }
 
-func testAddDict(t *testing.T) {
+func testAddDict_Definition(t *testing.T) {
+	req := &DictRequest{
+		Name:    "dict vote",
+		Version: "v1",
+		Title:   "vote title",
+		Desc:    "dict vote desc",
+		Type:    10,
+		Fields: []*Field{
+			&Field{
+				SrcName:    "field1",
+				SrcType:    "varchar",
+				SrcComment: "",
+				LabelEN:    "",
+				CommentCN:  "",
+				Tags:       []string{},
+			},
+			&Field{
+				SrcName:    "field2",
+				SrcType:    "varchar",
+				SrcComment: "",
+				LabelEN:    "",
+				CommentCN:  "",
+				Tags:       []string{},
+			},
+		},
+		Tags: []string{tagName},
+	}
+	resp := e.POST("/dict").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict create response: %v\n", resp.Body())
+	dictID = resp.JSON().Object().Value("data").Object().Value("id").String().Raw()
+	fmt.Println("dict id: ", dictID)
+}
+
+func testAddDict_Vote(t *testing.T) {
 	req := &DictRequest{
 		Name:    "dict vote",
 		Version: "v1",
@@ -63,26 +99,6 @@ func testAddDict(t *testing.T) {
 				Tags:       []string{tagName},
 			},
 		},
-		// Type: 10,
-		// Fields: []*Field{
-		// 	&Field{
-		// 		SrcName:    "field1",
-		// 		SrcType:    "varchar",
-		// 		SrcComment: "",
-		// 		LabelEN:    "",
-		// 		CommentCN:  "",
-		// 		Tags:       []string{},
-		// 	},
-		// 	&Field{
-		// 		SrcName:    "field2",
-		// 		SrcType:    "varchar",
-		// 		SrcComment: "",
-		// 		LabelEN:    "",
-		// 		CommentCN:  "",
-		// 		Tags:       []string{},
-		// 	},
-		// },
-		// Tags: []string{tagName},
 	}
 	resp := e.POST("/dict").
 		WithHeader("Authorization", "Bearer "+token).
