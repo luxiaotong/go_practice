@@ -53,5 +53,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testDeleteDict", testDeleteDict)
 	// t.Run("testFillField", testFillField)
 	t.Run("testVoteField", testVoteField)
-	t.Run("testGetFields", testGetFields)
+	t.Run("testGetVotes", testGetVotes)
+	t.Run("testGetRecords", testGetRecords)
+	// t.Run("testGetFields", testGetFields)
 }

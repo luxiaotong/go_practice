@@ -25,6 +25,14 @@ type VoteFieldRequest struct {
 	Suggestion string `json:"suggestion"`
 }
 
+type GetVotesRequest struct {
+	FieldID   int64  `json:"field_id,string"`
+	Type      int32  `json:"type"`
+	Query     string `json:"q"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+}
+
 func testFillField(t *testing.T) {
 	id, _ := strconv.ParseInt(fieldID, 10, 64)
 	req := &Field{
@@ -51,4 +59,29 @@ func testVoteField(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/field/vote response: %v\n", resp.Body())
+}
+
+func testGetVotes(t *testing.T) {
+	id, _ := strconv.ParseInt(fieldID, 10, 64)
+	req := &GetVotesRequest{
+		FieldID: id,
+		Type:    20,
+	}
+	resp := e.POST("/field/votes").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/field/votes %v response: %v\n", id, resp.Body())
+}
+
+func testGetRecords(t *testing.T) {
+	req := &GetVotesRequest{
+		Type:  20,
+		Query: "field",
+	}
+	resp := e.POST("/records").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/field/records response: %v\n", resp.Body())
 }
