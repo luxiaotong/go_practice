@@ -139,7 +139,7 @@ func testGetDicts(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/dicts/admin response: %v\n", resp.Body())
+	fmt.Printf("/dicts/gets response: %v\n", resp.Body())
 }
 
 func testSearchDicts(t *testing.T) {
@@ -238,4 +238,19 @@ func testDeleteDict(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dict delete response: %v\n", resp.Body())
+}
+
+func testRepublishDict(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID: id,
+	}
+	resp := e.POST("/dict/republish").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/republish %v response: %v\n", dictID, resp.Body())
+
+	dictID = resp.JSON().Object().Value("data").Object().Value("id").String().Raw()
+	fmt.Println("republish dict id: ", dictID)
 }

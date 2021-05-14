@@ -34,18 +34,30 @@ type GetVotesRequest struct {
 }
 
 func testFillField(t *testing.T) {
-	id, _ := strconv.ParseInt(fieldID, 10, 64)
-	req := &Field{
-		ID:        id,
-		LabelEN:   "label_fill",
-		CommentCN: "comment_fill",
-		Tags:      []string{tagName},
-	}
-	resp := e.PUT("/field/fill").
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &GetFieldsRequest{id}
+	resp := e.POST("/dict/fields").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/field/fill response: %v\n", resp.Body())
+	list := resp.JSON().Object().Value("data").Object().Value("list").Array()
+	for _, val := range list.Iter() {
+		fieldID := val.Object().Value("id").String().Raw()
+		fmt.Println("field id: ", fieldID)
+		id, _ := strconv.ParseInt(fieldID, 10, 64)
+		req := &Field{
+			ID:        id,
+			LabelEN:   "label_fill",
+			CommentCN: "comment_fill",
+			Tags:      []string{tagName},
+		}
+		resp := e.PUT("/field/fill").
+			WithHeader("Authorization", "Bearer "+token).
+			WithCookie(CookieSecret, cookieVal).
+			WithJSON(req).Expect().Status(http.StatusOK)
+		fmt.Printf("/field/fill %v response: %v\n", id, resp.Body())
+	}
+
 }
 
 func testVoteField(t *testing.T) {

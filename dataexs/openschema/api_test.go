@@ -41,9 +41,8 @@ func TestAll(t *testing.T) {
 	// t.Run("testGetDictAttach_Definition", testGetDictAttach_Definition)
 	// t.Run("testUploadFile_Vote", testUploadFile_Vote)
 	// t.Run("testGetDictAttach_Vote", testGetDictAttach_Vote)
-	// t.Run("testAddDict", testAddDict_Definition)
-	t.Run("testAddDict", testAddDict_Vote)
-	t.Run("testGetDicts", testGetDicts)
+	t.Run("testAddDict", testAddDict_Definition)
+	// t.Run("testAddDict", testAddDict_Vote)
 	t.Run("testGetDict", testGetDict)
 	t.Run("testGetFields", testGetFields)
 	t.Run("testOpDict", testOpDict)
@@ -51,9 +50,13 @@ func TestAll(t *testing.T) {
 	t.Run("testAuditDict", testAuditDict)
 	t.Run("testSearchDicts", testSearchDicts)
 	// t.Run("testDeleteDict", testDeleteDict)
-	// t.Run("testFillField", testFillField)
-	t.Run("testVoteField", testVoteField)
-	t.Run("testGetVotes", testGetVotes)
+
+	t.Run("testFillField", testFillField)
+	t.Run("testGetDicts", testGetDicts)
+	// t.Run("testVoteField", testVoteField)
+	// t.Run("testGetVotes", testGetVotes)
 	t.Run("testGetRecords", testGetRecords)
 	// t.Run("testGetFields", testGetFields)
+
+	t.Run("testRepublishDict", testRepublishDict)
 }
