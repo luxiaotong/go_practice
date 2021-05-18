@@ -190,6 +190,32 @@ func testOpDict(t *testing.T) {
 	fmt.Printf("/dict/status %v response: %v\n", dictID, resp.Body())
 }
 
+func testOpDict_Close(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID:     id,
+		Status: 60,
+	}
+	resp := e.POST("/dict/status").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/status close %v response: %v\n", dictID, resp.Body())
+}
+
+func testOpDict_Reopen(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &DictRequest{
+		ID:     id,
+		Status: 40,
+	}
+	resp := e.POST("/dict/status").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/dict/status reopen %v response: %v\n", dictID, resp.Body())
+}
+
 func testEditDict(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
 	req := &DictRequest{

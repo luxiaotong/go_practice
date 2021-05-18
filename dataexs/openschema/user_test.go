@@ -57,6 +57,7 @@ type UserRequest struct {
 
 type SignInRequest struct {
 	Username string `json:"username"`
+	Mobile   string `json:"mobile"`
 	Password string `json:"password"`
 }
 
@@ -122,7 +123,7 @@ func parse(tokenString, key string) int64 {
 
 func testSignIn(t *testing.T) {
 	req := SignInRequest{
-		Username: "shannon",
+		Mobile:   "18500022713",
 		Password: "123456",
 	}
 	resp := e.POST("/user/signin").WithJSON(req).Expect().Status(http.StatusOK)

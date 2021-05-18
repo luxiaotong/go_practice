@@ -48,6 +48,8 @@ func TestAll(t *testing.T) {
 	t.Run("testOpDict", testOpDict)
 	t.Run("testEditDict", testEditDict)
 	t.Run("testAuditDict", testAuditDict)
+	t.Run("testOpDict", testOpDict_Close)
+	t.Run("testOpDict", testOpDict_Reopen)
 	t.Run("testSearchDicts", testSearchDicts)
 	// t.Run("testDeleteDict", testDeleteDict)
 
