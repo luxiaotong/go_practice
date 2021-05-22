@@ -55,10 +55,12 @@ func TestAll(t *testing.T) {
 
 	// t.Run("testFillField", testFillField)
 	// t.Run("testGetDicts", testGetDicts)
+	// t.Run("testRepublishDict", testRepublishDict)
 	t.Run("testVoteField", testVoteField)
 	t.Run("testGetVotes", testGetVotes)
 	t.Run("testGetRecords", testGetRecords)
 	// t.Run("testGetFields", testGetFields)
 
-	// t.Run("testRepublishDict", testRepublishDict)
+	t.Run("testGetReleases", testGetReleases)
+	t.Run("testGetSchemas", testGetSchemas)
 }

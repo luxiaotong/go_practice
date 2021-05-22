@@ -1,0 +1,38 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"testing"
+)
+
+type GetReleasesRequest struct {
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+}
+
+type GetSchemasRequest struct {
+	Version   int64  `json:"version,string"`
+	Query     string `json:"q"`
+	Tag       string `json:"tag"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+}
+
+func testGetReleases(t *testing.T) {
+	req := &GetReleasesRequest{}
+	resp := e.POST("/releases").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/releases response: %v\n", resp.Body())
+}
+
+func testGetSchemas(t *testing.T) {
+	req := &GetSchemasRequest{}
+	resp := e.POST("/schemas/gets").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/schemas/gets response: %v\n", resp.Body())
+}
