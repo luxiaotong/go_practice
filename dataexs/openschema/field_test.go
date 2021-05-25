@@ -107,3 +107,15 @@ func testGetRecords(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/field/records response: %v\n", resp.Body())
 }
+
+func testOpField(t *testing.T) {
+	req := &Field{
+		ID:     1396027332208103424,
+		Status: 50,
+	}
+	resp := e.PUT("/field/status").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/field/status %v response: %v\n", req.ID, resp.Body())
+}

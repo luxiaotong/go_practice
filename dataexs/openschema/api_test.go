@@ -63,4 +63,6 @@ func TestAll(t *testing.T) {
 
 	t.Run("testGetReleases", testGetReleases)
 	t.Run("testGetSchemas", testGetSchemas)
+	// t.Run("testOpField", testOpField)
+	t.Run("testDownloadSchemas", testDownloadSchemas)
 }

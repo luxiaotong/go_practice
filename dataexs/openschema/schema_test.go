@@ -36,3 +36,21 @@ func testGetSchemas(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/schemas/gets response: %v\n", resp.Body())
 }
+
+func testDownloadSchemas(t *testing.T) {
+	req := &GetSchemasRequest{
+		// Version: 26,
+	}
+	resp := e.POST("/schemas/download").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/schemas/download response: %v\n", resp.Body())
+
+	schemas := resp.JSON().Object().Value("data").Object().Value("schemas").String().Raw()
+	resp = e.GET(schemas).
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		Expect().Status(http.StatusOK)
+	fmt.Printf("/prod_pvt/"+schemas+" result: %v", resp.Body())
+}
