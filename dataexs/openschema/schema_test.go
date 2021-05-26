@@ -15,6 +15,7 @@ type GetSchemasRequest struct {
 	Version   int64  `json:"version,string"`
 	Query     string `json:"q"`
 	Tag       string `json:"tag"`
+	Token     string `json:"token"`
 	PageIndex uint32 `json:"page_index"`
 	PageSize  uint32 `json:"page_size"`
 }
@@ -53,4 +54,18 @@ func testDownloadSchemas(t *testing.T) {
 		WithCookie(CookieSecret, adminCookie).
 		Expect().Status(http.StatusOK)
 	fmt.Printf("/prod_pvt/"+schemas+" result: %v", resp.Body())
+}
+
+func testSearchSchemas(t *testing.T) {
+	req := &GetSchemasRequest{
+		Token: "XwHMjPVCRNGQswnv3oqPKhjRBZaMMyZPA_YVXBakHXg=",
+	}
+	resp := e.POST("/schemas/search").
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/schemas/search response: %v\n", resp.Body())
+}
+
+func testStats(t *testing.T) {
+	resp := e.GET("/stats").Expect().Status(http.StatusOK)
+	fmt.Printf("/stats response: %v\n", resp.Body())
 }

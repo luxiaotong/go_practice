@@ -238,3 +238,11 @@ func testGetUser(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("user/info get response: %v\n", resp.Body())
 }
+
+func testApplyToken(t *testing.T) {
+	resp := e.POST("/user/token").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		Expect().Status(http.StatusOK)
+	fmt.Printf("/user/token response: %v\n", resp.Body())
+}
