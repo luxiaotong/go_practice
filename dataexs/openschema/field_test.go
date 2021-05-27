@@ -7,6 +7,10 @@ import (
 	"testing"
 )
 
+type GetFieldsRequest struct {
+	DictID int64 `json:"dict_id,string"`
+}
+
 type Field struct {
 	ID         int64    `json:"id,string"`
 	SrcName    string   `json:"src_name"`
@@ -33,10 +37,25 @@ type GetVotesRequest struct {
 	PageSize  uint32 `json:"page_size"`
 }
 
+func testGetFields(t *testing.T) {
+	id, _ := strconv.ParseInt(dictID, 10, 64)
+	req := &GetFieldsRequest{id}
+	resp := e.POST("/fields").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/fields %v response: %v\n", id, resp.Body())
+
+	fieldID = resp.JSON().Object().Value("data").
+		Object().Value("list").Array().Element(0).
+		Object().Value("id").String().Raw()
+	fmt.Println("field id: ", fieldID)
+}
+
 func testFillField(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
 	req := &GetFieldsRequest{id}
-	resp := e.POST("/dict/fields").
+	resp := e.POST("/fields").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
@@ -62,7 +81,7 @@ func testFillField(t *testing.T) {
 func testVoteField(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
 	req := &GetFieldsRequest{id}
-	resp := e.POST("/dict/fields").
+	resp := e.POST("/fields").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
@@ -101,7 +120,7 @@ func testGetRecords(t *testing.T) {
 		Type:  20,
 		Query: "field",
 	}
-	resp := e.POST("/records").
+	resp := e.POST("/field/records").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)

@@ -69,3 +69,12 @@ func testStats(t *testing.T) {
 	resp := e.GET("/stats").Expect().Status(http.StatusOK)
 	fmt.Printf("/stats response: %v\n", resp.Body())
 }
+
+func testStatsSDK(t *testing.T) {
+	req := &GetReleasesRequest{}
+	resp := e.POST("/stats/sdk").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/stats/sdk response: %v\n", resp.Body())
+}

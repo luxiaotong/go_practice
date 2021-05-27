@@ -34,10 +34,6 @@ type GetDictsRequest struct {
 	Type   int32  `json:"type"`
 }
 
-type GetFieldsRequest struct {
-	DictID int64 `json:"dict_id,string"`
-}
-
 func testAddDict_Definition(t *testing.T) {
 	req := &DictRequest{
 		Name:    "dict vote",
@@ -160,21 +156,6 @@ func testGetDict(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		Expect().Status(http.StatusOK)
 	fmt.Printf("/dict/info dictID response: %v\n", resp.Body())
-}
-
-func testGetFields(t *testing.T) {
-	id, _ := strconv.ParseInt(dictID, 10, 64)
-	req := &GetFieldsRequest{id}
-	resp := e.POST("/dict/fields").
-		WithHeader("Authorization", "Bearer "+token).
-		WithCookie(CookieSecret, cookieVal).
-		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/dict/fields %v response: %v\n", id, resp.Body())
-
-	fieldID = resp.JSON().Object().Value("data").
-		Object().Value("list").Array().Element(0).
-		Object().Value("id").String().Raw()
-	fmt.Println("field id: ", fieldID)
 }
 
 func testOpDict(t *testing.T) {
