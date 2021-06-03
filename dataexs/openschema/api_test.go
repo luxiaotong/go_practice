@@ -13,10 +13,10 @@ func init() {
 
 func TestAll(t *testing.T) {
 	e = httpexpect.New(t, "http://127.0.0.1:8096")
-	t.Run("testSendCode", testSendCode)
+	// t.Run("testSendCode", testSendCode)
 	// t.Run("testSignUp", testSignUp)
 	// defer clearUser()
-	// t.Run("testSignIn", testSignIn)
+	t.Run("testSignIn", testSignIn)
 	// t.Run("testUserPass", testUserPass)
 	// t.Run("testUploadFile", testUploadFile)
 	// t.Run("testUpdateUser", testUpdateUser)
@@ -33,10 +33,10 @@ func TestAll(t *testing.T) {
 	// t.Run("testAdminGetUser", testAdminGetUser)
 	// t.Run("testGetUsers", testGetUsers)
 
-	t.Run("testAddTag", testAddTag)
+	// t.Run("testAddTag", testAddTag)
 	t.Run("testGetTags", testGetTags)
-	t.Run("testOpTag", testOpTag)
-	defer clearTags()
+	// t.Run("testOpTag", testOpTag)
+	// defer clearTags()
 
 	// t.Run("testUploadFile_Definition", testUploadFile_Definition)
 	// t.Run("testGetDictAttach_Definition", testGetDictAttach_Definition)

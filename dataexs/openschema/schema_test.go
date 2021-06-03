@@ -53,7 +53,7 @@ func testDownloadSchemas(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+adminToken).
 		WithCookie(CookieSecret, adminCookie).
 		Expect().Status(http.StatusOK)
-	fmt.Printf("/prod_pvt/"+schemas+" result: %v", resp.Body())
+	fmt.Printf(schemas+" result: %v", resp.Body())
 }
 
 func testSearchSchemas(t *testing.T) {

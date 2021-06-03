@@ -39,7 +39,7 @@ func testUploadFile(t *testing.T) {
 }
 
 func clearLogo(uid int64) {
-	logo := mediasDIR + fmt.Sprintf("firm/%d.logo.jpg", uid)
+	logo := mediasDIR + fmt.Sprintf("user/%d.logo.jpg", uid)
 	_ = os.Remove(logo)
 }
 
