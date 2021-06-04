@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"testing"
 )
 
@@ -13,8 +14,8 @@ var (
 )
 
 type GetUsersRequest struct {
-	Query  string `json:"q"`
-	Status int32  `json:"status"`
+	Query string `json:"q"`
+	Type  int32  `json:"type"`
 }
 
 func testAdminSignIn(t *testing.T) {
@@ -33,7 +34,6 @@ func testAdminSignIn(t *testing.T) {
 func testGetUsers(t *testing.T) {
 	req := GetUsersRequest{
 		// Query: "abbraaaa",
-		// Status: 10,
 	}
 	resp := e.POST("/users").
 		WithHeader("Authorization", "Bearer "+adminToken).
@@ -70,16 +70,85 @@ func testAdminUpdateUser(t *testing.T) {
 	fmt.Printf("user/info update %d response: %v\n", uid, resp.Body())
 }
 
-func testAuditUser(t *testing.T) {
-	req := &UserRequest{
-		ID:     uid,
-		Status: 30,
+func testGetApplications(t *testing.T) {
+	req := GetUsersRequest{
+		Type: 10,
 	}
-	resp := e.POST("/user/audit").
+	resp := e.POST("/applications").
 		WithHeader("Authorization", "Bearer "+adminToken).
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("audit %d response: %v\n", uid, resp.Body())
+	fmt.Printf("/applications response: %v\n", resp.Body())
+}
+
+func testAuditUser_Voter(t *testing.T) {
+	req := GetUsersRequest{
+		Type: 10,
+	}
+	resp := e.POST("/applications").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	list := resp.JSON().Object().Value("data").Object().Value("list").Array()
+	var aid string
+	for _, val := range list.Iter() {
+		userID, _ := strconv.ParseInt(val.Object().Value("id").String().Raw(), 10, 64)
+		t := int32(val.Object().Value("application").Object().Value("type").Number().Raw())
+		if userID != uid || t != 10 {
+			continue
+		}
+		fmt.Println("user id: ", userID)
+		fmt.Println("type: ", t)
+		aid = val.Object().Value("application").Object().Value("id").String().Raw()
+		fmt.Println("application id: ", aid)
+	}
+	id, _ := strconv.ParseInt(aid, 10, 64)
+	req2 := &UserRequest{
+		Apply: &Apply{
+			ID:     id,
+			Status: 30,
+		},
+	}
+	resp = e.POST("/user/audit").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req2).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/audit voter %d response: %v\n", uid, resp.Body())
+}
+
+func testAuditUser_Provider(t *testing.T) {
+	req := GetUsersRequest{
+		Type: 10,
+	}
+	resp := e.POST("/applications").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	list := resp.JSON().Object().Value("data").Object().Value("list").Array()
+	var aid string
+	for _, val := range list.Iter() {
+		userID, _ := strconv.ParseInt(val.Object().Value("id").String().Raw(), 10, 64)
+		t := int32(val.Object().Value("application").Object().Value("type").Number().Raw())
+		if userID != uid || t != 20 {
+			continue
+		}
+		fmt.Println("user id: ", userID)
+		fmt.Println("type: ", t)
+		aid = val.Object().Value("application").Object().Value("id").String().Raw()
+		fmt.Println("application id: ", aid)
+	}
+	id, _ := strconv.ParseInt(aid, 10, 64)
+	req2 := &UserRequest{
+		Apply: &Apply{
+			ID:     id,
+			Status: 30,
+		},
+	}
+	resp = e.POST("/user/audit").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req2).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/audit voter %d response: %v\n", uid, resp.Body())
 }
 
 func testFreezeUser(t *testing.T) {

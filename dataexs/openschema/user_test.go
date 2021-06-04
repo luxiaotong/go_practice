@@ -50,9 +50,18 @@ type UserRequest struct {
 	Specialty string `json:"specialty"`
 	Award     string `json:"award"`
 	Desc      string `json:"desc"`
+	CertType  int32  `json:"cert_type"`
+	Cert      string `json:"cert"`
 	Role      int32  `json:"role"`
 	Status    int32  `json:"status"`
 	Enabled   bool   `json:"enabled"`
+	Apply     *Apply `json:"application"`
+}
+
+type Apply struct {
+	ID     int64 `json:"id,string"`
+	Type   int32 `json:"type"`
+	Status int32 `json:"status"`
 }
 
 type SignInRequest struct {
@@ -217,19 +226,6 @@ func clearUser() {
 	clearLogo(uid)
 }
 
-func testCertifyUser(t *testing.T) {
-	req := UserRequest{
-		Specialty: "specialty",
-		Award:     "award",
-		Desc:      "desc",
-	}
-	resp := e.PUT("/user/certify").
-		WithHeader("Authorization", "Bearer "+token).
-		WithCookie(CookieSecret, cookieVal).
-		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("user/certify response: %v\n", resp.Body())
-}
-
 func testGetUser(t *testing.T) {
 	req := &UserRequest{}
 	resp := e.POST("/user/info").
@@ -239,10 +235,65 @@ func testGetUser(t *testing.T) {
 	fmt.Printf("user/info get response: %v\n", resp.Body())
 }
 
-func testApplyToken(t *testing.T) {
-	resp := e.POST("/user/token").
+func testUserApply_Voter(t *testing.T) {
+	req := &UserRequest{
+		Mobile:    "18500022713",
+		Name:      "shannon",
+		Email:     "shannon@datassets.cn",
+		FirmName:  "firm_name_2",
+		FirmAbbr:  "firm_abbr_2",
+		Specialty: "specialty",
+		Award:     "award",
+		Desc:      "desc",
+		Apply: &Apply{
+			Type: 10,
+		},
+	}
+	resp := e.POST("/user/apply").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/apply voter response: %v\n", resp.Body())
+}
+
+func testUserApply_Provider(t *testing.T) {
+	f, _ := ioutil.TempFile("", "*.jpg")
+	fmt.Println("tmp cert: ", f.Name())
+	defer os.Remove(f.Name())
+	defer f.Close()
+	alpha := image.NewAlpha(image.Rect(0, 0, 100, 100))
+	for x := 0; x < 100; x++ {
+		for y := 0; y < 100; y++ {
+			alpha.Set(x, y, color.Alpha{uint8(x % 256)})
+		}
+	}
+	_ = jpeg.Encode(f, alpha, nil)
+
+	resp := e.POST("/upload/file").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithMultipart().
+		WithFile("file", f.Name()).WithFormField("api_type", "cert").
 		Expect().Status(http.StatusOK)
-	fmt.Printf("/user/token response: %v\n", resp.Body())
+	name := resp.JSON().Object().Value("data").Object().Value("name").String().Raw()
+	fmt.Printf("/upload/file result: %v\n", name[6:])
+	cert := name[6:]
+
+	req := &UserRequest{
+		Mobile:   "18500022713",
+		Name:     "shannon",
+		Email:    "shannon@datassets.cn",
+		FirmName: "firm_name_2",
+		FirmAbbr: "firm_abbr_2",
+		CertType: 10,
+		Cert:     cert,
+		Apply: &Apply{
+			Type: 20,
+		},
+	}
+	resp = e.POST("/user/apply").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/apply voter response: %v\n", resp.Body())
 }
