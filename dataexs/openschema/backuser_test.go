@@ -72,7 +72,8 @@ func testAdminUpdateUser(t *testing.T) {
 
 func testGetApplications(t *testing.T) {
 	req := GetUsersRequest{
-		Type: 10,
+		Query: "shannon",
+		Type:  10,
 	}
 	resp := e.POST("/applications").
 		WithHeader("Authorization", "Bearer "+adminToken).
