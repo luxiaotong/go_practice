@@ -297,3 +297,45 @@ func testUserApply_Provider(t *testing.T) {
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/user/apply voter response: %v\n", resp.Body())
 }
+
+func testUserApply_SDK(t *testing.T) {
+	f, _ := ioutil.TempFile("", "*.jpg")
+	fmt.Println("tmp cert: ", f.Name())
+	defer os.Remove(f.Name())
+	defer f.Close()
+	alpha := image.NewAlpha(image.Rect(0, 0, 100, 100))
+	for x := 0; x < 100; x++ {
+		for y := 0; y < 100; y++ {
+			alpha.Set(x, y, color.Alpha{uint8(x % 256)})
+		}
+	}
+	_ = jpeg.Encode(f, alpha, nil)
+
+	resp := e.POST("/upload/file").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithMultipart().
+		WithFile("file", f.Name()).WithFormField("api_type", "cert").
+		Expect().Status(http.StatusOK)
+	name := resp.JSON().Object().Value("data").Object().Value("name").String().Raw()
+	fmt.Printf("/upload/file result: %v\n", name[6:])
+	cert := name[6:]
+
+	req := &UserRequest{
+		Mobile:   "18500022713",
+		Name:     "shannon",
+		Email:    "shannon@datassets.cn",
+		FirmName: "firm_name_2",
+		FirmAbbr: "firm_abbr_2",
+		CertType: 10,
+		Cert:     cert,
+		Apply: &Apply{
+			Type: 30,
+		},
+	}
+	resp = e.POST("/user/apply").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/apply sdk response: %v\n", resp.Body())
+}

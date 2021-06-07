@@ -58,7 +58,7 @@ func testDownloadSchemas(t *testing.T) {
 
 func testSearchSchemas(t *testing.T) {
 	req := &GetSchemasRequest{
-		Token: "XwHMjPVCRNGQswnv3oqPKhjRBZaMMyZPA_YVXBakHXg=",
+		Token: "twP_r5mD7T9tH-WBnAOVZ6F8uHqooxpJVxAPnFZUYDM=",
 	}
 	resp := e.POST("/schemas/search").
 		WithJSON(req).Expect().Status(http.StatusOK)

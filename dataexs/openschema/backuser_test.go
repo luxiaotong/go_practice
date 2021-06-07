@@ -72,8 +72,8 @@ func testAdminUpdateUser(t *testing.T) {
 
 func testGetApplications(t *testing.T) {
 	req := GetUsersRequest{
-		Query: "shannon",
-		Type:  10,
+		// Query: "shannon",
+		Type: 30,
 	}
 	resp := e.POST("/applications").
 		WithHeader("Authorization", "Bearer "+adminToken).
@@ -149,7 +149,42 @@ func testAuditUser_Provider(t *testing.T) {
 		WithHeader("Authorization", "Bearer "+adminToken).
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req2).Expect().Status(http.StatusOK)
-	fmt.Printf("/user/audit voter %d response: %v\n", uid, resp.Body())
+	fmt.Printf("/user/audit provider %d response: %v\n", uid, resp.Body())
+}
+
+func testAuditUser_SDK(t *testing.T) {
+	req := GetUsersRequest{
+		Type: 20,
+	}
+	resp := e.POST("/applications").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	list := resp.JSON().Object().Value("data").Object().Value("list").Array()
+	var aid string
+	for _, val := range list.Iter() {
+		userID, _ := strconv.ParseInt(val.Object().Value("id").String().Raw(), 10, 64)
+		t := int32(val.Object().Value("application").Object().Value("type").Number().Raw())
+		if userID != uid || t != 30 {
+			continue
+		}
+		fmt.Println("user id: ", userID)
+		fmt.Println("type: ", t)
+		aid = val.Object().Value("application").Object().Value("id").String().Raw()
+		fmt.Println("application id: ", aid)
+	}
+	id, _ := strconv.ParseInt(aid, 10, 64)
+	req2 := &UserRequest{
+		Apply: &Apply{
+			ID:     id,
+			Status: 30,
+		},
+	}
+	resp = e.POST("/user/audit").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req2).Expect().Status(http.StatusOK)
+	fmt.Printf("/user/audit sdk %d response: %v\n", uid, resp.Body())
 }
 
 func testFreezeUser(t *testing.T) {
