@@ -39,6 +39,9 @@ func TestAll(t *testing.T) {
 
 	// t.Run("testAddGroup", testAddGroup)
 	// t.Run("testEditGroup", testEditGroup)
+	t.Run("testGetGroups", testGetGroups)
+	t.Run("testJoinGroup", testJoinGroup)
+	t.Run("testLeaveGroup", testLeaveGroup)
 
 	// t.Run("testAddTag", testAddTag)
 	// t.Run("testGetTags", testGetTags)

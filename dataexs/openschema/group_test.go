@@ -7,8 +7,14 @@ import (
 )
 
 type Group struct {
-	ID   int64  `json:"id,string"`
-	Name string `json:"name"`
+	ID   int64    `json:"id,string"`
+	UIDs []string `json:"uids"`
+	Name string   `json:"name"`
+}
+
+type GetGroupsRequest struct {
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
 }
 
 func testAddGroup(t *testing.T) {
@@ -32,4 +38,37 @@ func testEditGroup(t *testing.T) {
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/group edit response: %v\n", resp.Body())
+}
+
+func testGetGroups(t *testing.T) {
+	req := GetGroupsRequest{}
+	resp := e.POST("/groups").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/groups response: %v\n", resp.Body())
+}
+
+func testJoinGroup(t *testing.T) {
+	req := &Group{
+		ID:   1401747325717581824,
+		UIDs: []string{"1400649470592421888"},
+	}
+	resp := e.PUT("/group/member").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/group/member join response: %v\n", resp.Body())
+}
+
+func testLeaveGroup(t *testing.T) {
+	req := &Group{
+		ID:   0,
+		UIDs: []string{"1400649470592421888"},
+	}
+	resp := e.PUT("/group/member").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/group/member leave response: %v\n", resp.Body())
 }
