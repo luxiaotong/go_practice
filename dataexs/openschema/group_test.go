@@ -17,6 +17,13 @@ type GetGroupsRequest struct {
 	PageSize  uint32 `json:"page_size"`
 }
 
+type GetMembersRequest struct {
+	ID        int64  `json:"id,string"`
+	Query     string `json:"q"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+}
+
 func testAddGroup(t *testing.T) {
 	req := &Group{
 		Name: "testgroup",
@@ -71,4 +78,15 @@ func testLeaveGroup(t *testing.T) {
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/group/member leave response: %v\n", resp.Body())
+}
+
+func testGetMembers(t *testing.T) {
+	req := &GetMembersRequest{
+		ID: 0,
+	}
+	resp := e.POST("/group/members").
+		WithHeader("Authorization", "Bearer "+adminToken).
+		WithCookie(CookieSecret, adminCookie).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/group/members response: %v\n", resp.Body())
 }
