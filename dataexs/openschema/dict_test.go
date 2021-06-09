@@ -14,17 +14,19 @@ var (
 )
 
 type DictRequest struct {
-	ID      int64    `json:"id,string"`
-	Name    string   `json:"name"`
-	Version string   `json:"version"`
-	Title   string   `json:"title"`
-	Desc    string   `json:"desc"`
-	Tags    []string `json:"tags"`
-	Type    int32    `json:"type"`
-	Attach  string   `json:"attach"`
-	Fields  []*Field `json:"fields"`
-	Status  int32    `json:"status"`
-	Reason  string   `json:"reason"`
+	ID          int64    `json:"id,string"`
+	Name        string   `json:"name"`
+	Version     string   `json:"version"`
+	Title       string   `json:"title"`
+	Desc        string   `json:"desc"`
+	Industry    string   `json:"industry"`
+	SubIndustry string   `json:"sub_industry"`
+	Tags        []string `json:"tags"`
+	Type        int32    `json:"type"`
+	Attach      string   `json:"attach"`
+	Fields      []*Field `json:"fields"`
+	Status      int32    `json:"status"`
+	Reason      string   `json:"reason"`
 }
 
 type GetDictsRequest struct {
@@ -59,7 +61,8 @@ func testAddDict_Definition(t *testing.T) {
 				Tags:       []string{},
 			},
 		},
-		Tags: []string{tagName},
+		Industry:    "农、林、牧、鱼",
+		SubIndustry: "农业",
 	}
 	resp := e.POST("/dict").
 		WithHeader("Authorization", "Bearer "+token).
@@ -83,6 +86,7 @@ func testAddDict_Vote(t *testing.T) {
 				SrcType:    "varchar",
 				SrcComment: "",
 				LabelEN:    "label1",
+				LabelCN:    "label中文",
 				CommentCN:  "comment1",
 				Tags:       []string{tagName},
 			},
@@ -91,10 +95,13 @@ func testAddDict_Vote(t *testing.T) {
 				SrcType:    "varchar",
 				SrcComment: "",
 				LabelEN:    "label2",
+				LabelCN:    "label中文",
 				CommentCN:  "comment2",
 				Tags:       []string{tagName},
 			},
 		},
+		Industry:    "农、林、牧、鱼",
+		SubIndustry: "农业",
 	}
 	resp := e.POST("/dict").
 		WithHeader("Authorization", "Bearer "+token).

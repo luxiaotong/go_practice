@@ -77,9 +77,9 @@ func testUploadFile_Vote(t *testing.T) {
 	defer f.Close()
 	w := csv.NewWriter(f)
 	data := [][]string{
-		{"字段名称", "字段类型", "备注", "schema表英文名称", "schema表中文注释", "分类"},
-		{"field1", "int", "", "label1", "label cn", "tag1"},
-		{"field2", "varchar", "", "label2", "label cn", "tag1"},
+		{"字段名称", "字段类型", "备注", "schema字段英文名称", "schema字段中文名称", "schema字段中文注释", "分类"},
+		{"field1", "int", "", "label1", "label cn", "comment cn", "tag1"},
+		{"field2", "varchar", "", "label2", "label cn", "comment cn", "tag1"},
 	}
 	_ = w.WriteAll(data)
 

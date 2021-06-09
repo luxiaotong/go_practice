@@ -51,10 +51,10 @@ func TestAll(t *testing.T) {
 
 	// t.Run("testUploadFile_Definition", testUploadFile_Definition)
 	// t.Run("testGetDictAttach_Definition", testGetDictAttach_Definition)
-	// t.Run("testUploadFile_Vote", testUploadFile_Vote)
-	// t.Run("testGetDictAttach_Vote", testGetDictAttach_Vote)
 	// t.Run("testAddDict", testAddDict_Definition)
-	// t.Run("testAddDict", testAddDict_Vote)
+	t.Run("testUploadFile_Vote", testUploadFile_Vote)
+	t.Run("testGetDictAttach_Vote", testGetDictAttach_Vote)
+	t.Run("testAddDict", testAddDict_Vote)
 	// t.Run("testGetDict", testGetDict)
 	// t.Run("testGetFields", testGetFields)
 	// t.Run("testOpDict", testOpDict)

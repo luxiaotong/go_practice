@@ -17,6 +17,7 @@ type Field struct {
 	SrcType    string   `json:"src_type"`
 	SrcComment string   `json:"src_comment"`
 	LabelEN    string   `json:"label_en"`
+	LabelCN    string   `json:"label_cn"`
 	CommentCN  string   `json:"comment_cn"`
 	Tags       []string `json:"tags"`
 	Status     int32    `json:"status"`
