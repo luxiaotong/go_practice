@@ -30,10 +30,10 @@ type DictRequest struct {
 }
 
 type GetDictsRequest struct {
-	Query  string `json:"q"`
-	Tag    string `json:"tag"`
-	Status int32  `json:"status"`
-	Type   int32  `json:"type"`
+	Query       string `json:"q"`
+	Industry    string `json:"industry"`
+	SubIndustry string `json:"sub_industry"`
+	Type        int32  `json:"type"`
 }
 
 func testAddDict_Definition(t *testing.T) {
@@ -146,10 +146,7 @@ func testGetDicts(t *testing.T) {
 }
 
 func testSearchDicts(t *testing.T) {
-	req := &GetDictsRequest{
-		Tag:  tagName,
-		Type: 20,
-	}
+	req := &GetDictsRequest{}
 	resp := e.POST("/dicts/search").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
@@ -252,19 +249,4 @@ func testDeleteDict(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/dict delete response: %v\n", resp.Body())
-}
-
-func testRepublishDict(t *testing.T) {
-	id, _ := strconv.ParseInt(dictID, 10, 64)
-	req := &DictRequest{
-		ID: id,
-	}
-	resp := e.POST("/dict/republish").
-		WithHeader("Authorization", "Bearer "+token).
-		WithCookie(CookieSecret, cookieVal).
-		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/dict/republish %v response: %v\n", dictID, resp.Body())
-
-	dictID = resp.JSON().Object().Value("data").Object().Value("id").String().Raw()
-	fmt.Println("republish dict id: ", dictID)
 }
