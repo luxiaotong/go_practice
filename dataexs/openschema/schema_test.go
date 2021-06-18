@@ -12,12 +12,13 @@ type GetReleasesRequest struct {
 }
 
 type GetSchemasRequest struct {
-	Version   int64  `json:"version,string"`
-	Query     string `json:"q"`
-	Tag       string `json:"tag"`
-	Token     string `json:"token"`
-	PageIndex uint32 `json:"page_index"`
-	PageSize  uint32 `json:"page_size"`
+	Version     int64  `json:"version,string"`
+	Query       string `json:"q"`
+	Industry    string `json:"industry"`
+	SubIndustry string `json:"sub_industry"`
+	Token       string `json:"token"`
+	PageIndex   uint32 `json:"page_index"`
+	PageSize    uint32 `json:"page_size"`
 }
 
 func testGetReleases(t *testing.T) {

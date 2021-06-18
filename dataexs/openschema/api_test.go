@@ -66,13 +66,13 @@ func TestAll(t *testing.T) {
 	t.Run("testSearchDicts", testSearchDicts)
 	// t.Run("testDeleteDict", testDeleteDict)
 
-	t.Run("testFillField", testFillField)
+	// t.Run("testFillField", testFillField)
 	t.Run("testGetDicts", testGetDicts)
-	// t.Run("testRepublishDict", testRepublishDict)
+	t.Run("testGetDefinitions", testGetDefinitions)
+	t.Run("testGetRecommends", testGetRecommends)
 	// t.Run("testVoteField", testVoteField)
 	// t.Run("testGetVotes", testGetVotes)
 	// t.Run("testGetRecords", testGetRecords)
-	// t.Run("testGetFields", testGetFields)
 
 	// t.Run("testGetReleases", testGetReleases)
 	// t.Run("testGetSchemas", testGetSchemas)

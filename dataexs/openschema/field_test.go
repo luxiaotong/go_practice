@@ -8,7 +8,12 @@ import (
 )
 
 type GetFieldsRequest struct {
-	DictID int64 `json:"dict_id,string"`
+	DictID      int64  `json:"dict_id,string"`
+	Query       string `json:"q"`
+	Industry    string `json:"industry"`
+	SubIndustry string `json:"sub_industry"`
+	PageIndex   uint32 `json:"page_index"`
+	PageSize    uint32 `json:"page_size"`
 }
 
 type Field struct {
@@ -40,7 +45,7 @@ type GetVotesRequest struct {
 
 func testGetFields(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
-	req := &GetFieldsRequest{id}
+	req := &GetFieldsRequest{DictID: id}
 	resp := e.POST("/fields").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
@@ -94,7 +99,7 @@ func testFillField(t *testing.T) {
 
 func testVoteField(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
-	req := &GetFieldsRequest{id}
+	req := &GetFieldsRequest{DictID: id}
 	resp := e.POST("/fields").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
@@ -151,4 +156,26 @@ func testOpField(t *testing.T) {
 		WithCookie(CookieSecret, adminCookie).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/field/status %v response: %v\n", req.ID, resp.Body())
+}
+
+func testGetDefinitions(t *testing.T) {
+	req := &GetFieldsRequest{
+		// DictID: 1405069047543894016,
+	}
+	resp := e.POST("/fields/definitions").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/fields/definitions response: %v\n", resp.Body())
+}
+
+func testGetRecommends(t *testing.T) {
+	req := &GetFieldsRequest{
+		// DictID: 1405069047543894016,
+	}
+	resp := e.POST("/fields/recommends").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/fields/recommends response: %v\n", resp.Body())
 }
