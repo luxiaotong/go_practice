@@ -41,8 +41,8 @@ func TestAll(t *testing.T) {
 	// t.Run("testEditGroup", testEditGroup)
 	t.Run("testGetGroups", testGetGroups)
 	t.Run("testGetGroup", testGetGroup)
-	// t.Run("testLeaveGroup", testLeaveGroup)
-	// t.Run("testJoinGroup", testJoinGroup)
+	t.Run("testLeaveGroup", testLeaveGroup)
+	t.Run("testJoinGroup", testJoinGroup)
 	t.Run("testGetMembers", testGetMembers)
 
 	// t.Run("testAddTag", testAddTag)

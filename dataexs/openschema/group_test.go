@@ -6,12 +6,17 @@ import (
 	"testing"
 )
 
+type OpMemberRequest struct {
+	ID     int64    `json:"id,string"`
+	UIDs   []string `json:"uids"`
+	Action int32    `json:"action"`
+}
+
 type Group struct {
-	ID          int64    `json:"id,string"`
-	UIDs        []string `json:"uids"`
-	Name        string   `json:"name"`
-	Industry    string   `json:"industry"`
-	SubIndustry string   `json:"sub_industry"`
+	ID          int64  `json:"id,string"`
+	Name        string `json:"name"`
+	Industry    string `json:"industry"`
+	SubIndustry string `json:"sub_industry"`
 }
 
 type GetGroupsRequest struct {
@@ -72,9 +77,10 @@ func testGetGroup(t *testing.T) {
 }
 
 func testJoinGroup(t *testing.T) {
-	req := &Group{
-		ID:   1401747325717581824,
-		UIDs: []string{"1400649470592421888"},
+	req := &OpMemberRequest{
+		ID:     1401747325717581824,
+		UIDs:   []string{"1400649470592421888"},
+		Action: 10,
 	}
 	resp := e.PUT("/group/member").
 		WithHeader("Authorization", "Bearer "+adminToken).
@@ -84,9 +90,10 @@ func testJoinGroup(t *testing.T) {
 }
 
 func testLeaveGroup(t *testing.T) {
-	req := &Group{
-		ID:   0,
-		UIDs: []string{"1400649470592421888"},
+	req := &OpMemberRequest{
+		ID:     1401747325717581824,
+		UIDs:   []string{"1400649470592421888"},
+		Action: 20,
 	}
 	resp := e.PUT("/group/member").
 		WithHeader("Authorization", "Bearer "+adminToken).

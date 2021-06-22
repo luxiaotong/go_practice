@@ -161,6 +161,8 @@ func testOpField(t *testing.T) {
 func testGetDefinitions(t *testing.T) {
 	req := &GetFieldsRequest{
 		// DictID: 1405069047543894016,
+		Industry:    "农、林、牧、渔业",
+		SubIndustry: "农业",
 	}
 	resp := e.POST("/fields/definitions").
 		WithHeader("Authorization", "Bearer "+token).
@@ -173,9 +175,9 @@ func testGetRecommends(t *testing.T) {
 	req := &GetFieldsRequest{
 		// DictID: 1405069047543894016,
 	}
-	resp := e.POST("/fields/recommends").
+	resp := e.POST("/recommends").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/fields/recommends response: %v\n", resp.Body())
+	fmt.Printf("/recommends response: %v\n", resp.Body())
 }
