@@ -8,12 +8,13 @@ import (
 )
 
 type GetFieldsRequest struct {
-	DictID      int64  `json:"dict_id,string"`
-	Query       string `json:"q"`
-	Industry    string `json:"industry"`
-	SubIndustry string `json:"sub_industry"`
-	PageIndex   uint32 `json:"page_index"`
-	PageSize    uint32 `json:"page_size"`
+	DictID      int64   `json:"dict_id,string"`
+	Query       string  `json:"q"`
+	Industry    string  `json:"industry"`
+	SubIndustry string  `json:"sub_industry"`
+	Status      []int32 `json:"status"`
+	PageIndex   uint32  `json:"page_index"`
+	PageSize    uint32  `json:"page_size"`
 }
 
 type Field struct {
@@ -26,13 +27,20 @@ type Field struct {
 	CommentCN  string   `json:"comment_cn"`
 	Tags       []string `json:"tags"`
 	Status     int32    `json:"status"`
-	Votes      int32    `json:"votes"`
+	VoteCount  int32    `json:"vote_count"`
+}
+
+type RecommendRequest struct {
+	FieldID   int64    `json:"field_id,string"`
+	LabelEN   string   `json:"label_en"`
+	LabelCN   string   `json:"label_cn"`
+	CommentCN string   `json:"comment_cn"`
+	Tags      []string `json:"tags"`
 }
 
 type VoteFieldRequest struct {
-	ID         int64  `json:"id,string"`
-	Type       int32  `json:"type"`
-	Suggestion string `json:"suggestion"`
+	ID   int64 `json:"id,string"`
+	Type int32 `json:"type"`
 }
 
 type GetVotesRequest struct {
@@ -59,45 +67,6 @@ func testGetFields(t *testing.T) {
 }
 
 func testFillField(t *testing.T) {
-	// id, _ := strconv.ParseInt(dictID, 10, 64)
-	// req := &GetFieldsRequest{id}
-	// resp := e.POST("/fields").
-	// 	WithHeader("Authorization", "Bearer "+token).
-	// 	WithCookie(CookieSecret, cookieVal).
-	// 	WithJSON(req).Expect().Status(http.StatusOK)
-	// list := resp.JSON().Object().Value("data").Object().Value("list").Array()
-	// for _, val := range list.Iter() {
-	// 	fieldID := val.Object().Value("id").String().Raw()
-	// 	fmt.Println("field id: ", fieldID)
-	// 	id, _ := strconv.ParseInt(fieldID, 10, 64)
-	// 	req := &Field{
-	// 		ID:        id,
-	// 		LabelEN:   "label_fill",
-	// 		LabelCN:   "本属性的中文",
-	// 		CommentCN: "comment_fill",
-	// 		Tags:      []string{tagName},
-	// 	}
-	// 	resp := e.PUT("/field/fill").
-	// 		WithHeader("Authorization", "Bearer "+token).
-	// 		WithCookie(CookieSecret, cookieVal).
-	// 		WithJSON(req).Expect().Status(http.StatusOK)
-	// 	fmt.Printf("/field/fill %v response: %v\n", id, resp.Body())
-	// }
-	req := &Field{
-		ID:        1405069047694888960,
-		LabelEN:   "label_fill",
-		LabelCN:   "本属性的中文",
-		CommentCN: "comment_fill",
-		Tags:      []string{tagName},
-	}
-	resp := e.PUT("/field/fill").
-		WithHeader("Authorization", "Bearer "+token).
-		WithCookie(CookieSecret, cookieVal).
-		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/field/fill response: %v\n", resp.Body())
-}
-
-func testVoteField(t *testing.T) {
 	id, _ := strconv.ParseInt(dictID, 10, 64)
 	req := &GetFieldsRequest{DictID: id}
 	resp := e.POST("/fields").
@@ -109,16 +78,64 @@ func testVoteField(t *testing.T) {
 		fieldID := val.Object().Value("id").String().Raw()
 		fmt.Println("field id: ", fieldID)
 		id, _ := strconv.ParseInt(fieldID, 10, 64)
-		req := &VoteFieldRequest{
-			ID:   id,
-			Type: 20,
+		req := &RecommendRequest{
+			FieldID:   id,
+			LabelEN:   "label_fill",
+			LabelCN:   "本属性的中文",
+			CommentCN: "comment_fill",
+			Tags:      []string{tagName},
 		}
-		resp := e.PUT("/field/vote").
+		resp := e.POST("/field/recommend").
 			WithHeader("Authorization", "Bearer "+token).
 			WithCookie(CookieSecret, cookieVal).
 			WithJSON(req).Expect().Status(http.StatusOK)
-		fmt.Printf("/field/vote response: %v\n", resp.Body())
+		fmt.Printf("/field/recommend %v response: %v\n", id, resp.Body())
 	}
+	// req := &Field{
+	// 	ID:        1405069047694888960,
+	// 	LabelEN:   "label_fill",
+	// 	LabelCN:   "本属性的中文",
+	// 	CommentCN: "comment_fill",
+	// 	Tags:      []string{tagName},
+	// }
+	// resp := e.POST("/field/recommend").
+	// 	WithHeader("Authorization", "Bearer "+token).
+	// 	WithCookie(CookieSecret, cookieVal).
+	// 	WithJSON(req).Expect().Status(http.StatusOK)
+	// fmt.Printf("/field/recommend response: %v\n", resp.Body())
+}
+
+func testVoteField(t *testing.T) {
+	// id, _ := strconv.ParseInt(dictID, 10, 64)
+	// req := &GetFieldsRequest{DictID: id}
+	// resp := e.POST("/fields").
+	// 	WithHeader("Authorization", "Bearer "+token).
+	// 	WithCookie(CookieSecret, cookieVal).
+	// 	WithJSON(req).Expect().Status(http.StatusOK)
+	// list := resp.JSON().Object().Value("data").Object().Value("list").Array()
+	// for _, val := range list.Iter() {
+	// 	fieldID := val.Object().Value("id").String().Raw()
+	// 	fmt.Println("field id: ", fieldID)
+	// 	id, _ := strconv.ParseInt(fieldID, 10, 64)
+	// 	req := &VoteFieldRequest{
+	// 		ID:   id,
+	// 		Type: 20,
+	// 	}
+	// 	resp := e.PUT("/field/vote").
+	// 		WithHeader("Authorization", "Bearer "+token).
+	// 		WithCookie(CookieSecret, cookieVal).
+	// 		WithJSON(req).Expect().Status(http.StatusOK)
+	// 	fmt.Printf("/field/vote response: %v\n", resp.Body())
+	// }
+	req := &VoteFieldRequest{
+		ID:   1408361135484178432,
+		Type: 20,
+	}
+	resp := e.PUT("/recommend/vote").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/recommend/vote response: %v\n", resp.Body())
 }
 
 func testGetVotes(t *testing.T) {
@@ -163,6 +180,7 @@ func testGetDefinitions(t *testing.T) {
 		// DictID: 1405069047543894016,
 		Industry:    "农、林、牧、渔业",
 		SubIndustry: "农业",
+		Status:      []int32{20},
 	}
 	resp := e.POST("/fields/definitions").
 		WithHeader("Authorization", "Bearer "+token).

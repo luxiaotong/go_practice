@@ -34,7 +34,7 @@ type GetMembersRequest struct {
 func testAddGroup(t *testing.T) {
 	req := &Group{
 		Name:        "testgroup",
-		Industry:    "农、林、牧、鱼",
+		Industry:    "农、林、牧、渔业",
 		SubIndustry: "农业",
 	}
 	resp := e.POST("/group").

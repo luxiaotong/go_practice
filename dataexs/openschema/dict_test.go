@@ -61,7 +61,7 @@ func testAddDict_Definition(t *testing.T) {
 				Tags:       []string{},
 			},
 		},
-		Industry:    "农、林、牧、鱼",
+		Industry:    "农、林、牧、渔业",
 		SubIndustry: "农业",
 	}
 	resp := e.POST("/dict").
@@ -100,7 +100,7 @@ func testAddDict_Vote(t *testing.T) {
 				Tags:       []string{tagName},
 			},
 		},
-		Industry:    "农、林、牧、鱼",
+		Industry:    "农、林、牧、渔业",
 		SubIndustry: "农业",
 	}
 	resp := e.POST("/dict").
@@ -146,7 +146,10 @@ func testGetDicts(t *testing.T) {
 }
 
 func testSearchDicts(t *testing.T) {
-	req := &GetDictsRequest{}
+	req := &GetDictsRequest{
+		Industry:    "农、林、牧、渔业",
+		SubIndustry: "农业",
+	}
 	resp := e.POST("/dicts/search").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
