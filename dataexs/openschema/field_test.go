@@ -177,10 +177,10 @@ func testOpField(t *testing.T) {
 
 func testGetDefinitions(t *testing.T) {
 	req := &GetFieldsRequest{
-		// DictID: 1405069047543894016,
+		// DictID: 1407622954618982400,
 		Industry:    "农、林、牧、渔业",
 		SubIndustry: "农业",
-		Status:      []int32{20},
+		// Status:      []int32{20},
 	}
 	resp := e.POST("/fields/definitions").
 		WithHeader("Authorization", "Bearer "+token).
