@@ -105,6 +105,21 @@ func testFillField(t *testing.T) {
 	// fmt.Printf("/field/recommend response: %v\n", resp.Body())
 }
 
+func testSuggest(t *testing.T) {
+	req := &RecommendRequest{
+		FieldID:   1410129076072484864,
+		LabelEN:   "label_fill",
+		LabelCN:   "本属性的中文",
+		CommentCN: "comment_fill",
+		Tags:      []string{tagName},
+	}
+	resp := e.POST("/recommend/suggest").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/recommend/suggest response: %v\n", resp.Body())
+}
+
 func testVoteField(t *testing.T) {
 	// id, _ := strconv.ParseInt(dictID, 10, 64)
 	// req := &GetFieldsRequest{DictID: id}
@@ -128,7 +143,7 @@ func testVoteField(t *testing.T) {
 	// 	fmt.Printf("/field/vote response: %v\n", resp.Body())
 	// }
 	req := &VoteFieldRequest{
-		ID:   1408361135484178432,
+		ID:   1410129182767190016,
 		Type: 20,
 	}
 	resp := e.PUT("/recommend/vote").
