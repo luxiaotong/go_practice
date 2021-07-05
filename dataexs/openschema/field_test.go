@@ -44,11 +44,11 @@ type VoteFieldRequest struct {
 }
 
 type GetVotesRequest struct {
-	FieldID   int64  `json:"field_id,string"`
-	Type      int32  `json:"type"`
-	Query     string `json:"q"`
-	PageIndex uint32 `json:"page_index"`
-	PageSize  uint32 `json:"page_size"`
+	RecommendID int64  `json:"recommend_id,string"`
+	Type        int32  `json:"type"`
+	Query       string `json:"q"`
+	PageIndex   uint32 `json:"page_index"`
+	PageSize    uint32 `json:"page_size"`
 }
 
 func testGetFields(t *testing.T) {
@@ -107,7 +107,7 @@ func testFillField(t *testing.T) {
 
 func testSuggest(t *testing.T) {
 	req := &RecommendRequest{
-		FieldID:   1410129076072484864,
+		FieldID:   1410127157539115008,
 		LabelEN:   "label_fill",
 		LabelCN:   "本属性的中文",
 		CommentCN: "comment_fill",
@@ -154,16 +154,15 @@ func testVoteField(t *testing.T) {
 }
 
 func testGetVotes(t *testing.T) {
-	id, _ := strconv.ParseInt(fieldID, 10, 64)
 	req := &GetVotesRequest{
-		FieldID: id,
-		Type:    20,
+		RecommendID: 1410152580427812864,
+		Type:        20,
 	}
 	resp := e.POST("/field/votes").
 		WithHeader("Authorization", "Bearer "+token).
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
-	fmt.Printf("/field/votes %v response: %v\n", id, resp.Body())
+	fmt.Printf("/field/votes response: %v\n", resp.Body())
 }
 
 func testGetRecords(t *testing.T) {
@@ -213,4 +212,15 @@ func testGetRecommends(t *testing.T) {
 		WithCookie(CookieSecret, cookieVal).
 		WithJSON(req).Expect().Status(http.StatusOK)
 	fmt.Printf("/recommends response: %v\n", resp.Body())
+}
+
+func testStatFields(t *testing.T) {
+	req := &GetFieldsRequest{
+		DictID: 1408692973121572864,
+	}
+	resp := e.POST("/fields/stats").
+		WithHeader("Authorization", "Bearer "+token).
+		WithCookie(CookieSecret, cookieVal).
+		WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Printf("/field/stats response: %v\n", resp.Body())
 }

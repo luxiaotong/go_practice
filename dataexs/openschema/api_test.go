@@ -71,9 +71,10 @@ func TestAll(t *testing.T) {
 	t.Run("testGetDefinitions", testGetDefinitions)
 	t.Run("testGetRecommends", testGetRecommends)
 	// t.Run("testVoteField", testVoteField)
-	t.Run("testSuggest", testSuggest)
-	// t.Run("testGetVotes", testGetVotes)
+	// t.Run("testSuggest", testSuggest)
+	t.Run("testGetVotes", testGetVotes)
 	t.Run("testGetRecords", testGetRecords)
+	t.Run("testStatFields", testStatFields)
 
 	// t.Run("testGetReleases", testGetReleases)
 	t.Run("testGetSchemas", testGetSchemas)
