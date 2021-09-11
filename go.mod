@@ -49,6 +49,7 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.6.1
 	github.com/tealeg/xlsx v1.0.5
+	github.com/therecipe/qt v0.0.0-20200904063919-c0c124a5770d
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
 	github.com/tjfoc/gmsm v1.3.0
 	github.com/valyala/fasthttp v1.23.0 // indirect

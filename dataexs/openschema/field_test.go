@@ -44,11 +44,18 @@ type VoteFieldRequest struct {
 }
 
 type GetVotesRequest struct {
-	RecommendID int64  `json:"recommend_id,string"`
-	Type        int32  `json:"type"`
-	Query       string `json:"q"`
-	PageIndex   uint32 `json:"page_index"`
-	PageSize    uint32 `json:"page_size"`
+	RecommendID int64   `json:"recommend_id,string"`
+	Type        []int32 `json:"type"`
+	Query       string  `json:"q"`
+	PageIndex   uint32  `json:"page_index"`
+	PageSize    uint32  `json:"page_size"`
+}
+
+type GetRecordsRequest struct {
+	Type      int32  `json:"type"`
+	Query     string `json:"q"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
 }
 
 func testGetFields(t *testing.T) {
@@ -156,7 +163,7 @@ func testVoteField(t *testing.T) {
 func testGetVotes(t *testing.T) {
 	req := &GetVotesRequest{
 		RecommendID: 1410152580427812864,
-		Type:        20,
+		Type:        []int32{20},
 	}
 	resp := e.POST("/field/votes").
 		WithHeader("Authorization", "Bearer "+token).
@@ -166,7 +173,7 @@ func testGetVotes(t *testing.T) {
 }
 
 func testGetRecords(t *testing.T) {
-	req := &GetVotesRequest{
+	req := &GetRecordsRequest{
 		Type:  20,
 		Query: "field",
 	}
