@@ -25,6 +25,7 @@ require (
 	github.com/ethereum/go-ethereum v1.9.24
 	github.com/fasthttp-contrib/websocket v0.0.0-20160511215533-1f3b11f56072 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
+	github.com/forgoer/openssl v1.1.1
 	github.com/gavv/httpexpect v2.0.0+incompatible
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-redis/redis v6.15.9+incompatible

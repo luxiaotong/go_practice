@@ -15,9 +15,10 @@ import (
 
 func encrypt(clientID, secret string) []byte {
 	ts := strconv.FormatInt(time.Now().Unix(), 10)
-	fmt.Println("ts: ", ts)
-	origData := []byte(clientID + ":" + secret + ":" + ts)
-	cipher, _ := aes.NewCipher([]byte(secret))
+	origData := []byte(clientID + ":" + secret + ":" + ts + "000")
+	fmt.Println("info: ", string(origData))
+	k, _ := hex.DecodeString(secret)
+	cipher, _ := aes.NewCipher(k)
 	length := (len(origData) + aes.BlockSize) / aes.BlockSize
 	plain := make([]byte, length*aes.BlockSize)
 	copy(plain, origData)
@@ -35,14 +36,14 @@ func encrypt(clientID, secret string) []byte {
 func main() {
 	host := "https://t200renzheng.zhengtoon.com"
 	clientID := "20211117001"
-	code := "d2523449-33eb-38ab-adcc-d5313bbf7a7e="
+	code := "d2523449-33eb-38ab-adcc-d5313bbf7a7e"
 	enc := encrypt(clientID, "31c241309a9231f585bca20c9873b49a")
 	fmt.Println("enc: ", hex.EncodeToString(enc))
 	v := url.Values{}
 	v.Set("client_id", clientID)
 	v.Set("grant_type", "authorization_code")
 	v.Set("grant_code", code)
-	v.Set("auth_token", string(enc))
+	v.Set("auth_token", hex.EncodeToString(enc))
 	client := &http.Client{}
 	resp, err := client.PostForm(host+"/api/oauth/getAccessToken", v)
 	if err != nil {
@@ -63,6 +64,5 @@ func main() {
 	fmt.Printf("natural access token resp body: %s\n", string(respBody))
 }
 
-// online 326aef2235d22fd13d99c02172539fea86c2540f213eff6e016ca22e3f7888d733720b72e2d482f7b173114bef2f099c52252c0eded417a6ff277c70cc109d8a
-//        326aef2235d22fd13d99c02172539fea86c2540f213eff6e016ca22e3f7888d733720b72e2d482f7b173114bef2f099c6f9f9531945d5cfc6ea0ba193a83adeb
-// mememe 326aef2235d22fd13d99c02172539fea86c2540f213eff6e016ca22e3f7888d733720b72e2d482f7b173114bef2f099c6f9f9531945d5cfc6ea0ba193a83adeb
+// this 1f7ffc274d02707a3a47f459d85c6af87ec83dc21512913720f7089f7a00fa44f2ba09284c05b0a8e23c38b6a77a467e67a181b97eabafc25d8006d33142a45b
+// that 1f7ffc274d02707a3a47f459d85c6af87ec83dc21512913720f7089f7a00fa44f2ba09284c05b0a8e23c38b6a77a467e67a181b97eabafc25d8006d33142a45b
