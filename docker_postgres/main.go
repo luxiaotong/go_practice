@@ -37,7 +37,7 @@ func main() {
 		PublishAllPorts: true,
 		Binds:           []string{"/Users/luxiaotong/code/go_practice/docker_postgres/data:/var/lib/postgresql/data"},
 		AutoRemove:      true,
-	}, nil, "postgres_test")
+	}, nil, nil, "postgres_test")
 	if err != nil {
 		panic(err)
 	}

@@ -24,7 +24,7 @@ func main() {
 	}, &container.HostConfig{
 		Binds:      []string{"/Users/luxiaotong/code/go_practice/docker_wkhtml2pdf/data:/data", "/Users/luxiaotong/code/go_practice/docker_wkhtml2pdf/fonts:/usr/share/fonts"},
 		AutoRemove: true,
-	}, nil, "wkhtml2pdf")
+	}, nil, nil, "wkhtml2pdf")
 	if err != nil {
 		panic(err)
 	}
