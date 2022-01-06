@@ -38,6 +38,7 @@ require (
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gorilla/websocket v1.4.2
 	github.com/graphql-go/graphql v0.7.9
+	github.com/guanzhi/GmSSL v0.0.0-20210821064721-fc876f25174c
 	github.com/ianlancetaylor/demangle v0.0.0-20200524003926-2c5affb30a03 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/itkinside/itkconfig v0.0.0-20140516004822-fe0812395f80
