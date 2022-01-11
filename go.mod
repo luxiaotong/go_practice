@@ -12,12 +12,11 @@ require (
 	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
 	github.com/chromedp/chromedp v0.5.3
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575 // indirect
-	github.com/containerd/containerd v1.5.8 // indirect
 	github.com/corneldamian/httpway v0.0.0-20161128172351-c06076be89c8 // indirect
 	github.com/dgraph-io/badger v1.6.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/docker/distribution v2.7.1+incompatible // indirect
-	github.com/docker/docker v20.10.11+incompatible
+	github.com/docker/docker v20.10.12+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/elastic/go-elasticsearch v0.0.0
@@ -26,6 +25,7 @@ require (
 	github.com/fasthttp-contrib/websocket v0.0.0-20160511215533-1f3b11f56072 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/forgoer/openssl v1.1.1
+	github.com/fsouza/go-dockerclient v1.7.7
 	github.com/gavv/httpexpect v2.0.0+incompatible
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-redis/redis v6.15.9+incompatible
@@ -53,7 +53,6 @@ require (
 	github.com/mr-tron/base58 v1.2.0
 	github.com/olivere/elastic/v7 v7.0.29
 	github.com/opencontainers/go-digest v1.0.0 // indirect
-	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/pdfcpu/pdfcpu v0.3.2 // indirect
 	github.com/pdfcrowd/pdfcrowd-go v0.0.0-20200417114658-98fd3db75341
 	github.com/pkg/errors v0.9.1
