@@ -5,10 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"sync"
-
-	sdb "datassets.cn/service/db"
-	"datassets.cn/share/db/postgresql"
 )
 
 type provCode struct {
@@ -28,31 +24,13 @@ type areaCode struct {
 	Code string `json:"code"`
 }
 
-var lock sync.Mutex
-
-var db *postgresql.Impl
-
-func LoadDB() *postgresql.Impl {
-	lock.Lock()
-	defer lock.Unlock()
-	if db != nil {
-		return db
-	}
-	var err error
-	db, err = sdb.SetDB("127.0.0.1", 5432, "dbuser", "test", "userpanel")
-	if err != nil {
-		log.Panic("load db panic", err)
-	}
-	return db
-}
-
 func ExportJSON() {
 	db = LoadDB()
-	provinces, cities, err := sdb.CachedProvinceCities(db.DB)
+	provinces, cities, err := ProvinceCities(db.DB)
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
-	countyMap, err := sdb.CachedCounties(db.DB)
+	countyMap, err := Counties(db.DB)
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
