@@ -13,6 +13,33 @@ func main() {
 		panic(err)
 	}
 
+	vv := []string{
+		"/Users/luxiaotong/code/datassets.cn/medias/test:/medias",
+		"/Users/luxiaotong/code/datassets.cn/product/lib/:/app",
+	}
+	cont, err := cli.CreateContainer(docker.CreateContainerOptions{
+		Config: &docker.Config{
+			Image: "camelot:dev",
+			Tty:   true,
+		},
+		HostConfig: &docker.HostConfig{
+			Binds:      vv,
+			AutoRemove: true,
+		},
+	})
+	if err != nil {
+		fmt.Println("create conainter failed: ", err)
+		panic(err)
+	}
+	fmt.Println("conainter id: ", cont.ID)
+	if err := cli.StartContainer(cont.ID, &docker.HostConfig{}); err != nil {
+		fmt.Println("start conainter failed: ", err)
+		panic(err)
+	}
+	defer func() {
+		_ = cli.StopContainer(cont.ID, 5)
+	}()
+
 	listener := make(chan *docker.APIEvents, 3)
 	filters := map[string][]string{
 		"type":  {"container"},
@@ -29,13 +56,14 @@ func main() {
 	}
 
 	exec, err := cli.CreateExec(docker.CreateExecOptions{
-		Container: "asset_parser",
+		Container: cont.ID,
+		// Container: "asset_parser",
 		// Container:    "zen_carson",
-		AttachStdin:  false,
-		AttachStdout: true,
-		AttachStderr: false,
-		Tty:          true,
-		Cmd:          []string{"python3", "/app/parse_pdf.py", "/medias/SetDatassetsApply.pdf", "/medias/SetDatassetsApply.pdf.json"},
+		// AttachStdin:  false,
+		// AttachStdout: true,
+		// AttachStderr: false,
+		// Tty:          true,
+		Cmd: []string{"python3", "/app/parse_pdf.py", "/medias/SetDatassetsApply.pdf", "/medias/SetDatassetsApply.pdf.json"},
 		// Cmd: []string{"echo", "hello world"},
 	})
 	if err != nil {
