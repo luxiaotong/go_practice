@@ -40,6 +40,11 @@ type AssetRequest struct {
 	Document  string     `json:"document"`
 }
 
+type SampleRequest struct {
+	ID    int64  `json:"id,string"`
+	Table string `json:"table"`
+}
+
 func testAddAsset(t *testing.T) {
 	req := &AssetRequest{
 		PDF:       applicationTmp,
@@ -50,4 +55,42 @@ func testAddAsset(t *testing.T) {
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset add result: ", resp.Body())
+}
+
+func testEditAsset(t *testing.T) {
+	// lg := "logo.jpg"
+	lg := ""
+	req := &AssetRequest{
+		ID:        1353639297386811392,
+		Desc:      "req.Desc",
+		UnitPrice: 1.00,
+		Industry:  &Industry{ClassA: "农、林、牧、渔业", ClassB: "农业", ClassC: "谷物种植", ClassD: "稻谷种植"},
+		Keywords:  []string{"1", "2", "3"},
+		Areas: []*Address{
+			{ProvinceID: "420000000000", CityID: "420100000000", CountyID: "420102000000"}, // 湖北省武汉市江岸区
+			{ProvinceID: "410000000000", CityID: "410000000000", CountyID: "410000000000"}, // 河南省
+		},
+		StartDate: "2020-05-06T00:08:50.00+08:00",
+		EndDate:   "2020-05-20T00:08:50.00+08:00",
+		Logo:      lg,
+		Sample:    sampleTmp,
+		Public:    true,
+	}
+	resp := ep.PUT("/data/asset").WithHeader("Authorization", "Bearer "+tokenVal).
+		WithCookie(jwtCookieSecret, tokenKey).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset edit result: ", resp.Body())
+}
+
+func testGetSample(t *testing.T) {
+	req := &SampleRequest{
+		ID:    1353639297386811392,
+		Table: "area",
+	}
+	resp := ep.POST("/data/product/sample").WithHeader("Authorization", "Bearer "+tokenVal).
+		WithCookie(jwtCookieSecret, tokenKey).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/product/sample result: ", resp.Body())
 }

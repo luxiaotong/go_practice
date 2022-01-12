@@ -34,9 +34,10 @@ var (
 )
 
 func initEnv() {
-	platformURL = "http://127.0.0.1:8080"
-	uploadURL = "http://127.0.0.1:8085"
-	// uploadURL = "http://139.9.119.21:58098"
+	// platformURL = "http://127.0.0.1:8080"
+	// uploadURL = "http://127.0.0.1:8085"
+	platformURL = "http://139.9.119.21:58099"
+	uploadURL = "http://139.9.119.21:58098"
 }
 
 func initData() {
@@ -55,7 +56,9 @@ func TestAll(t *testing.T) {
 	ep = httpexpect.New(t, platformURL)
 	eu = httpexpect.New(t, uploadURL)
 	t.Run("testSignIn", testSignIn)
-	// t.Run("testUploadSample", testUploadSample)
 	t.Run("testUploadApplication", testUploadApplication)
 	t.Run("testAddAsset", testAddAsset)
+	t.Run("testUploadSample", testUploadSample)
+	t.Run("testEditAsset", testEditAsset)
+	t.Run("testGetSample", testGetSample)
 }
