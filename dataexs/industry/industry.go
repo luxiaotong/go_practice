@@ -1,14 +1,80 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 
+	_ "github.com/lib/pq"
 	"github.com/tealeg/xlsx"
 )
 
 func main() {
+	toDB()
+	// toJson()
+}
+
+var pdb *sql.DB
+
+func loadDB() {
+	dbType := "postgres"
+	var err error
+	dsn := "user=auth password=authpass host=139.9.119.21 port=5432 dbname=product sslmode=disable"
+	pdb, err = sql.Open(dbType, dsn)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func toDB() {
+	loadDB()
+	name := "./国民经济行业分类信息.xlsx"
+	xlFile, err := xlsx.OpenFile(name)
+	if err != nil {
+		fmt.Printf("open failed: %s\n", err)
+	}
+	sheet := xlFile.Sheets[0]
+	var currA, currB, currC, currD string
+	for _, row := range sheet.Rows[1:] {
+		for i, cell := range row.Cells[:4] {
+			id := cell.String()
+			name := row.Cells[4].String()
+			if id != "" {
+				switch i {
+				case 0:
+					currA = id
+					q := "INSERT INTO industry_class_a(name, class_a_id) VALUES ($1, $2)"
+					if _, err := pdb.Exec(q, name, currA); err != nil {
+						panic(err)
+					}
+				case 1:
+					currB = id
+					q := "INSERT INTO industry_class_b(name, class_b_id, class_a_id) VALUES ($1, $2, $3)"
+					if _, err := pdb.Exec(q, name, currB, currA); err != nil {
+						panic(err)
+					}
+				case 2:
+					currC = id
+					q := "INSERT INTO industry_class_c(name, class_c_id, class_b_id) VALUES ($1, $2, $3)"
+					if _, err := pdb.Exec(q, name, currC, currB); err != nil {
+						panic(err)
+					}
+				case 3:
+					currD = id
+					q := "INSERT INTO industry_class_d(name, class_d_id, class_c_id) VALUES ($1, $2, $3)"
+					if _, err := pdb.Exec(q, name, currD, currC); err != nil {
+						panic(err)
+					}
+				}
+				fmt.Printf("currA:%s, currB:%s, currC:%s, currD:%s\n", currA, currB, currC, currD)
+			}
+		}
+	}
+}
+
+// nolint:deadcode,unused
+func toJson() {
 	name := "./国民经济行业分类信息.xlsx"
 	xlFile, err := xlsx.OpenFile(name)
 	if err != nil {
