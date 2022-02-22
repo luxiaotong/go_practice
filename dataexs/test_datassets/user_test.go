@@ -16,12 +16,11 @@ type SignInRequest struct {
 	Vcode    string `json:"vcode"`
 }
 
-func testSignIn(t *testing.T) {
+func testSignInPlatform(t *testing.T) {
 	req := SignInRequest{
 		Mobile:   "18500022713",
 		Password: "123456",
 	}
-
 	resp := ep.POST("/user/signin").WithJSON(req).Expect().Status(http.StatusOK)
 	tokenKey = resp.Cookie(jwtCookieSecret).Value().Raw()
 	tokenVal = resp.JSON().Object().Value("data").Object().Value("token").String().Raw()

@@ -6,6 +6,11 @@ import (
 	"testing"
 )
 
+const (
+	preAudit   int32 = 10
+	finalAudit int32 = 20
+)
+
 type Industry struct {
 	ClassA string `json:"class_a"`
 	ClassB string `json:"class_b"`
@@ -40,21 +45,67 @@ type AssetRequest struct {
 	Document  string     `json:"document"`
 }
 
+type AuditRequest struct {
+	ID        int64  `json:"id,string"`
+	AuditType int32  `json:"audit_type"`
+	Approved  bool   `json:"approved"`
+	Refuse    string `json:"refuse"`
+	Document  string `json:"document"`
+}
+
 type SampleRequest struct {
 	ID    int64  `json:"id,string"`
 	Table string `json:"table"`
 }
 
+func testIssue(t *testing.T) {
+	resp := ep.POST("/data/asset/issue").
+		WithHeader("Authorization", "Bearer "+tokenVal).
+		WithCookie(jwtCookieSecret, tokenKey).
+		Expect().Status(http.StatusOK)
+	fmt.Println("data/asset/issue result: ", resp.Body())
+
+	uuid = resp.JSON().Object().Value("data").Object().Value("uuid").String().Raw()
+}
+
 func testAddAsset(t *testing.T) {
 	req := &AssetRequest{
-		PDF:       applicationTmp,
-		ProductID: productID,
+		PDF:  applicationTmp,
+		UUID: uuid,
 	}
-	resp := ep.POST("/data/asset").WithHeader("Authorization", "Bearer "+tokenVal).
+	resp := ep.POST("/data/asset").
+		WithHeader("Authorization", "Bearer "+tokenVal).
 		WithCookie(jwtCookieSecret, tokenKey).
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset add result: ", resp.Body())
+
+	productID = int64(resp.JSON().Object().Value("data").Object().Value("product_id").Number().Raw())
+}
+
+func testAuditAsset(t *testing.T) {
+	// productID = 1496051951446528000
+	req := &AuditRequest{
+		ID:        productID,
+		AuditType: preAudit,
+		Approved:  true,
+	}
+	resp := eb.POST("/data/asset/status").
+		WithCookie(backCookie, provUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset/status pre audit result: ", resp.Body())
+
+	req = &AuditRequest{
+		ID:        productID,
+		AuditType: finalAudit,
+		Approved:  true,
+	}
+	resp = eb.POST("/data/asset/status").
+		WithCookie(backCookie, provUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset/status final audit result: ", resp.Body())
 }
 
 func testEditAsset(t *testing.T) {
