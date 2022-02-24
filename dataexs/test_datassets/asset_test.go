@@ -45,6 +45,14 @@ type AssetRequest struct {
 	Document  string     `json:"document"`
 }
 
+type ProductRequest struct {
+	ID        int64  `json:"id"`
+	Status    int32  `json:"status"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+	Query     string `json:"q"`
+}
+
 type AuditRequest struct {
 	ID        int64  `json:"id,string"`
 	AuditType int32  `json:"audit_type"`
@@ -106,6 +114,15 @@ func testAuditAsset(t *testing.T) {
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset/status final audit result: ", resp.Body())
+}
+
+func testGetAssets(t *testing.T) {
+	req := &ProductRequest{PageIndex: 1, PageSize: 10}
+	resp := eb.POST("/data/assets").
+		WithCookie(backCookie, cityUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/assets in city level result: ", resp.Body())
 }
 
 func testEditAsset(t *testing.T) {
