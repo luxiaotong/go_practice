@@ -35,11 +35,24 @@ type sendTxResponse struct {
 
 func main() {
 	hash := sendTx()
-	t := time.NewTicker(5 * time.Second)
-	for c := range t.C {
-		fmt.Println("time: ", c.Format("2006-01-02 15:04:05"))
-		getTx(hash)
+	fmt.Println("send time: ", time.Now().Format("2006-01-02 15:04:05"))
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+	quit := time.After(60 * time.Second)
+	for {
+		select {
+		case t := <-ticker.C:
+			fmt.Println("tick time: ", t.Format("2006-01-02 15:04:05"))
+			getTx(hash)
+		case t := <-quit:
+			fmt.Println("quit time: ", t.Format("2006-01-02 15:04:05"))
+			return
+		}
 	}
+	// for c := range ticker.C {
+	// 	fmt.Println("time: ", c.Format("2006-01-02 15:04:05"))
+	// 	getTx(hash)
+	// }
 }
 
 func sendTx() string {
