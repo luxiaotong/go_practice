@@ -118,6 +118,13 @@ func testFinalAuditAsset(t *testing.T) {
 	fmt.Println("/data/asset/status final audit result: ", resp.Body())
 }
 
+func testGetAsset(t *testing.T) {
+	resp := eb.GET("/data/asset/9").
+		WithCookie(backCookie, provUserToken).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset/9 result: ", resp.Body())
+}
+
 func testGetAssets(t *testing.T) {
 	req := &ProductRequest{PageIndex: 1, PageSize: 10}
 	resp := eb.POST("/data/assets").
