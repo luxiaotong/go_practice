@@ -44,8 +44,8 @@ func initEnv() {
 	platformURL = "http://139.9.119.21:58099"
 	// platformURL = "http://127.0.0.1:8080"
 
-	backendURL = "http://139.9.119.21:58110"
-	// backendURL = "http://127.0.0.1:9091"
+	// backendURL = "http://139.9.119.21:58110"
+	backendURL = "http://127.0.0.1:9091"
 
 	uploadURL = "http://139.9.119.21:58098"
 	// uploadURL = "http://127.0.0.1:8085"
@@ -73,7 +73,8 @@ func TestAll(t *testing.T) {
 	t.Run("testIssue", testIssue)
 	t.Run("testAddAsset", testAddAsset)
 	t.Run("testGetAssets", testGetAssets)
-	t.Run("testAuditAsset", testAuditAsset)
+	t.Run("testPreAuditAsset", testPreAuditAsset)
+	t.Run("testFinalAuditAsset", testFinalAuditAsset)
 	t.Run("testUploadSample", testUploadSample)
 	t.Run("testEditAsset", testEditAsset)
 	t.Run("testGetSample", testGetSample)

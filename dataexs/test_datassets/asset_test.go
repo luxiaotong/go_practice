@@ -91,8 +91,7 @@ func testAddAsset(t *testing.T) {
 	productID = int64(resp.JSON().Object().Value("data").Object().Value("product_id").Number().Raw())
 }
 
-func testAuditAsset(t *testing.T) {
-	// productID = 1496051951446528000
+func testPreAuditAsset(t *testing.T) {
 	req := &AuditRequest{
 		ID:        productID,
 		AuditType: preAudit,
@@ -103,13 +102,16 @@ func testAuditAsset(t *testing.T) {
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset/status pre audit result: ", resp.Body())
+}
 
-	req = &AuditRequest{
+func testFinalAuditAsset(t *testing.T) {
+	// productID = 9
+	req := &AuditRequest{
 		ID:        productID,
 		AuditType: finalAudit,
 		Approved:  true,
 	}
-	resp = eb.POST("/data/asset/status").
+	resp := eb.POST("/data/asset/status").
 		WithCookie(backCookie, provUserToken).
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
