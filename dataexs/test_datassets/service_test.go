@@ -78,5 +78,6 @@ func TestAll(t *testing.T) {
 	t.Run("testGetAsset", testGetAsset)
 	t.Run("testUploadSample", testUploadSample)
 	t.Run("testEditAsset", testEditAsset)
+	t.Run("testPublicAudit", testPublicAudit)
 	t.Run("testGetSample", testGetSample)
 }

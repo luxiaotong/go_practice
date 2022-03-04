@@ -7,8 +7,9 @@ import (
 )
 
 const (
-	preAudit   int32 = 10
-	finalAudit int32 = 20
+	preAudit    int32 = 10
+	finalAudit  int32 = 20
+	publicAudit int32 = 30
 )
 
 type Industry struct {
@@ -138,7 +139,7 @@ func testEditAsset(t *testing.T) {
 	// lg := "logo.jpg"
 	lg := ""
 	req := &AssetRequest{
-		ID:        1353639297386811392,
+		ID:        productID,
 		Desc:      "req.Desc",
 		UnitPrice: 1.00,
 		Industry:  &Industry{ClassA: "农、林、牧、渔业", ClassB: "农业", ClassC: "谷物种植", ClassD: "稻谷种植"},
@@ -160,10 +161,23 @@ func testEditAsset(t *testing.T) {
 	fmt.Println("/data/asset edit result: ", resp.Body())
 }
 
+func testPublicAudit(t *testing.T) {
+	req := &AuditRequest{
+		ID:        productID,
+		AuditType: publicAudit,
+		Approved:  true,
+	}
+	resp := eb.POST("/data/asset/status").
+		WithCookie(backCookie, provUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset/status final audit result: ", resp.Body())
+}
+
 func testGetSample(t *testing.T) {
 	req := &SampleRequest{
-		ID:    1353639297386811392,
-		Table: "area",
+		ID:    productID,
+		Table: "JG_JGSX_CONVERGE_CLAIM",
 	}
 	resp := ep.POST("/data/product/sample").WithHeader("Authorization", "Bearer "+tokenVal).
 		WithCookie(jwtCookieSecret, tokenKey).
