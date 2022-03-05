@@ -20,7 +20,7 @@ var pdb *sql.DB
 func loadDB() {
 	dbType := "postgres"
 	var err error
-	dsn := "user=auth password=authpass host=139.9.119.21 port=5432 dbname=product sslmode=disable"
+	dsn := "user=auth password=authpass host=139.9.119.21 port=5432 dbname=unittest sslmode=disable"
 	pdb, err = sql.Open(dbType, dsn)
 	if err != nil {
 		panic(err)
@@ -36,6 +36,7 @@ func toDB() {
 	}
 	sheet := xlFile.Sheets[0]
 	var currA, currB, currC, currD string
+	var nameA, nameB, nameC, nameD string
 	for _, row := range sheet.Rows[1:] {
 		for i, cell := range row.Cells[:4] {
 			id := cell.String()
@@ -44,30 +45,35 @@ func toDB() {
 				switch i {
 				case 0:
 					currA = id
+					nameA = name
 					q := "INSERT INTO industry_class_a(name, class_a_id) VALUES ($1, $2)"
-					if _, err := pdb.Exec(q, name, currA); err != nil {
+					if _, err := pdb.Exec(q, nameA, currA); err != nil {
 						panic(err)
 					}
 				case 1:
 					currB = id
-					q := "INSERT INTO industry_class_b(name, class_b_id, class_a_id) VALUES ($1, $2, $3)"
-					if _, err := pdb.Exec(q, name, currB, currA); err != nil {
+					nameB = name
+					q := "INSERT INTO industry_class_b(name, parent, class_b_id, class_a_id) VALUES ($1, $2, $3, $4)"
+					if _, err := pdb.Exec(q, nameB, nameA, currB, currA); err != nil {
 						panic(err)
 					}
 				case 2:
 					currC = id
-					q := "INSERT INTO industry_class_c(name, class_c_id, class_b_id) VALUES ($1, $2, $3)"
-					if _, err := pdb.Exec(q, name, currC, currB); err != nil {
+					nameC = name
+					q := "INSERT INTO industry_class_c(name, parent, class_c_id, class_b_id) VALUES ($1, $2, $3, $4)"
+					if _, err := pdb.Exec(q, nameC, nameB, currC, currB); err != nil {
 						panic(err)
 					}
 				case 3:
 					currD = id
-					q := "INSERT INTO industry_class_d(name, class_d_id, class_c_id) VALUES ($1, $2, $3)"
-					if _, err := pdb.Exec(q, name, currD, currC); err != nil {
+					nameD = name
+					q := "INSERT INTO industry_class_d(name, parent, class_d_id, class_c_id) VALUES ($1, $2, $3, $4)"
+					if _, err := pdb.Exec(q, nameD, nameC, currD, currC); err != nil {
 						panic(err)
 					}
 				}
 				fmt.Printf("currA:%s, currB:%s, currC:%s, currD:%s\n", currA, currB, currC, currD)
+				fmt.Printf("nameA:%s, nameB:%s, nameC:%s, nameD:%s\n", nameA, nameB, nameC, nameD)
 			}
 		}
 	}
