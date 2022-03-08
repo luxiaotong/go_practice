@@ -10,8 +10,8 @@ import (
 func testUploadSample(t *testing.T) {
 	f := "/Users/luxiaotong/code/datassets.cn/medias/test/sample.json"
 	resp := eu.POST("/upload/file").
-		WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		WithMultipart().
 		WithFile("file", f).WithFormField("api_type", "sample").
 		Expect().Status(http.StatusOK)
@@ -24,8 +24,8 @@ func testUploadSample(t *testing.T) {
 func testUploadApplication(t *testing.T) {
 	f := "/Users/luxiaotong/code/datassets.cn/medias/test/SetDatassetsApply.pdf"
 	resp := eu.POST("/upload/application_pdf").
-		WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		WithMultipart().WithFile("pdf", f).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/upload/file application result: ", resp.Body())

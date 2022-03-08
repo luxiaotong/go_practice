@@ -69,8 +69,8 @@ type SampleRequest struct {
 
 func testIssue(t *testing.T) {
 	resp := ep.POST("/data/asset/issue").
-		WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		Expect().Status(http.StatusOK)
 	fmt.Println("data/asset/issue result: ", resp.Body())
 
@@ -83,8 +83,8 @@ func testAddAsset(t *testing.T) {
 		UUID: uuid,
 	}
 	resp := ep.POST("/data/asset").
-		WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset add result: ", resp.Body())
@@ -154,8 +154,8 @@ func testEditAsset(t *testing.T) {
 		Sample:    sampleTmp,
 		Public:    true,
 	}
-	resp := ep.PUT("/data/asset").WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+	resp := ep.PUT("/data/asset").WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset edit result: ", resp.Body())
@@ -179,8 +179,8 @@ func testGetSample(t *testing.T) {
 		ID:    productID,
 		Table: "JG_JGSX_CONVERGE_CLAIM",
 	}
-	resp := ep.POST("/data/product/sample").WithHeader("Authorization", "Bearer "+tokenVal).
-		WithCookie(jwtCookieSecret, tokenKey).
+	resp := ep.POST("/data/product/sample").WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/product/sample result: ", resp.Body())

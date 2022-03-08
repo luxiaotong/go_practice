@@ -8,7 +8,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var tokenKey, tokenVal string
+var (
+	tokenKeySeller string
+	tokenValSeller string
+	tokenKeyBuyer  string
+	tokenValBuyer  string
+)
 
 type SignInRequest struct {
 	Mobile   string `json:"mobile"`
@@ -16,16 +21,30 @@ type SignInRequest struct {
 	Vcode    string `json:"vcode"`
 }
 
-func testSignInPlatform(t *testing.T) {
+func testSignInSeller(t *testing.T) {
 	req := SignInRequest{
 		Mobile:   "18500022713",
 		Password: "123456",
 	}
 	resp := ep.POST("/user/signin").WithJSON(req).Expect().Status(http.StatusOK)
-	tokenKey = resp.Cookie(jwtCookieSecret).Value().Raw()
-	tokenVal = resp.JSON().Object().Value("data").Object().Value("token").String().Raw()
-	fmt.Println("token key: ", tokenKey)
-	fmt.Println("token val: ", tokenVal)
-	assert.NotEmpty(t, tokenKey)
-	assert.NotEmpty(t, tokenVal)
+	tokenKeySeller = resp.Cookie(jwtCookieSecret).Value().Raw()
+	tokenValSeller = resp.JSON().Object().Value("data").Object().Value("token").String().Raw()
+	fmt.Println("seller token key: ", tokenKeySeller)
+	fmt.Println("seller token val: ", tokenValSeller)
+	assert.NotEmpty(t, tokenKeySeller)
+	assert.NotEmpty(t, tokenValSeller)
+}
+
+func testSignInBuyer(t *testing.T) {
+	req := SignInRequest{
+		Mobile:   "15101501908",
+		Password: "123456",
+	}
+	resp := ep.POST("/user/signin").WithJSON(req).Expect().Status(http.StatusOK)
+	tokenKeyBuyer = resp.Cookie(jwtCookieSecret).Value().Raw()
+	tokenValBuyer = resp.JSON().Object().Value("data").Object().Value("token").String().Raw()
+	fmt.Println("buyer token key: ", tokenKeyBuyer)
+	fmt.Println("buyer token val: ", tokenValBuyer)
+	assert.NotEmpty(t, tokenKeyBuyer)
+	assert.NotEmpty(t, tokenValBuyer)
 }
