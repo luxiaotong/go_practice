@@ -19,6 +19,7 @@ var (
 	platformURL string
 	backendURL  string
 	uploadURL   string
+	trustURL    string
 )
 
 var (
@@ -33,11 +34,13 @@ var (
 var (
 	sampleTmp      string
 	applicationTmp string
+	voucherTmp     string
 )
 
 var (
 	uuid      string
 	productID int64
+	orderID   int64
 )
 
 func initEnv() {
@@ -49,6 +52,8 @@ func initEnv() {
 
 	uploadURL = "http://139.9.119.21:58098"
 	// uploadURL = "http://127.0.0.1:8085"
+
+	trustURL = "http://139.9.119.21:58300"
 }
 
 func initData() {
@@ -70,6 +75,7 @@ func TestAll(t *testing.T) {
 	t.Run("testSignInSeller", testSignInSeller)
 	t.Run("testSignInBuyer", testSignInBuyer)
 	t.Run("testLoginBackend", testLoginBackend)
+
 	t.Run("testUploadApplication", testUploadApplication)
 	t.Run("testIssue", testIssue)
 	t.Run("testAddAsset", testAddAsset)
@@ -81,4 +87,12 @@ func TestAll(t *testing.T) {
 	t.Run("testEditAsset", testEditAsset)
 	t.Run("testPublicAudit", testPublicAudit)
 	t.Run("testGetSample", testGetSample)
+
+	t.Run("testAddOrder", testAddOrder)
+	t.Run("testGetOrders", testGetOrders)
+	t.Run("testOpOrder_SellerConfirm", testOpOrder_SellerConfirm)
+	t.Run("testUploadVoucher", testUploadVoucher)
+	t.Run("testPayOrder", testPayOrder)
+	t.Run("testAuditOrder", testAuditOrder)
+	t.Run("testOpOrder_BuyerConfirm", testOpOrder_BuyerConfirm)
 }

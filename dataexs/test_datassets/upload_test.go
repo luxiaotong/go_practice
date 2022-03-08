@@ -33,3 +33,17 @@ func testUploadApplication(t *testing.T) {
 	ss := strings.Split(name, "/")
 	applicationTmp = ss[len(ss)-1]
 }
+
+func testUploadVoucher(t *testing.T) {
+	f := "/Users/luxiaotong/code/datassets.cn/medias/test/test.jpg"
+	resp := eu.POST("/upload/file").
+		WithHeader("Authorization", "Bearer "+tokenValBuyer).
+		WithCookie(jwtCookieSecret, tokenKeyBuyer).
+		WithMultipart().
+		WithFile("file", f).WithFormField("api_type", "voucher").
+		Expect().Status(http.StatusOK)
+	fmt.Println("/upload/file voucher result: ", resp.Body())
+	name := resp.JSON().Object().Value("data").Object().Value("name").String().Raw()
+	ss := strings.Split(name, "/")
+	voucherTmp = ss[len(ss)-1]
+}
