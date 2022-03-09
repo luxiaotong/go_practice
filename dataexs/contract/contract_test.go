@@ -27,6 +27,11 @@ type StartContractRequest struct {
 	Signature string `json:"signature"`
 }
 
+type QueryContractLogByDateRequest struct {
+	Action string `json:"action"`
+	Start  int64  `json:"start"`
+}
+
 var ypk string
 
 func wsCompile(t *testing.T) {
@@ -102,4 +107,32 @@ func wsStartContractByYPK(t *testing.T) {
 			log.Println("start contract by ypk response: ", resp)
 		}
 	}
+}
+
+func wsQueryContractLogByDate(t *testing.T) {
+	req := &QueryContractLogByDateRequest{
+		Action: "queryContractLogByDate",
+		Start:  int64(1646644863531),
+	}
+	b, err := json.Marshal(req)
+	if err != nil {
+		log.Println("json encode error:", err)
+		return
+	}
+	if err := c.WriteMessage(websocket.TextMessage, b); err != nil {
+		log.Println("write error:", err)
+		return
+	}
+	log.Println("websocket request queryContractLogByDate")
+
+	resp, err := getResponse(c)
+	if err != nil {
+		log.Println("response error:", err)
+		return
+	}
+	if resp.Action != "onQueryContractLogByDate" {
+		log.Println("wrong action response: ", resp.Action)
+		return
+	}
+	log.Println("onQueryContractLogByDate success: ", resp)
 }

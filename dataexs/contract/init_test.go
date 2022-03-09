@@ -82,6 +82,7 @@ func TestAll(t *testing.T) {
 	t.Run("wsPing", wsPing)
 	t.Run("wsSession", wsSession)
 	t.Run("wsLogin", wsLogin)
-	t.Run("wsCompile", wsCompile)
-	t.Run("wsStartContractByYPK", wsStartContractByYPK)
+	// t.Run("wsCompile", wsCompile)
+	// t.Run("wsStartContractByYPK", wsStartContractByYPK)
+	t.Run("wsQueryContractLogByDate", wsQueryContractLogByDate)
 }
