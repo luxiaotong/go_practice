@@ -20,6 +20,7 @@ var (
 	backendURL  string
 	uploadURL   string
 	trustURL    string
+	clientURL   string
 )
 
 var (
@@ -29,6 +30,8 @@ var (
 	eb *httpexpect.Expect
 	// upload
 	eu *httpexpect.Expect
+	// clinet
+	ec *httpexpect.Expect
 )
 
 var (
@@ -54,6 +57,8 @@ func initEnv() {
 	// uploadURL = "http://127.0.0.1:8085"
 
 	trustURL = "http://139.9.119.21:58300"
+
+	clientURL = "http://127.0.0.1:8081"
 }
 
 func initData() {
@@ -72,27 +77,55 @@ func TestAll(t *testing.T) {
 	ep = httpexpect.New(t, platformURL)
 	eb = httpexpect.New(t, backendURL)
 	eu = httpexpect.New(t, uploadURL)
+	ec = httpexpect.New(t, clientURL)
+
 	t.Run("testSignInSeller", testSignInSeller)
 	t.Run("testSignInBuyer", testSignInBuyer)
 	t.Run("testLoginBackend", testLoginBackend)
+	t.Run("testLoginClient", testLoginClient)
 
-	t.Run("testUploadApplication", testUploadApplication)
-	t.Run("testIssue", testIssue)
-	t.Run("testAddAsset", testAddAsset)
-	t.Run("testGetAssets", testGetAssets)
-	t.Run("testPreAuditAsset", testPreAuditAsset)
-	t.Run("testFinalAuditAsset", testFinalAuditAsset)
-	t.Run("testGetAsset", testGetAsset)
-	t.Run("testUploadSample", testUploadSample)
-	t.Run("testEditAsset", testEditAsset)
-	t.Run("testPublicAudit", testPublicAudit)
-	t.Run("testGetSample", testGetSample)
+	// Client Generate Asset
+	// t.Run("testKeyPair", testKeyPair)
+	// t.Run("testClientStatus", testClientStatus)
+	// t.Run("testSetDBConn", testSetDBConn)
+	// t.Run("testGetTableList", testGetTableList)
+	// t.Run("testSetMapping", testSetMapping)
+	// t.Run("testSchematize", testSchematize)
+	// t.Run("testSetDatassetsApply", testSetDatassetsApply)
+	// t.Run("testGenerate", testGenerate)
+	// t.Run("testGenerateDatassetsApplyPdf", testGenerateDatassetsApplyPdf)
+	// t.Run("testUploadDatassetsApplyPdf", testUploadDatassetsApplyPdf)
 
-	t.Run("testAddOrder", testAddOrder)
-	t.Run("testGetOrders", testGetOrders)
-	t.Run("testOpOrder_SellerConfirm", testOpOrder_SellerConfirm)
-	t.Run("testUploadVoucher", testUploadVoucher)
-	t.Run("testPayOrder", testPayOrder)
-	t.Run("testAuditOrder", testAuditOrder)
-	t.Run("testOpOrder_BuyerConfirm", testOpOrder_BuyerConfirm)
+	// Local Create Asset
+	// t.Run("testUploadApplication", testUploadApplication)
+	// t.Run("testIssue", testIssue)
+	// t.Run("testAddAsset", testAddAsset)
+	// t.Run("testGetAssets_CityLevel", testGetAssets_CityLevel)
+	// t.Run("testGetAsset_ProvLevel", testGetAsset_ProvLevel)
+
+	// Audit & Public Asset
+	t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
+	// t.Run("testPreAuditAsset", testPreAuditAsset)
+	// t.Run("testFinalAuditAsset", testFinalAuditAsset)
+	// t.Run("testUploadSample", testUploadSample)
+	// t.Run("testEditAsset", testEditAsset)
+	// t.Run("testPublicAudit", testPublicAudit)
+	// t.Run("testGetSample", testGetSample)
+
+	// Order
+	// t.Run("testAddOrder", testAddOrder)
+	// t.Run("testGetOrders_WaitSeller", testGetOrders_WaitSeller) // get & set orderID
+	// t.Run("testOpOrder_SellerConfirm", testOpOrder_SellerConfirm)
+	// t.Run("testUploadVoucher", testUploadVoucher)
+	// t.Run("testPayOrder", testPayOrder)
+	// t.Run("testAuditOrder", testAuditOrder)
+	// t.Run("testOpOrder_BuyerConfirm", testOpOrder_BuyerConfirm)
+
+	// Client Execute Contract
+	t.Run("testGetOrders_WaitExec", testGetOrders_WaitExec) // get & set orderID
+	// t.Run("testGetOrders_Client", testGetOrders_Client)
+	// t.Run("testGetContract", testGetContract)
+	// t.Run("testExecute", testExecute)
+	// t.Run("testAudit", testAudit)
+	// t.Run("testDistribute", testDistribute)
 }

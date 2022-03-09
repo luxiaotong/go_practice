@@ -95,11 +95,27 @@ func testAddOrder(t *testing.T) {
 	fmt.Println("/data/order add result: ", resp.Body())
 }
 
-func testGetOrders(t *testing.T) {
+func testGetOrders_WaitSeller(t *testing.T) {
 	req := &SearchOrderRequest{
 		Role:      2,
 		ProductID: productID,
 		Status:    statusWaitSeller,
+	}
+	resp := ep.POST("/data/orders").WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/orders result: ", resp.Body())
+	oid := resp.JSON().Object().Value("data").Object().Value("list").Array().First().Object().Value("id").String().Raw()
+	orderID, _ = strconv.ParseInt(oid, 10, 64)
+	fmt.Println("latest order id: ", orderID)
+}
+
+func testGetOrders_WaitExec(t *testing.T) {
+	req := &SearchOrderRequest{
+		Role:      2,
+		ProductID: productID,
+		Status:    statusWaitExec,
 	}
 	resp := ep.POST("/data/orders").WithHeader("Authorization", "Bearer "+tokenValSeller).
 		WithCookie(jwtCookieSecret, tokenKeySeller).

@@ -8,7 +8,7 @@ import (
 )
 
 func testUploadSample(t *testing.T) {
-	f := "/Users/luxiaotong/code/datassets.cn/medias/test/sample.json"
+	f := "/Users/luxiaotong/code/datassets.cn/medias/test/area_sample.json"
 	resp := eu.POST("/upload/file").
 		WithHeader("Authorization", "Bearer "+tokenValSeller).
 		WithCookie(jwtCookieSecret, tokenKeySeller).

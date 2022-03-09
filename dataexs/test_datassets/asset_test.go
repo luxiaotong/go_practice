@@ -3,6 +3,7 @@ package testdatassets
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"testing"
 )
 
@@ -67,6 +68,12 @@ type SampleRequest struct {
 	Table string `json:"table"`
 }
 
+type AssetsRequest struct {
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+	Query     string `json:"q"`
+}
+
 func testIssue(t *testing.T) {
 	resp := ep.POST("/data/asset/issue").
 		WithHeader("Authorization", "Bearer "+tokenValSeller).
@@ -119,14 +126,14 @@ func testFinalAuditAsset(t *testing.T) {
 	fmt.Println("/data/asset/status final audit result: ", resp.Body())
 }
 
-func testGetAsset(t *testing.T) {
+func testGetAsset_ProvLevel(t *testing.T) {
 	resp := eb.GET("/data/asset/9").
 		WithCookie(backCookie, provUserToken).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/asset/9 result: ", resp.Body())
 }
 
-func testGetAssets(t *testing.T) {
+func testGetAssets_CityLevel(t *testing.T) {
 	req := &ProductRequest{PageIndex: 1, PageSize: 10}
 	resp := eb.POST("/data/assets").
 		WithCookie(backCookie, cityUserToken).
@@ -184,4 +191,21 @@ func testGetSample(t *testing.T) {
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/data/product/sample result: ", resp.Body())
+}
+
+func testGetAssets_Seller(t *testing.T) {
+	req := &AssetsRequest{
+		Query:     "河南省新乡市统计局数据2",
+		PageIndex: 1,
+		PageSize:  10,
+	}
+	resp := ep.POST("/data/assets").
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/assets seller result: ", resp.Body())
+	pid := resp.JSON().Object().Value("data").Object().Value("list").Array().First().Object().Value("id").String().Raw()
+	productID, _ = strconv.ParseInt(pid, 10, 64)
+	fmt.Println("latest product id: ", productID)
 }
