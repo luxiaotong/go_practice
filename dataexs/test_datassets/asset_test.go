@@ -156,6 +156,8 @@ func testEditAsset(t *testing.T) {
 		StartDate: "2020-05-06T00:08:50.00+08:00",
 		EndDate:   "2020-05-20T00:08:50.00+08:00",
 		Logo:      logoTmp,
+		Sample:    sampleTmp,
+		Public:    true,
 	}
 	resp := ep.PUT("/data/asset").WithHeader("Authorization", "Bearer "+tokenValSeller).
 		WithCookie(jwtCookieSecret, tokenKeySeller).
