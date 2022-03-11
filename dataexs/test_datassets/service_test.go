@@ -83,7 +83,7 @@ func TestAll(t *testing.T) {
 	t.Run("testSignInSeller", testSignInSeller)
 	t.Run("testSignInBuyer", testSignInBuyer)
 	t.Run("testLoginBackend", testLoginBackend)
-	t.Run("testLoginClient", testLoginClient)
+	// t.Run("testLoginClient", testLoginClient)
 
 	// Client Generate Asset
 	// t.Run("testKeyPair", testKeyPair)
@@ -108,7 +108,9 @@ func TestAll(t *testing.T) {
 	t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
 	// t.Run("testPreAuditAsset", testPreAuditAsset)
 	// t.Run("testFinalAuditAsset", testFinalAuditAsset)
-	t.Run("testUploadLogo", testUploadLogo)
+	// t.Run("testUploadLogo", testUploadLogo)
+	// t.Run("testUploadSample", testUploadSample)
+	// t.Run("testEditAsset", testEditAsset)
 	// t.Run("testPublicAudit", testPublicAudit)
 	// t.Run("testGetSample", testGetSample)
 
