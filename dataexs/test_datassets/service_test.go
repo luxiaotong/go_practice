@@ -38,6 +38,7 @@ var (
 	sampleTmp      string
 	applicationTmp string
 	voucherTmp     string
+	logoTmp        string
 )
 
 var (
@@ -107,8 +108,7 @@ func TestAll(t *testing.T) {
 	t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
 	// t.Run("testPreAuditAsset", testPreAuditAsset)
 	// t.Run("testFinalAuditAsset", testFinalAuditAsset)
-	// t.Run("testUploadSample", testUploadSample)
-	// t.Run("testEditAsset", testEditAsset)
+	t.Run("testUploadLogo", testUploadLogo)
 	// t.Run("testPublicAudit", testPublicAudit)
 	// t.Run("testGetSample", testGetSample)
 

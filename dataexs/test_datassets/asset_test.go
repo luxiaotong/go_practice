@@ -143,8 +143,6 @@ func testGetAssets_CityLevel(t *testing.T) {
 }
 
 func testEditAsset(t *testing.T) {
-	// lg := "logo.jpg"
-	lg := ""
 	req := &AssetRequest{
 		ID:        productID,
 		Desc:      "req.Desc",
@@ -157,9 +155,7 @@ func testEditAsset(t *testing.T) {
 		},
 		StartDate: "2020-05-06T00:08:50.00+08:00",
 		EndDate:   "2020-05-20T00:08:50.00+08:00",
-		Logo:      lg,
-		Sample:    sampleTmp,
-		Public:    true,
+		Logo:      logoTmp,
 	}
 	resp := ep.PUT("/data/asset").WithHeader("Authorization", "Bearer "+tokenValSeller).
 		WithCookie(jwtCookieSecret, tokenKeySeller).
