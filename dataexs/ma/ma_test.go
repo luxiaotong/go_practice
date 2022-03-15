@@ -63,6 +63,7 @@ type saveRequest struct {
 func testSaveAnalysis(t *testing.T) {
 	req := &saveRequest{
 		AnalysisPath: "MA.110.9902.XXCY001_122-11/DA11111",
+		// AnalysisPath: "MA.110.990200.12345678/DA11111",
 		Data: &saveData{
 			Name: "testdatassetsname",
 			Age:  "19",
