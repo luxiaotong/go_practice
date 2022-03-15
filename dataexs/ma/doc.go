@@ -1,0 +1,11 @@
+package ma
+
+/*
+http://124.126.76.161/
+admin/ma@LX@2021
+
+http://124.126.76.161:31026/token/get
+信息产业节点, MES
+appKey:6A9FD3C243F84D6281534A0130FB1E6D
+appSecret:2C6F6137C4734FB686FC752D1425A228
+*/
