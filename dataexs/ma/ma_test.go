@@ -49,8 +49,11 @@ func testGetToken(t *testing.T) {
 }
 
 type saveData struct {
-	Name string `json:"name"`
-	Age  string `json:"age"`
+	Name    string   `json:"name"`
+	Firm    string   `json:"firm"`
+	DRs     int64    `json:"drs"`
+	Sources []string `json:"sources"`
+	BlockID string   `json:"block_id"`
 }
 
 type saveRequest struct {
@@ -63,8 +66,11 @@ type saveRequest struct {
 
 func testSaveAnalysis(t *testing.T) {
 	d := &saveData{
-		Name: "testdatassetsname",
-		Age:  "19",
+		Name:    "海尔智家2019年度经营状况数据",
+		Firm:    "海尔电器集团",
+		DRs:     int64(12643987),
+		Sources: []string{"提供应用服务取得"},
+		BlockID: "14763ef63742a03643572742ec5ee470d30e599d",
 	}
 	b, _ := json.Marshal(d)
 	req := &saveRequest{
