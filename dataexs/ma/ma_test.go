@@ -2,6 +2,7 @@ package ma
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -13,8 +14,8 @@ import (
 const maURL = "http://124.126.76.161:31026/"
 
 const (
-	appKey    = "6A9FD3C243F84D6281534A0130FB1E6D"
-	appSecret = "2C6F6137C4734FB686FC752D1425A228"
+	appKey    = "C15CEA486F7B4D9BBFB37BFADCBA863D"
+	appSecret = "3BB0B491417E4204965A65BE80CA6A12"
 )
 
 var ctx context.Context
@@ -53,24 +54,24 @@ type saveData struct {
 }
 
 type saveRequest struct {
-	AnalysisPath string    `json:"analysisPath"`
-	Data         *saveData `json:"data"`
-	DataAttr     int32     `json:"dataAttr"`
-	DataType     int32     `json:"dataType"`
-	TemplateID   int64     `json:"templateId"`
+	AnalysisPath string `json:"analysisPath"`
+	Data         string `json:"data"`
+	DataAttr     int32  `json:"dataAttr"`
+	DataType     int32  `json:"dataType"`
+	TemplateID   int64  `json:"templateId,omitempty"`
 }
 
 func testSaveAnalysis(t *testing.T) {
+	d := &saveData{
+		Name: "testdatassetsname",
+		Age:  "19",
+	}
+	b, _ := json.Marshal(d)
 	req := &saveRequest{
-		AnalysisPath: "MA.110.9902.XXCY001_122-11/DA11111",
-		// AnalysisPath: "MA.110.990200.12345678/DA11111",
-		Data: &saveData{
-			Name: "testdatassetsname",
-			Age:  "19",
-		},
-		DataAttr:   0,
-		DataType:   1,
-		TemplateID: 11,
+		AnalysisPath: "MA.110.9902.2222/DA11111",
+		Data:         string(b),
+		DataAttr:     0,
+		DataType:     1,
 	}
 	resp := ema.POST("/ma-api/analysis/save").
 		WithHeader("token", token).
@@ -82,7 +83,7 @@ func testSaveAnalysis(t *testing.T) {
 func testAnalysis(t *testing.T) {
 	resp := ema.GET("/ma-api/analysis/ma").
 		WithHeader("token", token).
-		WithQuery("analysisUrl", "MA.110.9902.XXCY001_122-11/DA11111").
+		WithQuery("analysisUrl", "MA.110.9902.2222/DA11111").
 		Expect().Status(http.StatusOK)
 	fmt.Println("/ma-api/analysis/ma result: ", resp.Body())
 }
@@ -90,7 +91,7 @@ func testAnalysis(t *testing.T) {
 func testNodeInfo(t *testing.T) {
 	resp := ema.GET("/ma-api/analysis/nodeInfo").
 		WithHeader("token", token).
-		WithQuery("analysisUrl", "MA.110.9902.XXCY001_122-11/DA11111").
+		WithQuery("analysisUrl", "MA.110.9902.2222/DA11111").
 		Expect().Status(http.StatusOK)
 	fmt.Println("/ma-api/analysis/nodeInfo result: ", resp.Body())
 }
