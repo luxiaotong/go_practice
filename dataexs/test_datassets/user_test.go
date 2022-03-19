@@ -21,6 +21,12 @@ type SignInRequest struct {
 	Vcode    string `json:"vcode"`
 }
 
+type AuditFirm struct {
+	ID       int64  `json:"id,string"`
+	Approved bool   `json:"approved"`
+	Refuse   string `json:"refuse"`
+}
+
 func testSignInSeller(t *testing.T) {
 	req := SignInRequest{
 		Mobile:   "18500022713",
@@ -47,4 +53,18 @@ func testSignInBuyer(t *testing.T) {
 	fmt.Println("buyer token val: ", tokenValBuyer)
 	assert.NotEmpty(t, tokenKeyBuyer)
 	assert.NotEmpty(t, tokenValBuyer)
+}
+
+func testAuditFirm(t *testing.T) {
+	firmID := int64(1281908739774877696)
+	req := &AuditFirm{
+		ID:       firmID,
+		Approved: true,
+	}
+	resp := eb.POST("/user/firm/status").
+		WithCookie(backCookie, provUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/user/firm/status pass result: ", resp.Body())
+	resp.JSON().Object().Value("err_code").Equal(0)
 }

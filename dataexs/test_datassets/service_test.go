@@ -80,10 +80,14 @@ func TestAll(t *testing.T) {
 	eu = httpexpect.New(t, uploadURL)
 	ec = httpexpect.New(t, clientURL)
 
+	// Login
 	t.Run("testSignInSeller", testSignInSeller)
 	t.Run("testSignInBuyer", testSignInBuyer)
 	t.Run("testLoginBackend", testLoginBackend)
 	// t.Run("testLoginClient", testLoginClient)
+
+	// User & Firm
+	// t.Run("testAuditFirm", testAuditFirm)
 
 	// Client Generate Asset
 	// t.Run("testKeyPair", testKeyPair)
