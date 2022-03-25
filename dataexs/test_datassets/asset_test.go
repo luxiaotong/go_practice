@@ -99,6 +99,22 @@ func testAddAsset(t *testing.T) {
 	productID = int64(resp.JSON().Object().Value("data").Object().Value("product_id").Number().Raw())
 }
 
+func testAddAsset_Up(t *testing.T) {
+	productID = 1506841431027748864
+	req := &AssetRequest{
+		PDF:       applicationTmp,
+		ProductID: productID,
+	}
+	resp := ep.POST("/data/asset").
+		WithHeader("Authorization", "Bearer "+tokenValSeller).
+		WithCookie(jwtCookieSecret, tokenKeySeller).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/data/asset up result: ", resp.Body())
+
+	productID = int64(resp.JSON().Object().Value("data").Object().Value("product_id").Number().Raw())
+}
+
 func testPreAuditAsset(t *testing.T) {
 	req := &AuditRequest{
 		ID:        productID,

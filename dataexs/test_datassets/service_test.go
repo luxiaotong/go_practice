@@ -105,6 +105,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testUploadApplication", testUploadApplication)
 	// t.Run("testIssue", testIssue)
 	// t.Run("testAddAsset", testAddAsset)
+	// t.Run("testAddAsset_Up", testAddAsset_Up)
 	// t.Run("testGetAssets_CityLevel", testGetAssets_CityLevel)
 	// t.Run("testGetAsset_ProvLevel", testGetAsset_ProvLevel)
 
