@@ -44,7 +44,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.21.0
 	github.com/sergi/go-diff v1.2.0 // indirect
-	github.com/signintech/gopdf v0.9.8 // indirect
+	github.com/signintech/gopdf v0.9.8
 	github.com/sijms/go-ora v0.0.0-20210206233335-d862030c0c12
 	github.com/smartystreets/goconvey v1.7.2 // indirect
 	github.com/stretchr/testify v1.6.1
