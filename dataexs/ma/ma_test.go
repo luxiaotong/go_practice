@@ -11,11 +11,13 @@ import (
 	"github.com/gavv/httpexpect"
 )
 
-const maURL = "http://124.126.76.161:31026/"
-
 const (
-	appKey    = "C15CEA486F7B4D9BBFB37BFADCBA863D"
-	appSecret = "3BB0B491417E4204965A65BE80CA6A12"
+	// maURL     = "http://124.126.76.161:31026/"
+	// appKey    = "C15CEA486F7B4D9BBFB37BFADCBA863D"
+	// appSecret = "3BB0B491417E4204965A65BE80CA6A12"
+	maURL     = "http://39.156.12.66:31026/"
+	appKey    = "20C958421EB7403AB58F1DF02E007CBD"
+	appSecret = "EEEF69B928B7484BA7E39E9966BBC105"
 )
 
 var ctx context.Context
@@ -74,7 +76,7 @@ func testSaveAnalysis(t *testing.T) {
 	}
 	b, _ := json.Marshal(d)
 	req := &saveRequest{
-		AnalysisPath: "MA.110.9902.2222/DA11111",
+		AnalysisPath: "MA.10000.900000.00000000/",
 		Data:         string(b),
 		DataAttr:     0,
 		DataType:     1,
@@ -89,7 +91,7 @@ func testSaveAnalysis(t *testing.T) {
 func testAnalysis(t *testing.T) {
 	resp := ema.GET("/ma-api/analysis/ma").
 		WithHeader("token", token).
-		WithQuery("analysisUrl", "MA.110.9902.2222/DA11111").
+		WithQuery("analysisUrl", "MA.10000.900000.00000000/").
 		Expect().Status(http.StatusOK)
 	fmt.Println("/ma-api/analysis/ma result: ", resp.Body())
 }
@@ -97,7 +99,7 @@ func testAnalysis(t *testing.T) {
 func testNodeInfo(t *testing.T) {
 	resp := ema.GET("/ma-api/analysis/nodeInfo").
 		WithHeader("token", token).
-		WithQuery("analysisUrl", "MA.110.9902.2222/DA11111").
+		WithQuery("analysisUrl", "MA.10000.900000.00000000/").
 		Expect().Status(http.StatusOK)
 	fmt.Println("/ma-api/analysis/nodeInfo result: ", resp.Body())
 }
