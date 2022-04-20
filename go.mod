@@ -59,6 +59,7 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
+	golang.org/x/text v0.3.6
 	golang.org/x/tour v0.1.0
 	google.golang.org/grpc v1.33.2
 	gopkg.in/vrecan/death.v3 v3.0.1
