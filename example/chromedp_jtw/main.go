@@ -2,10 +2,14 @@ package main
 
 import (
 	"context"
+	"crypto/md5"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
+	"strings"
+	"sync"
 	"time"
 
 	"github.com/chromedp/cdproto/cdp"
@@ -13,12 +17,30 @@ import (
 )
 
 const (
-	u = "http://zwy.jtw.beijing.gov.cn/ows/app/common/userevidence/manage?id=b4f09bffb35b47b282fa909d5f852373"
 	h = "http://zwy.jtw.beijing.gov.cn"
 )
 
+var uu = []string{
+	"http://zwy.jtw.beijing.gov.cn/ows/app/common/userevidence/manage?id=b4f09bffb35b47b282fa909d5f852373",
+	"http://zwy.jtw.beijing.gov.cn/ows/app/common/userevidence/manage?id=b4f09bffb35b47b282fa909d5f852373",
+}
+
 func main() {
-	timeCtx, cancel := context.WithTimeout(GetChromeCtx(false), 30*time.Second)
+
+	var wg sync.WaitGroup
+	for _, u := range uu {
+		wg.Add(1)
+		go func(u string) {
+			query(u)
+			wg.Done()
+		}(u)
+	}
+	wg.Wait()
+	log.Println("done")
+}
+
+func query(u string) {
+	timeCtx, cancel := context.WithTimeout(GetChromeCtx(true), 30*time.Second)
 	defer cancel()
 	var collectLink string
 	err := chromedp.Run(timeCtx,
@@ -36,26 +58,35 @@ func main() {
 		log.Println("读取失败2: ", err.Error())
 		return
 	}
-	for i := 0; i < len(aLinks); i++ {
-		src := aLinks[i].AttributeValue("src")
-		log.Println("src: ", h+src)
-		client := &http.Client{}
-		resp, err := client.Get(h + src)
-		if err != nil {
-			log.Println("读取失败3: ", err.Error())
-			return
-		}
-		defer resp.Body.Close()
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Println("read resp failed: ", err)
-			return
-		}
-		if err := ioutil.WriteFile("img.png", body, 0644); err != nil {
-			log.Println("write file failed: ", err)
-			return
-		}
+	src := aLinks[0].AttributeValue("src")
+	log.Println("src: ", h+src)
+	client := &http.Client{}
+	resp, err := client.Get(h + src)
+	if err != nil {
+		log.Println("读取失败3: ", err.Error())
+		return
 	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("read resp failed: ", err)
+		return
+	}
+	i := strings.Index(u, "?id=")
+	tgt := genFilename(u[i+4:], "png")
+	log.Println("target image file: ", tgt)
+	if err := ioutil.WriteFile(tgt, body, 0644); err != nil {
+		log.Println("write file failed: ", err)
+		return
+	}
+}
+
+func genFilename(name, ext string) string {
+	m := md5.New()
+	_, _ = m.Write([]byte(name))
+	_, _ = m.Write([]byte(time.Now().Format(time.RFC3339Nano)))
+	cipherStr := m.Sum(nil)
+	return fmt.Sprintf("%x.%s", cipherStr, ext)
 }
 
 //检查是否有9222端口，来判断是否运行在linux上
@@ -83,7 +114,7 @@ func GetChromeCtx(focus bool) context.Context {
 		)
 		if checkChromePort() {
 			// 不知道为何，不能直接使用 NewExecAllocator ，因此增加 使用 ws://127.0.0.1:9222/ 来调用
-			c, _ := chromedp.NewRemoteAllocator(context.Background(), "ws://127.0.0.1:9222/devtools/browser/3483dd92-8aa9-42b4-8544-770c14a20b1a")
+			c, _ := chromedp.NewRemoteAllocator(context.Background(), "ws://127.0.0.1:9222/devtools/browser/643cd705-6b38-4b22-8541-d7080f6f0900")
 			ChromeCtx, _ = chromedp.NewContext(c)
 		} else {
 			c, _ := chromedp.NewExecAllocator(context.Background(), allocOpts...)
