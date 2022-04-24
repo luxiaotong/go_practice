@@ -36,6 +36,7 @@ require (
 	github.com/jinzhu/gorm v1.9.12
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/lib/pq v1.1.1
+	github.com/liyue201/goqr v0.0.0-20200803022322-df443203d4ea
 	github.com/mattn/go-oci8 v0.1.1
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/mr-tron/base58 v1.2.0
