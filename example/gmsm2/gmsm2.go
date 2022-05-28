@@ -12,7 +12,7 @@ func main() {
 	privKey := "312D0E4740B1438739B44AE12EC3B990D3DDEE9BB95FC2F523E06ED197449946"
 	pubKey := "7CC3F8ED6D541BB6D02406A51B2DC9689DB459353222F503CD571FDCF5029220BB50A222948554DC47093B19C1154DDFAC867EE0CD79029DB0946E442437B8EC"
 
-	priv, err := sm2.GenerateKey()
+	priv, err := sm2.GenerateKey(nil)
 	if err != nil {
 		panic(err)
 	}
@@ -33,7 +33,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	decrypted, err := sm2.Decrypt(priv, data)
+	decrypted, err := sm2.Decrypt(priv, data, sm2.C1C3C2)
 	if err != nil {
 		panic(err)
 	}

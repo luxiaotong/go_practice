@@ -1,18 +1,16 @@
 package main
 
 import (
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/big"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
-	"github.com/tjfoc/gmsm/sm2"
+	"github.com/tjfoc/gmsm/x509"
 )
 
 const privKey = "9b495adae2d43dd8c1041709de972906a0c9773583ca36a4339cce42201acc83"
@@ -55,7 +53,8 @@ type ContractResponse struct {
 }
 
 func main() {
-	u := url.URL{Scheme: "ws", Host: "139.9.119.21:58121", Path: "/SCIDE/SCExecutor"}
+	// u := url.URL{Scheme: "ws", Host: "139.9.119.21:58121", Path: "/SCIDE/SCExecutor"}
+	u := url.URL{Scheme: "ws", Host: "127.0.0.1:58150", Path: "/SCIDE/SCExecutor"}
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Fatal("dial error:", err)
@@ -69,13 +68,13 @@ func main() {
 	if err := wsLogin(c, privKey, pubKey, sessionID); err != nil {
 		log.Fatal("login error:", err)
 	}
-	id := "TestLicense"
-	param := "http://www.baidu.com"
-	result, err := wsExecContract(c, privKey, pubKey, id, param)
-	if err != nil {
-		log.Fatal("exec contract error:", err)
-	}
-	log.Println("result: ", result)
+	// id := "TestLicense"
+	// param := "http://www.baidu.com"
+	// result, err := wsExecContract(c, privKey, pubKey, id, param)
+	// if err != nil {
+	// 	log.Fatal("exec contract error:", err)
+	// }
+	// log.Println("result: ", result)
 }
 
 func leftPad(s string, n int) string {
@@ -86,32 +85,39 @@ func leftPad(s string, n int) string {
 }
 
 func SignSM2KeyPairHex(privKey, pubKey, data string) (string, error) {
-	priv, err := sm2.GenerateKey(nil)
+	priv, err := x509.ReadPrivateKeyFromHex(privKey)
+	if err != nil {
+		log.Fatal("ReadPrivateKeyFromHex err:", err)
+	}
+
+	// Sign #1
+	// to bdcontract v1.0.7
+	r, s, err := Sign(priv, []byte(data))
 	if err != nil {
 		return "", err
 	}
-	d := new(big.Int)
-	d.SetString(privKey, 16)
-	// log.Println("bigint:", d)
-	x := new(big.Int)
-	y := new(big.Int)
-	x.SetString(pubKey[2:66], 16)
-	y.SetString(pubKey[66:130], 16)
-	// log.Println("x, y: ", x, y)
-	priv.D = d
-	priv.PublicKey.X = x
-	priv.PublicKey.Y = y
+	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	log.Println("s1: ", signature)
 
-	// r, s, err := sm2.Sign(priv, []byte(data))
+	// Sign #2
+	// r, s, err = sm2.Sm2Sign(priv, []byte(data), nil, nil)
 	// if err != nil {
 	// 	return "", err
 	// }
-	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
-	s, err := priv.Sign(nil, []byte(data), nil)
-	if err != nil {
-		return "", err
-	}
-	signature := hex.EncodeToString(s)
+	// s2 := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	// log.Println("s2: ", s2)
+
+	// signature = s2
+
+	// Sign #3
+	// to bdcontract v1.7.9
+	// s3, err := priv.Sign(nil, []byte(data), nil)
+	// if err != nil {
+	// 	return "", err
+	// }
+	// signature := hex.EncodeToString(s3)
+	// log.Println("s3: ", signature)
+
 	return signature, nil
 }
 
@@ -177,6 +183,7 @@ func wsLogin(c *websocket.Conn, privKey, pubKey, sessionID string) error {
 	return nil
 }
 
+// nolint: unused,deadcode
 func wsExecContract(c *websocket.Conn, privKey, pubKey, id, param string) (string, error) {
 	arg := &ContractArg{
 		Action: "get",

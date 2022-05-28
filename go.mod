@@ -42,7 +42,7 @@ require (
 	github.com/tealeg/xlsx v1.0.5
 	github.com/therecipe/qt v0.0.0-20200904063919-c0c124a5770d
 	github.com/tiechui1994/gopdf v0.0.0-20200406044559-873ab4a2edbc
-	github.com/tjfoc/gmsm v1.3.0
+	github.com/tjfoc/gmsm v1.4.1
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
 	golang.org/x/text v0.3.6
 	golang.org/x/tour v0.1.0

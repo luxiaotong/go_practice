@@ -5,18 +5,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/big"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
-	"github.com/tjfoc/gmsm/sm2"
+	"github.com/tjfoc/gmsm/x509"
 )
 
-const privKey = "9b495adae2d43dd8c1041709de972906a0c9773583ca36a4339cce42201acc83"
-const pubKey = "04e50e6f0e821534f8ac20ea960b6c7fa318f569b5350332e94e8205f774120be4745dd2c5daaa405a6c89acdfc3d2889c86824e21baa1ae61468821e5611d7e3e"
+const privKey = "229160f61c36a22b3ac5ea200c634aa4b8c1b47b5997f971f0270e60e6536968"
+const pubKey = "043dc667a68073f08f570df96e1eddd34948dfa5812618c6f25e383e3e003911b36e6a78112ed9e503e379b382816c8995b8add4bdc9bda28b59ceb4a577079f1d"
 
 type SessionRequest struct {
 	Action string `json:"action"`
@@ -55,7 +54,8 @@ type ContractResponse struct {
 }
 
 func main() {
-	u := url.URL{Scheme: "ws", Host: "139.9.119.21:58121", Path: "/SCIDE/SCExecutor"}
+	// u := url.URL{Scheme: "ws", Host: "139.9.119.21:58121", Path: "/SCIDE/SCExecutor"}
+	u := url.URL{Scheme: "ws", Host: "127.0.0.1:21030", Path: "/SCIDE/SCExecutor"}
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Fatal("dial error:", err)
@@ -69,13 +69,13 @@ func main() {
 	if err := wsLogin(c, privKey, pubKey, sessionID); err != nil {
 		log.Fatal("login error:", err)
 	}
-	id := "TestLicense"
-	param := "http://www.baidu.com"
-	result, err := wsExecContract(c, privKey, pubKey, id, param)
-	if err != nil {
-		log.Fatal("exec contract error:", err)
-	}
-	log.Println("result: ", result)
+	// id := "TestLicense"
+	// param := "http://www.baidu.com"
+	// result, err := wsExecContract(c, privKey, pubKey, id, param)
+	// if err != nil {
+	// 	log.Fatal("exec contract error:", err)
+	// }
+	// log.Println("result: ", result)
 }
 
 func leftPad(s string, n int) string {
@@ -86,32 +86,35 @@ func leftPad(s string, n int) string {
 }
 
 func SignSM2KeyPairHex(privKey, pubKey, data string) (string, error) {
-	priv, err := sm2.GenerateKey(nil)
+	priv, err := x509.ReadPrivateKeyFromHex(privKey)
 	if err != nil {
-		return "", err
+		log.Fatal("ReadPrivateKeyFromHex err:", err)
 	}
-	d := new(big.Int)
-	d.SetString(privKey, 16)
-	// log.Println("bigint:", d)
-	x := new(big.Int)
-	y := new(big.Int)
-	x.SetString(pubKey[2:66], 16)
-	y.SetString(pubKey[66:130], 16)
-	// log.Println("x, y: ", x, y)
-	priv.D = d
-	priv.PublicKey.X = x
-	priv.PublicKey.Y = y
 
-	// r, s, err := sm2.Sign(priv, []byte(data))
+	// Sign #1
+	// r, s, err := Sign(priv, []byte(data))
 	// if err != nil {
 	// 	return "", err
 	// }
 	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
-	s, err := priv.Sign(nil, []byte(data), nil)
+	// log.Println("s1: ", signature)
+
+	// Sign #2
+	// r, s, err := sm2.Sm2Sign(priv, []byte(data), nil, nil)
+	// if err != nil {
+	// 	return "", err
+	// }
+	// s2 := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	// signature := s2
+
+	// Sign #3
+	s3, err := priv.Sign(nil, []byte(data), nil)
 	if err != nil {
 		return "", err
 	}
-	signature := hex.EncodeToString(s)
+	signature := hex.EncodeToString(s3)
+	log.Println("s3: ", signature)
+
 	return signature, nil
 }
 
@@ -177,6 +180,7 @@ func wsLogin(c *websocket.Conn, privKey, pubKey, sessionID string) error {
 	return nil
 }
 
+// nolint: unused,deadcode
 func wsExecContract(c *websocket.Conn, privKey, pubKey, id, param string) (string, error) {
 	arg := &ContractArg{
 		Action: "get",

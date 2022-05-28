@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -196,7 +197,7 @@ func wsSession(c *websocket.Conn) {
 
 func wsLogin(c *websocket.Conn, sessionID string) {
 	var err error
-	priv, err = sm2.GenerateKey()
+	priv, err = sm2.GenerateKey(nil)
 	if err != nil {
 		log.Println("sm2 generate error: ", err)
 		return
@@ -208,12 +209,18 @@ func wsLogin(c *websocket.Conn, sessionID string) {
 	log.Printf("private key: %s \n public key: %s", privateKey, publicKey)
 
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte(sessionID))
+	// r, s, err := sm2.Sign(priv, []byte(sessionID))
+	// if err != nil {
+	// 	log.Println("sm2 sign error: ", err)
+	// 	return
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(sessionID), nil)
 	if err != nil {
 		log.Println("sm2 sign error: ", err)
 		return
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 	log.Printf("signature: %s", signature)
 
 	req := &LoginRequest{
@@ -308,12 +315,18 @@ func wsAuthNodeRole(c *websocket.Conn) {
 func wsStartContract(c *websocket.Conn, contract *Contract) {
 	script := "empty"
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte("Algorithm|"+script+"|"+pubKey))
+	// r, s, err := sm2.Sign(priv, []byte("Algorithm|"+script+"|"+pubKey))
+	// if err != nil {
+	// 	log.Println("sign contract error: ", err)
+	// 	return
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte("Algorithm|"+script+"|"+pubKey), nil)
 	if err != nil {
 		log.Println("sign contract error: ", err)
 		return
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 	log.Printf("signature: %s", signature)
 	req := &StartContractRequest{
 		Action:    "startContract",
@@ -339,12 +352,18 @@ func wsStartContract(c *websocket.Conn, contract *Contract) {
 func wsExecContract(c *websocket.Conn, contract *Contract) {
 	arg := `{"action":"selectStudent", "arg":""}`
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte(contract.ID+"|"+arg+"|"+pubKey))
+	// r, s, err := sm2.Sign(priv, []byte(contract.ID+"|"+arg+"|"+pubKey))
+	// if err != nil {
+	// 	log.Println("sign contract arg error: ", err)
+	// 	return
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(contract.ID+"|"+arg+"|"+pubKey), nil)
 	if err != nil {
-		log.Println("sign contract arg error: ", err)
+		log.Println("sign contract error: ", err)
 		return
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 	log.Printf("signature: %s", signature)
 	req := &ExecuteContractRequest{
 		Action:     "executeContract",

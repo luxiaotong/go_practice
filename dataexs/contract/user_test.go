@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"log"
 	"math/big"
@@ -19,7 +20,7 @@ type LoginRequest struct {
 
 func wsLogin(t *testing.T) {
 	var err error
-	priv, err = sm2.GenerateKey()
+	priv, err = sm2.GenerateKey(nil)
 	if err != nil {
 		log.Println("sm2 generate error: ", err)
 		return
@@ -30,12 +31,18 @@ func wsLogin(t *testing.T) {
 	log.Printf("private key: %s \n public key: %s", privateKey, publicKey)
 
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte(sessionID))
+	s, err := priv.Sign(nil, []byte(sessionID), nil)
 	if err != nil {
-		log.Println("sm2 sign error: ", err)
+		log.Println("sign contract error: ", err)
 		return
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
+	// r, s, err := sm2.Sign(priv, []byte(sessionID))
+	// if err != nil {
+	// 	log.Println("sm2 sign error: ", err)
+	// 	return
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
 	log.Printf("signature: %s", signature)
 
 	req := &LoginRequest{

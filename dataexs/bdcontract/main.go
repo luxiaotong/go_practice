@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -273,7 +274,7 @@ func wsSession(c *websocket.Conn) (string, error) {
 
 func wsLogin(c *websocket.Conn, role, sessionID string) error {
 	var err error
-	priv, err = sm2.GenerateKey()
+	priv, err = sm2.GenerateKey(nil)
 	if err != nil {
 		return err
 	}
@@ -283,11 +284,16 @@ func wsLogin(c *websocket.Conn, role, sessionID string) error {
 	log.Println("public key: ", publicKey)
 
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte(sessionID))
+	// r, s, err := sm2.Sign(priv, []byte(sessionID))
+	// if err != nil {
+	// 	return err
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(sessionID), nil)
 	if err != nil {
 		return err
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 	// log.Println("signature: ", signature)
 
 	req := &LoginRequest{
@@ -442,11 +448,16 @@ func wsDistribute(c *websocket.Conn, others, project, sponsor string) error {
 	mockManager(priv, "center")
 	_, publicKey := getKeyPairHex(priv)
 	signStr := fmt.Sprintf("DistributeContract|%s|%s", project, publicKey)
-	r, s, err := sm2.Sign(priv, []byte(signStr))
+	// r, s, err := sm2.Sign(priv, []byte(signStr))
+	// if err != nil {
+	// 	return err
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(signStr), nil)
 	if err != nil {
 		return err
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 
 	req := &DistributeRequest{
 		Action:    "distributeContract",
@@ -480,11 +491,16 @@ func wsStartContractMultiPoint(c *websocket.Conn, role, project string, peers []
 	mockManager(priv, role)
 	_, publicKey := getKeyPairHex(priv)
 	signStr := fmt.Sprintf("Trusted|%s|%s", project, publicKey)
-	r, s, err := sm2.Sign(priv, []byte(signStr))
+	// r, s, err := sm2.Sign(priv, []byte(signStr))
+	// if err != nil {
+	// 	return err
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(signStr), nil)
 	if err != nil {
 		return err
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 
 	peersID := strings.Join(peers, ",")
 	req := &StartContractP2PRequest{
@@ -519,11 +535,16 @@ func wsStartContractP2PTrustfully(c *websocket.Conn, role, ypk string, peers []s
 	mockManager(priv, role)
 	_, publicKey := getKeyPairHex(priv)
 	signStr := fmt.Sprintf("Trusted|%s|%s", path, publicKey)
-	r, s, err := sm2.Sign(priv, []byte(signStr))
+	// r, s, err := sm2.Sign(priv, []byte(signStr))
+	// if err != nil {
+	// 	return err
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(signStr), nil)
 	if err != nil {
 		return err
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 
 	peersID := strings.Join(peers, ",")
 	req := &StartContractP2PTrustfullyRequest{
@@ -583,11 +604,16 @@ func wsExecuteContract(c *websocket.Conn, role, contractID, operation, arg strin
 	mockManager(priv, role)
 	_, publicKey := getKeyPairHex(priv)
 	signStr := fmt.Sprintf("%s|%s|%s|%s", contractID, operation, arg, publicKey)
-	r, s, err := sm2.Sign(priv, []byte(signStr))
+	// r, s, err := sm2.Sign(priv, []byte(signStr))
+	// if err != nil {
+	// 	return err
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte(signStr), nil)
 	if err != nil {
 		return err
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 
 	req := &ExecuteContractRequest{
 		Action:     "executeContract",

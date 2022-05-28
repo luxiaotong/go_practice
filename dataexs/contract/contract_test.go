@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -8,7 +9,6 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/tjfoc/gmsm/sm2"
 )
 
 type CompileRequest struct {
@@ -67,12 +67,18 @@ func wsCompile(t *testing.T) {
 func wsStartContractByYPK(t *testing.T) {
 	script := "empty"
 	//Signature
-	r, s, err := sm2.Sign(priv, []byte("Algorithm|"+script+"|"+pubKey))
+	// r, s, err := sm2.Sign(priv, []byte("Algorithm|"+script+"|"+pubKey))
+	// if err != nil {
+	// 	log.Println("sign contract error: ", err)
+	// 	return
+	// }
+	// signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	s, err := priv.Sign(nil, []byte("Algorithm|"+script+"|"+pubKey), nil)
 	if err != nil {
 		log.Println("sign contract error: ", err)
 		return
 	}
-	signature := leftPad(r.Text(16), 64) + leftPad(s.Text(16), 64)
+	signature := hex.EncodeToString(s)
 	log.Printf("signature: %s", signature)
 	req := &StartContractRequest{
 		Action:    "startContractByYPK",
