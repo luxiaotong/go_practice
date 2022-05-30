@@ -78,6 +78,7 @@ func main() {
 	// log.Println("result: ", result)
 }
 
+// nolint: unused, deadcode
 func leftPad(s string, n int) string {
 	if len(s) >= n {
 		return s

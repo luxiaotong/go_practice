@@ -46,6 +46,7 @@ func randFieldElement(c elliptic.Curve, rand io.Reader) (k *big.Int, err error) 
 	return
 }
 
+// nolint: unused, deadcode
 func Sign(priv *sm2.PrivateKey, hash []byte) (r, s *big.Int, err error) {
 	entropylen := (priv.Curve.Params().BitSize + 7) / 16
 	if entropylen > 32 {
