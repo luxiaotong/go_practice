@@ -1,0 +1,10 @@
+module Postgres {
+  export function PGConnect(host, port, db, user, pass) {
+    var dsn = "jdbc:postgresql://"+host+":"+port+"/"+db+"?user="+user+"&password="+pass;
+    var conn = org.test.PostgreSQLUtil.connect(dsn);
+    if (conn!=undefined && !conn.isClosed()){
+      return conn;
+    }
+    return null;
+  }
+}
