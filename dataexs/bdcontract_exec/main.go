@@ -151,7 +151,7 @@ func main() {
 		if err := UploadFile(privKey, pubKey, "postgresql-9.1-901-1.jdbc4.jar", "/Users/luxiaotong/code/go_practice/dataexs/bdcontract_exec/postgresql-9.1-901-1.jdbc4.jar"); err != nil {
 			log.Fatal("upload postgresql-9.1-901-1.jdbc4.jar error:", err)
 		}
-		if err := UploadFile(privKey, pubKey, "postsample.jar", "/Users/luxiaotong/code/go_practice/dataexs/bdcontract_exec/postgres.yjs"); err != nil {
+		if err := UploadFile(privKey, pubKey, "postsample.jar", "/Users/luxiaotong/code/go_practice/dataexs/bdcontract_exec/postsample.jar"); err != nil {
 			log.Fatal("upload postgres.yjs error:", err)
 		}
 	}
@@ -385,7 +385,7 @@ func wsSaveFile(c *websocket.Conn) error {
 		IsAppend:  false,
 		Path:      "/Datassets/Datassets.yjs",
 		Content: `import "postgres.yjs";
-		contract Data{
+		oracle Data{
 		  export function main(arg) {
 			var args = JSON.parse(arg);
 			var conn = PGConnect(args.host, args.port, args.db, args.user, args.pass);
