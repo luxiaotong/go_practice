@@ -60,6 +60,7 @@ func initEnv() {
 	trustURL = "http://139.9.119.21:58300"
 
 	clientURL = "http://127.0.0.1:8081"
+	// clientURL = "http://127.0.0.1:58081"
 }
 
 func initData() {
@@ -110,7 +111,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testGetAsset_ProvLevel", testGetAsset_ProvLevel)
 
 	// Audit & Public Asset
-	t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
+	// t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
 	// t.Run("testPreAuditAsset", testPreAuditAsset)
 	// t.Run("testFinalAuditAsset", testFinalAuditAsset)
 	// t.Run("testUploadLogo", testUploadLogo)
@@ -129,7 +130,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testOpOrder_BuyerConfirm", testOpOrder_BuyerConfirm)
 
 	// Client Execute Contract
-	t.Run("testGetOrders_WaitExec", testGetOrders_WaitExec) // get & set orderID
+	// t.Run("testGetOrders_WaitExec", testGetOrders_WaitExec) // get & set orderID
 	// t.Run("testGetOrders_Client", testGetOrders_Client)
 	// t.Run("testGetContract", testGetContract)
 	// t.Run("testExecute", testExecute)

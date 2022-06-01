@@ -76,6 +76,7 @@ type setDatassetsApplyRequest struct {
 type Progress struct {
 	Duration     int32 `json:"duration"`
 	SuccessCount int32 `json:"success_count"`
+	FailCount    int32 `json:"fail_count"`
 	RecordSize   int32 `json:"record_size"`
 	Step         int32 `json:"step"`
 }
@@ -189,7 +190,28 @@ func testSchematize(t *testing.T) {
 	fmt.Println("/v1.ClientService/Schematize result: ", resp.Body())
 }
 
+func testSchematizeProcess(t *testing.T) {
+	ticker := time.NewTicker(1 * time.Second)
+	for t := range ticker.C {
+		fmt.Println("schematize process time: ", t.Format("2006-01-02 15:14:02"))
+		resp := ec.POST("/v1.ClientService/SchematizeProcess").
+			WithJSON(&opRequest{clientSession}).
+			Expect().Status(http.StatusOK)
+		fmt.Println("/v1.ClientService/SchematizeProcess result: ", resp.Body())
+		raw := resp.Body().Raw()
+		var res GenerateProcessResponse
+		if err := json.Unmarshal([]byte(raw), &res); err != nil {
+			panic(err)
+		}
+		if res.Body.SuccessCount+res.Body.FailCount >= res.Body.RecordSize {
+			break
+		}
+	}
+	fmt.Println("schematize step done")
+}
+
 func testSetDatassetsApply(t *testing.T) {
+	testSchematizeProcess(t)
 	req := &setDatassetsApplyRequest{
 		Session:     clientSession,
 		Title:       "河南省新乡市统计局数据2",
