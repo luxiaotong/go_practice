@@ -116,6 +116,7 @@ func testAddAsset_Up(t *testing.T) {
 }
 
 func testPreAuditAsset(t *testing.T) {
+	// productID = 1531485725898313728
 	req := &AuditRequest{
 		ID:        productID,
 		AuditType: preAudit,

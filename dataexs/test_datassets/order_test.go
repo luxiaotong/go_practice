@@ -112,6 +112,7 @@ func testGetOrders_WaitSeller(t *testing.T) {
 }
 
 func testGetOrders_WaitExec(t *testing.T) {
+	// productID = 1531485725898313728
 	req := &SearchOrderRequest{
 		Role:      2,
 		ProductID: productID,
