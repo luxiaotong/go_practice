@@ -82,17 +82,19 @@ func TestAll(t *testing.T) {
 	ec = httpexpect.New(t, clientURL)
 
 	// Login
-	t.Run("testSignInSeller", testSignInSeller)
-	t.Run("testSignInBuyer", testSignInBuyer)
-	t.Run("testLoginBackend", testLoginBackend)
-	// t.Run("testLoginClient", testLoginClient)
+	// t.Run("testSignInSeller", testSignInSeller)
+	// t.Run("testSignInBuyer", testSignInBuyer)
+	// t.Run("testLoginBackend", testLoginBackend)
 
 	// User & Firm
 	// t.Run("testAuditFirm", testAuditFirm)
 
-	// Client Generate Asset
+	// Client Login
+	// t.Run("testLoginClient", testLoginClient)
 	// t.Run("testKeyPair", testKeyPair)
 	// t.Run("testClientStatus", testClientStatus)
+
+	// Client Generate Asset
 	// t.Run("testSetDBConn", testSetDBConn)
 	// t.Run("testGetTableList", testGetTableList)
 	// t.Run("testSetMapping", testSetMapping)
@@ -100,6 +102,9 @@ func TestAll(t *testing.T) {
 	// t.Run("testSetDatassetsApply", testSetDatassetsApply)
 	// t.Run("testGenerate", testGenerate)
 	// t.Run("testGenerateDatassetsApplyPdf", testGenerateDatassetsApplyPdf)
+
+	// Client Upload Asset
+	// t.Run("testLoginClient", testLoginClient)
 	// t.Run("testUploadDatassetsApplyPdf", testUploadDatassetsApplyPdf)
 
 	// Local Create Asset
@@ -109,6 +114,8 @@ func TestAll(t *testing.T) {
 	// t.Run("testAddAsset_Up", testAddAsset_Up)
 	// t.Run("testGetAssets_CityLevel", testGetAssets_CityLevel)
 	// t.Run("testGetAsset_ProvLevel", testGetAsset_ProvLevel)
+
+	// productID = 1534786925838209024
 
 	// Audit & Public Asset
 	// t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
