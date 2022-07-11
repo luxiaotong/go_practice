@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+var rootUserToken string
 var provUserToken string
 var cityUserToken string
 
@@ -70,5 +71,14 @@ func testLoginBackend(t *testing.T) {
 	resp = eb.POST("/backuser/login").WithJSON(req).Expect().Status(http.StatusOK)
 	provUserToken = resp.Cookie(backCookie).Value().Raw()
 	fmt.Println("prov user token in cookie: ", provUserToken)
+	fmt.Println("/backuser/login result: ", resp.Body())
+
+	req = &BackUser{
+		Username: "root",
+		Password: "pass@datassets",
+	}
+	resp = eb.POST("/backuser/login").WithJSON(req).Expect().Status(http.StatusOK)
+	rootUserToken = resp.Cookie(backCookie).Value().Raw()
+	fmt.Println("root user token in cookie: ", rootUserToken)
 	fmt.Println("/backuser/login result: ", resp.Body())
 }

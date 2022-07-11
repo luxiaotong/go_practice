@@ -27,6 +27,13 @@ type AuditFirm struct {
 	Refuse   string `json:"refuse"`
 }
 
+type GetFirmsRequest struct {
+	Query     string `json:"q"`
+	Status    int32  `json:"status"`
+	PageIndex uint32 `json:"page_index"`
+	PageSize  uint32 `json:"page_size"`
+}
+
 func testSignInSeller(t *testing.T) {
 	req := SignInRequest{
 		Mobile:   "18500022713",
@@ -67,4 +74,18 @@ func testAuditFirm(t *testing.T) {
 		Expect().Status(http.StatusOK)
 	fmt.Println("/user/firm/status pass result: ", resp.Body())
 	resp.JSON().Object().Value("err_code").Equal(0)
+}
+
+func testGetFirms(t *testing.T) {
+	req := &GetFirmsRequest{
+		// PageSize: 10,
+	}
+	resp := eb.POST("/user/firms").
+		WithCookie(backCookie, rootUserToken).
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/user/firms pass result: ", resp.Body())
+	resp.JSON().Object().Value("err_code").Equal(0)
+	list := resp.JSON().Object().Value("data").Object().Value("list")
+	list.Array().Length().Equal(10)
 }

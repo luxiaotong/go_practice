@@ -87,6 +87,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testLoginBackend", testLoginBackend)
 
 	// User & Firm
+	// t.Run("testGetFirms", testGetFirms)
 	// t.Run("testAuditFirm", testAuditFirm)
 
 	// Client Login
