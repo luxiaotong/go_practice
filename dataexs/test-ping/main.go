@@ -4,34 +4,44 @@ import (
 	"log"
 	"runtime"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/go-ping/ping"
 )
 
+var (
+	pingStatus atomic.Value
+	pingOnce   sync.Once
+	pingLock   sync.Mutex
+	sendN      uint64
+	recvN      uint64
+)
+
 const (
 	hostURL  = "114.114.114.114"
 	pingSize = 4
+	pingIntv = 5 * time.Second
 )
 
-func main() {
-	// pinger, err := ping.NewPinger("114.114.114.114")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// pinger.Count = 3
-	// err = pinger.Run() // Blocks until finished.
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// stats := pinger.Statistics()
-	// log.Printf("stats: %#v\n", stats)
-	for {
-		if err := checkNetworkImplement(hostURL, pingSize); err == nil {
-			break
-		}
-		time.Sleep(5 * time.Second)
+func StartPing() {
+	pingOnce.Do(func() {
+		go func() {
+			for {
+				if err := checkNetworkImplement(hostURL, pingSize); err == nil {
+					break
+				}
+				time.Sleep(5 * time.Second)
+			}
+		}()
+	})
+}
+
+func Status() bool {
+	if pingStatus.Load() == nil {
+		return false
 	}
+	return pingStatus.Load().(bool)
 }
 
 // checkNetworkImplement 执行Ping，并不间断
@@ -39,43 +49,78 @@ func main() {
 //  param: string host ping的address
 //  param: int    size 每几次结果计算网络是否通
 func checkNetworkImplement(host string, size int) error {
-	sendN := 0
-	pings := make([]bool, size)
-	pinger, err := ping.NewPinger(host)
-	if err != nil {
-		return err
-	}
 	sysType := runtime.GOOS
-	if sysType == "windows" {
-		pinger.SetPrivileged(true)
-	}
-	lock := sync.Mutex{}
-	pinger.OnRecv = func(pkt *ping.Packet) {
-		lock.Lock()
-		defer lock.Unlock()
-		log.Printf("receive %d %d\n", sendN, pkt.Seq)
-		// updatePings(pings, size, sendN, pkt.Seq, true)
-		sendN = pkt.Seq
-	}
-	pinger.Interval = 5 * time.Second
-
-	log.Printf("PING %s (%s)\n", pinger.Addr(), pinger.IPAddr())
+	pings := make([]bool, size)
 	go func() {
 		time.Sleep(200 * time.Millisecond)
-		interval := time.NewTicker(pinger.Interval)
+		interval := time.NewTicker(pingIntv)
 		defer interval.Stop()
 		for range interval.C {
-			lock.Lock()
-			if sendN < pinger.PacketsSent-2 {
-				// updatePings(pings, size, sendN, pinger.PacketsSent-1, false)
-				sendN = pinger.PacketsSent - 1
-				log.Printf("send: %v %v", sendN, pings)
+			pingLock.Lock()
+			// log.Debug("ping send: %v recv: %v", sendN, recvN)
+			if recvN+2 < sendN {
+				updatePings(pings, size, recvN, sendN, false)
+				//log.Debug("send: %v %v", sendN, pings)
 			}
-			lock.Unlock()
+			pingLock.Unlock()
 		}
 	}()
-	if err := pinger.Run(); err != nil {
-		log.Println("pinger run error: ", err)
-	}
+	go func() {
+		onRecv := func(pkt *ping.Packet) {
+			pingLock.Lock()
+			defer pingLock.Unlock()
+			updatePings(pings, size, recvN, sendN, true)
+			atomic.StoreUint64(&recvN, sendN)
+			log.Printf("count on recv: %v, send: %v", recvN, sendN)
+		}
+		interval := time.NewTicker(pingIntv)
+		defer interval.Stop()
+		for range interval.C {
+			pinger, err := ping.NewPinger(host)
+			if err != nil {
+				log.Printf("new pinger error: %v", err)
+				continue
+			}
+			//log.Debug("PING %s (%s)", pinger.Addr(), pinger.IPAddr())
+			if sysType == "windows" {
+				pinger.SetPrivileged(true)
+			}
+			pinger.OnRecv = onRecv
+			pinger.Count = 1
+			pinger.Timeout = 500 * time.Millisecond
+			atomic.AddUint64(&sendN, 1)
+			log.Printf("on send seq: %d", sendN)
+			if err := pinger.Run(); err != nil {
+				log.Printf("ping run error: %v", err)
+			}
+			log.Printf("on send seq2: %d", sendN)
+		}
+	}()
 	return nil
+}
+
+func updatePings(pings []bool, size int, prev, current uint64, result bool) {
+	// log.Debug("update pings: %v, size: %v, prev: %v, curr: %v, res: %v", pings, size, prev, current, result)
+	for i := prev; i < current; i++ {
+		pings[int(i)%size] = result
+	}
+	// 只要size内有一个true，那么就返回true
+	for _, st := range pings {
+		if st {
+			pingStatus.Store(st)
+			return
+		}
+	}
+	pingStatus.Store(false)
+}
+
+func main() {
+	StartPing()
+
+	time.Sleep(200 * time.Millisecond)
+	interval := time.NewTicker(time.Second)
+	defer interval.Stop()
+	for range interval.C {
+		log.Println("internet: ", Status())
+	}
 }
