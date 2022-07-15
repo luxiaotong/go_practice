@@ -126,6 +126,18 @@ func testLoginClient(t *testing.T) {
 	fmt.Println("client user session: ", clientSession)
 }
 
+func testNewDatassets(t *testing.T) {
+	req := opRequest{Session: clientSession}
+	resp := ec.POST("/v1.ClientService/New").WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Println("/v1.ClientService/New result: ", resp.Body())
+}
+
+func testListDatassets(t *testing.T) {
+	req := opRequest{Session: clientSession}
+	resp := ec.POST("/v1.ClientService/List").WithJSON(req).Expect().Status(http.StatusOK)
+	fmt.Println("/v1.ClientService/List result: ", resp.Body())
+}
+
 func testClientStatus(t *testing.T) {
 	resp := ec.POST("/v1.ClientService/Status").WithJSON(struct{}{}).Expect().Status(http.StatusOK)
 	fmt.Println("/v1.ClientService/Status result: ", resp.Body())

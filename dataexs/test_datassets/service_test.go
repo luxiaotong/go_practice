@@ -96,6 +96,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testClientStatus", testClientStatus)
 
 	// Client Generate Asset
+	// t.Run("testNewDatassets", testNewDatassets)
 	// t.Run("testSetDBConn", testSetDBConn)
 	// t.Run("testGetTableList", testGetTableList)
 	// t.Run("testSetMapping", testSetMapping)
@@ -103,6 +104,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testSetDatassetsApply", testSetDatassetsApply)
 	// t.Run("testGenerate", testGenerate)
 	// t.Run("testGenerateDatassetsApplyPdf", testGenerateDatassetsApplyPdf)
+	// t.Run("testListDatassets", testListDatassets)
 
 	// Client Upload Asset
 	// t.Run("testLoginClient", testLoginClient)
