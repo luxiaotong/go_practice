@@ -118,7 +118,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testGetAssets_CityLevel", testGetAssets_CityLevel)
 	// t.Run("testGetAsset_ProvLevel", testGetAsset_ProvLevel)
 
-	// productID = 1534786925838209024
+	// productID = 1549641115068534784
 
 	// Audit & Public Asset
 	// t.Run("testGetAssets_Seller", testGetAssets_Seller) // get & set productID
@@ -146,4 +146,9 @@ func TestAll(t *testing.T) {
 	// t.Run("testExecute", testExecute)
 	// t.Run("testAudit", testAudit)
 	// t.Run("testDistribute", testDistribute)
+
+	// Client Delete Datassets
+	// t.Run("testListDatassets", testListDatassets)
+	// t.Run("testDelete", testDelete)
+	// t.Run("testListDatassets", testListDatassets)
 }

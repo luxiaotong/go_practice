@@ -109,6 +109,11 @@ type distributeRequest struct {
 	Node    string `json:"trust_server"`
 }
 
+type selectRequest struct {
+	Session string `json:"session"`
+	Index   uint32 `json:"index"`
+}
+
 func testLoginClient(t *testing.T) {
 	req := &clientLoginRequest{
 		Username: "18500022713",
@@ -340,4 +345,15 @@ func testDistribute(t *testing.T) {
 		WithJSON(req).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/v1.ClientService/Distribute result: ", resp.Body())
+}
+
+func testDelete(t *testing.T) {
+	req := &selectRequest{
+		Session: clientSession,
+		Index:   uint32(1),
+	}
+	resp := ec.POST("/v1.ClientService/Delete").
+		WithJSON(req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/v1.ClientService/Delete result: ", resp.Body())
 }
