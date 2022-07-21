@@ -205,6 +205,7 @@ func testSchematize(t *testing.T) {
 		WithJSON(&opRequest{clientSession}).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/v1.ClientService/Schematize result: ", resp.Body())
+	testSchematizeProcess(t)
 }
 
 func testSchematizeProcess(t *testing.T) {
@@ -228,7 +229,6 @@ func testSchematizeProcess(t *testing.T) {
 }
 
 func testSetDatassetsApply(t *testing.T) {
-	testSchematizeProcess(t)
 	req := &setDatassetsApplyRequest{
 		Session:     clientSession,
 		Title:       "河南省新乡市统计局数据2",
@@ -247,6 +247,7 @@ func testGenerate(t *testing.T) {
 		WithJSON(&opRequest{clientSession}).
 		Expect().Status(http.StatusOK)
 	fmt.Println("/v1.ClientService/Generate result: ", resp.Body())
+	testGenerateProcess(t)
 }
 
 func testGenerateProcess(t *testing.T) {
@@ -272,7 +273,6 @@ func testGenerateProcess(t *testing.T) {
 }
 
 func testGenerateDatassetsApplyPdf(t *testing.T) {
-	testGenerateProcess(t)
 	resp := ec.POST("/v1.ClientService/GenerateDatassetsApplyPdf").
 		WithJSON(&opRequest{clientSession}).
 		Expect().Status(http.StatusOK)
