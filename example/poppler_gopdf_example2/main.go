@@ -64,9 +64,9 @@ func main() {
 		signWeight, _ := strconv.ParseFloat(signPos[3], 10)
 		signHeight, _ := strconv.ParseFloat(signPos[4], 10)
 		signX := signLeft + signWeight + 2
-		signY := signTop - signHeight
-		signW := float64(67)
-		signH := float64(40)
+		signY := signTop - signHeight - 30
+		signW := float64(90)
+		signH := float64(60)
 
 		if err := pdf.Image(signature, signX, signY, &gopdf.Rect{W: signW, H: signH}); err != nil {
 			log.Fatal(err)
