@@ -1,0 +1,28 @@
+[
+    {
+        "table_name": "test_datetimetype",
+        "description": "this is test_datetimetype table",
+        "mapping": [
+            {
+                "field_name": "test_datetime",
+                "mapping": "test_datetime",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_timestamp",
+                "mapping": "test_timestamp",
+                "description": "the real name"
+            },
+            {
+                "field_name": "test_date",
+                "mapping": "test_date",
+                "description": "the real name"
+            },
+            {
+                "field_name": "test_time",
+                "mapping": "test_time",
+                "description": "the real name"
+            }
+        ]
+    }
+]
