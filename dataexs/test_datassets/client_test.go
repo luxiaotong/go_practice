@@ -191,7 +191,6 @@ func testGetTableList(t *testing.T) {
 
 func testSetMapping(t *testing.T) {
 	b, err := ioutil.ReadFile("./area_mapping.json")
-	// b, err := ioutil.ReadFile("./test_datetime_mapping.json")
 	if err != nil {
 		panic(err)
 	}

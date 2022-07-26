@@ -1,0 +1,18 @@
+[
+    {
+        "table_name": "qn_cloud_box_event",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "id",
+                "mapping": "id",
+                "description": "field description"
+            },
+            {
+                "field_name": "is_delete",
+                "mapping": "is_delete",
+                "description": "the real name"
+            }
+        ]
+    }
+]
