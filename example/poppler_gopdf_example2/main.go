@@ -12,16 +12,20 @@ import (
 
 func main() {
 	notification := "1547887167022305280.document.pdf"
-
+	signs := []int{}
+	ss := make(map[int]struct{})
+	for _, s := range signs {
+		ss[s] = struct{}{}
+	}
+	i := 0
 	cmd := exec.Command("pdftohtml", "-s", "-xml", "-stdout", "-zoom", "1", "-i", notification)
 	// cmd := exec.Command("pdftohtml", "-v")
 	out, err := cmd.Output()
 	if err != nil {
 		log.Fatal(err)
 	}
-	s := string(out)
-	// log.Println("cmd output: ", s)
-	lines := strings.Split(s, "\n")
+	// log.Println("cmd output: ", string(out))
+	lines := strings.Split(string(out), "\n")
 
 	signExp := regexp.MustCompile(`<text top="([\d]+)" left="([\d]+)" width="([\d]+)" height="([\d]+)" font="([\d]+)">申请人签名:</text>`)
 	pageExp := regexp.MustCompile(`<page number="([\d]+)" position="absolute" top="[\d]+" left="[\d]+" height="[\d]+" width="[\d]+">`)
@@ -37,6 +41,12 @@ func main() {
 		signPos := signExp.FindStringSubmatch(line)
 		if len(signPos) == 0 {
 			continue
+		}
+		i++
+		if len(ss) > 0 {
+			if _, ok := ss[i]; !ok {
+				continue
+			}
 		}
 		log.Println("page no : ", pageNo)
 		log.Println("sign pos: ", signPos)
