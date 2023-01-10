@@ -176,6 +176,14 @@ func testSetDBConn(t *testing.T) {
 			// 	Pass: "59ed0cpws",
 			// 	Db:   "EDOC",
 			// },
+			// Src: &dbConnect{
+			// 	Type: 5,
+			// 	Host: "139.9.119.21",
+			// 	Port: 55258,
+			// 	User: "root",
+			// 	Pass: "root",
+			// 	Db:   "test",
+			// },
 			Dst: &dbConnect{
 				Type: 2,
 				Host: "139.9.119.21",
