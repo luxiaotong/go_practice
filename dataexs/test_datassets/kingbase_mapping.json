@@ -1,0 +1,58 @@
+[
+    {
+        "table_name": "FORMS",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "ID",
+                "mapping": "ID",
+                "description": "field description"
+            },
+            {
+                "field_name": "CODE",
+                "mapping": "CODE",
+                "description": "the real name"
+            },
+            {
+                "field_name": "NAME",
+                "mapping": "NAME",
+                "description": "the real name"
+            },
+            {
+                "field_name": "CONTENT",
+                "mapping": "CONTENT",
+                "description": "the real name"
+            },
+            {
+                "field_name": "FIRM_ID",
+                "mapping": "FIRM_ID",
+                "description": "the real name"
+            },
+            {
+                "field_name": "DEPT_ID",
+                "mapping": "DEPT_ID",
+                "description": "the real name"
+            },
+            {
+                "field_name": "EXTRA",
+                "mapping": "EXTRA",
+                "description": "the real name"
+            },
+            {
+                "field_name": "HISTORY",
+                "mapping": "HISTORY",
+                "description": "the real name"
+            },
+            {
+                "field_name": "CREATE_TIME",
+                "mapping": "CREATE_TIME",
+                "description": "the real name"
+            },
+            {
+                "field_name": "UPDATE_TIME",
+                "mapping": "UPDATE_TIME",
+                "description": "the real name"
+            }
+        ]
+    }
+]

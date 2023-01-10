@@ -168,6 +168,14 @@ func testSetDBConn(t *testing.T) {
 			// 	Pass: "datassets",
 			// 	Db:   "test",
 			// },
+			// Src: &dbConnect{
+			// 	Type: 4,
+			// 	Host: "139.9.119.21",
+			// 	Port: 54321,
+			// 	User: "EDOC",
+			// 	Pass: "59ed0cpws",
+			// 	Db:   "EDOC",
+			// },
 			Dst: &dbConnect{
 				Type: 2,
 				Host: "139.9.119.21",
@@ -191,6 +199,7 @@ func testGetTableList(t *testing.T) {
 
 func testSetMapping(t *testing.T) {
 	b, err := ioutil.ReadFile("./area_mapping.json")
+	// b, err := ioutil.ReadFile("./kingbase_mapping.json")
 	if err != nil {
 		panic(err)
 	}
