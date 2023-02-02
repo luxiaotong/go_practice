@@ -12,6 +12,16 @@ import (
 
 const stepDone = 3
 
+const (
+	tableName = "area"
+	// tableName = "AREA"
+
+	mappingFile = "./area_mapping.json"
+	// mappingFile = "./area_mapping_kingbase.json"
+	// mappingFile = "./shentong_area_mapping.json"
+	// mappingFile = "./shentong_test_type_mapping.json"
+)
+
 var clientSession string
 
 type clientLoginRequest struct {
@@ -49,6 +59,11 @@ type opRequest struct {
 	Session string `json:"session"`
 }
 
+type getFieldsRequest struct {
+	Session   string `json:"session"`
+	TableName string `json:"table_name"`
+}
+
 type fieldMapping struct {
 	FieldName   string `json:"field_name"`
 	Mapping     string `json:"mapping"`
@@ -60,6 +75,7 @@ type mappingInfo struct {
 	Description string          `json:"description"`
 	Mapping     []*fieldMapping `json:"mapping"`
 }
+
 type setMappingRequest struct {
 	Session string         `json:"session"`
 	Info    []*mappingInfo `json:"info"`
@@ -152,6 +168,7 @@ func testSetDBConn(t *testing.T) {
 	req := &setDBConnRequest{
 		Session: clientSession,
 		Info: &dbMessage{
+			// -- PostgreSQL --
 			Src: &dbConnect{
 				Type: 2,
 				Host: "139.9.119.21",
@@ -160,6 +177,7 @@ func testSetDBConn(t *testing.T) {
 				Pass: "datassets",
 				Db:   "test",
 			},
+			// -- MySQL --
 			// Src: &dbConnect{
 			// 	Type: 1,
 			// 	Host: "139.9.119.21",
@@ -168,6 +186,7 @@ func testSetDBConn(t *testing.T) {
 			// 	Pass: "datassets",
 			// 	Db:   "test",
 			// },
+			// -- Kingbase --
 			// Src: &dbConnect{
 			// 	Type: 4,
 			// 	Host: "139.9.119.21",
@@ -176,6 +195,7 @@ func testSetDBConn(t *testing.T) {
 			// 	Pass: "59ed0cpws",
 			// 	Db:   "EDOC",
 			// },
+			// -- GBase --
 			// Src: &dbConnect{
 			// 	Type: 5,
 			// 	Host: "139.9.119.21",
@@ -183,6 +203,15 @@ func testSetDBConn(t *testing.T) {
 			// 	User: "root",
 			// 	Pass: "root",
 			// 	Db:   "test",
+			// },
+			// -- Shentong --
+			// Src: &dbConnect{
+			// 	Type: 6,
+			// 	Host: "139.9.119.21",
+			// 	Port: 52003,
+			// 	User: "test",
+			// 	Pass: "datassets",
+			// 	Db:   "OSRDB",
 			// },
 			Dst: &dbConnect{
 				Type: 2,
@@ -205,8 +234,19 @@ func testGetTableList(t *testing.T) {
 	fmt.Println("/v1.ClientService/GetTableList result: ", resp.Body())
 }
 
+func testGetFields(t *testing.T) {
+	req := &getFieldsRequest{
+		Session:   clientSession,
+		TableName: tableName,
+	}
+	resp := ec.POST("/v1.ClientService/GetFields").
+		WithJSON(&req).
+		Expect().Status(http.StatusOK)
+	fmt.Println("/v1.ClientService/GetFields result: ", resp.Body())
+}
+
 func testSetMapping(t *testing.T) {
-	b, err := ioutil.ReadFile("./area_mapping.json")
+	b, err := ioutil.ReadFile(mappingFile)
 	// b, err := ioutil.ReadFile("./kingbase_mapping.json")
 	if err != nil {
 		panic(err)

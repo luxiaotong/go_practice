@@ -99,6 +99,7 @@ func TestAll(t *testing.T) {
 	// t.Run("testNewDatassets", testNewDatassets)
 	// t.Run("testSetDBConn", testSetDBConn)
 	// t.Run("testGetTableList", testGetTableList)
+	// t.Run("testGetFields", testGetFields)
 	// t.Run("testSetMapping", testSetMapping)
 	// t.Run("testSchematize", testSchematize)
 	// t.Run("testSetDatassetsApply", testSetDatassetsApply)

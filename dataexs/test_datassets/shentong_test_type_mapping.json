@@ -1,0 +1,113 @@
+[
+    {
+        "table_name": "TEST_TYPE",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "TEST_VARCHAR",
+                "mapping": "TEST_VARCHAR",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_CHAR",
+                "mapping": "TEST_CHAR",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_BINARY",
+                "mapping": "TEST_BINARY",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_VARBINARY",
+                "mapping": "TEST_VARBINARY",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_BIT",
+                "mapping": "TEST_BIT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_TEXT",
+                "mapping": "TEST_TEXT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_TINYINT",
+                "mapping": "TEST_TINYINT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_SMALLINT",
+                "mapping": "TEST_SMALLINT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_INT",
+                "mapping": "TEST_INT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_BIGINT",
+                "mapping": "TEST_BIGINT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_FLOAT",
+                "mapping": "TEST_FLOAT",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_REAL",
+                "mapping": "TEST_REAL",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_DOUBLE",
+                "mapping": "TEST_DOUBLE",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_DECIMAL",
+                "mapping": "TEST_DECIMAL",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_NUMERIC",
+                "mapping": "TEST_NUMERIC",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_SERIAL",
+                "mapping": "TEST_SERIAL",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_BLOB",
+                "mapping": "TEST_BLOB",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_CLOB",
+                "mapping": "TEST_CLOB",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_DATE",
+                "mapping": "TEST_DATE",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_TIMESTAMP",
+                "mapping": "TEST_TIMESTAMP",
+                "description": "field description"
+            },
+            {
+                "field_name": "TEST_BOOL",
+                "mapping": "TEST_BOOL",
+                "description": "field description"
+            }
+        ]
+    }
+]
