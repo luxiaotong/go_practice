@@ -7,6 +7,7 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/chromedp/cdproto v0.0.0-20200424080200-0de008e41fa0
 	github.com/chromedp/chromedp v0.5.3
+	github.com/denisenkom/go-mssqldb v0.0.0-20191124224453-732737034ffd
 	github.com/dgraph-io/badger v1.6.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/docker/docker v20.10.12+incompatible
@@ -51,7 +52,10 @@ require (
 	rsc.io/qr v0.2.0
 )
 
-require golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+require (
+	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+)
 
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20190306092124-e2d15f34fcf9 // indirect
