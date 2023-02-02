@@ -11,6 +11,8 @@ import (
 
 func main() {
 	// dsn := "sqlserver://test:C#2sZwp3@139.9.119.21:51433"
+	query := url.Values{}
+	query.Add("database", "testdb")
 	username := "test"
 	password := "C#2sZwp3"
 	hostname := "139.9.119.21"
@@ -20,7 +22,7 @@ func main() {
 		User:   url.UserPassword(username, password),
 		Host:   fmt.Sprintf("%s:%d", hostname, port),
 		// Path:  instance, // if connecting to an instance instead of a port
-		// RawQuery: query.Encode(),
+		RawQuery: query.Encode(),
 	}
 	db, err := sql.Open("sqlserver", u.String())
 	if err != nil {
