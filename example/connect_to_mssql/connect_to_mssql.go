@@ -33,7 +33,7 @@ func main() {
 	}
 	// fmt.Println(db)
 
-	rows, err := db.Query(fmt.Sprintf("SELECT TABLE_NAME FROM %s.INFORMATION_SCHEMA.TABLES", "testdb"))
+	rows, err := db.Query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES")
 	if err != nil {
 		log.Panicf("mssql query tables err: %v", err)
 	}
@@ -45,7 +45,7 @@ func main() {
 		log.Printf("table name: %v", tablename)
 	}
 
-	rows, err = db.Query(fmt.Sprintf("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'IsPrimaryKey') = 1 AND TABLE_NAME = '%s'", "test_type"))
+	rows, err = db.Query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'IsPrimaryKey') = 1 AND TABLE_NAME = @p1", "test_type")
 	if err != nil {
 		log.Panicf("mssql query primary key err: %v", err)
 	}
@@ -57,7 +57,7 @@ func main() {
 		log.Printf("primary key: %v", primarykey)
 	}
 
-	rows, err = db.Query(fmt.Sprintf("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '%s'", "test_type"))
+	rows, err = db.Query("SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @p1", "test_type")
 	if err != nil {
 		log.Panicf("mssql query fields err: %v", err)
 	}
