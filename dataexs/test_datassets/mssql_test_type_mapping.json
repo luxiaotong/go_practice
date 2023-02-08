@@ -1,0 +1,133 @@
+[
+    {
+        "table_name": "test_type",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "test_tinyint",
+                "mapping": "test_tinyint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_smallint",
+                "mapping": "test_smallint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_int",
+                "mapping": "test_int",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bigint",
+                "mapping": "test_bigint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_decimal",
+                "mapping": "test_decimal",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_numeric",
+                "mapping": "test_numeric",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bit",
+                "mapping": "test_bit",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_smallmoney",
+                "mapping": "test_smallmoney",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_money",
+                "mapping": "test_money",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_float",
+                "mapping": "test_float",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_real",
+                "mapping": "test_real",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_date",
+                "mapping": "test_date",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_time",
+                "mapping": "test_time",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_datetime",
+                "mapping": "test_datetime",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_datetime2",
+                "mapping": "test_datetime2",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_smalldatetime",
+                "mapping": "test_smalldatetime",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_datetimeoffset",
+                "mapping": "test_datetimeoffset",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_char",
+                "mapping": "test_char",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_varchar",
+                "mapping": "test_varchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_text",
+                "mapping": "test_text",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_ntext",
+                "mapping": "test_ntext",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_nchar",
+                "mapping": "test_nchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_nvarchar",
+                "mapping": "test_nvarchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_binary",
+                "mapping": "test_binary",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_varbinary",
+                "mapping": "test_varbinary",
+                "description": "field description"
+            }
+        ]
+    }
+]
