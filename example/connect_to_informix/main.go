@@ -46,16 +46,81 @@ func main() {
 		log.Printf("primary key: %v", primarykey)
 	}
 
-	rows, err = db.Query("select c.colname, coltype, collength from systables as t, syscolumns as c where t.tabname=? and c.tabid=t.tabid;", "test_type")
+	rows, err = db.Query("select c.colname, c.coltype, c.collength, c.extended_id from systables as t, syscolumns as c where t.tabname=? and c.tabid=t.tabid;", "test_type")
 	if err != nil {
 		log.Panicf("mssql query fields err: %v", err)
 	}
 	for rows.Next() {
-		var colName, colType string
-		var colLen int64
-		if err := rows.Scan(&colName, &colType, &colLen); err != nil {
+		var colName string
+		var colType, colLen, colExt int64
+		if err := rows.Scan(&colName, &colType, &colLen, &colExt); err != nil {
 			log.Panicf("mssql scan fields err: %v", err)
 		}
-		log.Printf("fields: %v, %v, %v", colName, colType, colLen)
+		log.Printf("fields: %v, (%v, %v), %v", colName, colType, colExt, colLen)
+		t := ""
+		switch colType {
+		case 0:
+			t = "CHAR"
+		case 1:
+			t = "SMALLINT"
+		case 2, 258:
+			t = "INTEGER"
+		case 3:
+			t = "FLOAT"
+		case 4:
+			t = "SMALLFLOAT"
+		case 5:
+			t = "DECIMAL"
+		case 6, 262:
+			t = "SERIAL"
+		case 7:
+			t = "DATE"
+		case 8:
+			t = "MONEY"
+		case 9:
+			t = "NULL"
+		case 10:
+			t = "DATETIME"
+		case 11:
+			t = "BYTE"
+		case 12:
+			t = "TEXT"
+		case 13:
+			t = "VARCHAR"
+		case 14:
+			t = "INTERVAL"
+		case 15:
+			t = "NCHAR"
+		case 16:
+			t = "NVARCHAR"
+		case 17:
+			t = "INT8"
+		case 18:
+			t = "SERIAL8"
+		case 19:
+			t = "SET"
+		case 20:
+			t = "MULTISET"
+		case 21:
+			t = "LIST"
+		case 23:
+			t = "COLLECTION"
+		case 40:
+			t = "LVARCHAR"
+		case 41:
+			t = "BLOB"
+			if colExt == 5 {
+				t = "BOOLEAN"
+			}
+		case 43:
+			t = "LVARCHAR"
+		case 45:
+			t = "BOOLEAN"
+		case 52:
+			t = "BIGINT"
+		case 53:
+			t = "BIGSERIAL"
+		}
+		log.Printf("fields: %v, %v, %v", colName, t, colLen)
 	}
 }
