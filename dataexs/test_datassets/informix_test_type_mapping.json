@@ -1,0 +1,118 @@
+[
+    {
+        "table_name": "test_type",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "test_smallint",
+                "mapping": "test_smallint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_int",
+                "mapping": "test_int",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_int8",
+                "mapping": "test_int8",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bigint",
+                "mapping": "test_bigint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_decimal",
+                "mapping": "test_decimal",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_numeric",
+                "mapping": "test_numeric",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_smallfloat",
+                "mapping": "test_smallfloat",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_real",
+                "mapping": "test_real",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_float",
+                "mapping": "test_float",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_double_precision",
+                "mapping": "test_double_precision",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_money",
+                "mapping": "test_money",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_char",
+                "mapping": "test_char",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_character",
+                "mapping": "test_character",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_varchar",
+                "mapping": "test_varchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_nchar",
+                "mapping": "test_nchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_nvarchar",
+                "mapping": "test_nvarchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_date",
+                "mapping": "test_date",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_datetime",
+                "mapping": "test_datetime",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_interval",
+                "mapping": "test_interval",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_json",
+                "mapping": "test_json",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_boolean",
+                "mapping": "test_boolean",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_lvarchar",
+                "mapping": "test_lvarchar",
+                "description": "field description"
+            }
+        ]
+    }
+]

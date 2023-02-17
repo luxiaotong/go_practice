@@ -22,6 +22,7 @@ const (
 	// mappingFile = "./shentong_area_mapping.json"
 	// mappingFile = "./shentong_test_type_mapping.json"
 	// mappingFile = "./mssql_test_type_mapping.json"
+	// mappingFile = "./informix_test_type_mapping.json"
 )
 
 var clientSession string
@@ -216,14 +217,23 @@ func testSetDBConn(t *testing.T) {
 			// 	Db:   "OSRDB",
 			// },
 			// -- MSSQL --
-			Src: &dbConnect{
-				Type: 7,
-				Host: "139.9.119.21",
-				Port: 51433,
-				User: "test",
-				Pass: "C#2sZwp3",
-				Db:   "testdb",
-			},
+			// Src: &dbConnect{
+			// 	Type: 7,
+			// 	Host: "139.9.119.21",
+			// 	Port: 51433,
+			// 	User: "test",
+			// 	Pass: "C#2sZwp3",
+			// 	Db:   "testdb",
+			// },
+			// -- Informix --
+			// Src: &dbConnect{
+			// 	Type: 8,
+			// 	Host: "139.9.119.21",
+			// 	Port: 59089,
+			// 	User: "test",
+			// 	Pass: "datassets",
+			// 	Db:   "testdb",
+			// },
 			Dst: &dbConnect{
 				Type: 2,
 				Host: "139.9.119.21",
