@@ -61,70 +61,100 @@ func main() {
 			log.Panicf("sybase scan fields err: %v", err)
 		}
 		log.Printf("fields: %v, (%v, %v), %v, (%v, %v)", colName, colType, colExt, colLen, colPrec, colScale)
-		// t := ""
-		// switch colType {
-		// case 0:
-		// 	t = "CHAR"
-		// case 1:
-		// 	t = "SMALLINT"
-		// case 2, 258:
-		// 	t = "INTEGER"
-		// case 3:
-		// 	t = "FLOAT"
-		// case 4:
-		// 	t = "SMALLFLOAT"
-		// case 5:
-		// 	t = "DECIMAL"
-		// case 6, 262:
-		// 	t = "SERIAL"
-		// case 7:
-		// 	t = "DATE"
-		// case 8:
-		// 	t = "MONEY"
-		// case 9:
-		// 	t = "NULL"
-		// case 10:
-		// 	t = "DATETIME"
-		// case 11:
-		// 	t = "BYTE"
-		// case 12:
-		// 	t = "TEXT"
-		// case 13:
-		// 	t = "VARCHAR"
-		// case 14:
-		// 	t = "INTERVAL"
-		// case 15:
-		// 	t = "NCHAR"
-		// case 16:
-		// 	t = "NVARCHAR"
-		// case 17:
-		// 	t = "INT8"
-		// case 18:
-		// 	t = "SERIAL8"
-		// case 19:
-		// 	t = "SET"
-		// case 20:
-		// 	t = "MULTISET"
-		// case 21:
-		// 	t = "LIST"
-		// case 23:
-		// 	t = "COLLECTION"
-		// case 40:
-		// 	t = "LVARCHAR"
-		// case 41:
-		// 	t = "BLOB"
-		// 	if colExt == 5 {
-		// 		t = "BOOLEAN"
-		// 	}
-		// case 43:
-		// 	t = "LVARCHAR"
-		// case 45:
-		// 	t = "BOOLEAN"
-		// case 52:
-		// 	t = "BIGINT"
-		// case 53:
-		// 	t = "BIGSERIAL"
-		// }
-		// log.Printf("fields: %v, %v, %v", colName, t, colLen)
+		t := ""
+		switch colType {
+		case 48:
+			t = "tinyint"
+		case 52:
+			t = "smallint"
+		case 65:
+			t = "usmallint"
+		case 56:
+			t = "int"
+		case 38:
+			switch colExt {
+			case 5:
+				t = "tinyint"
+			case 6:
+				t = "smallint"
+			case 7:
+				t = "int"
+			case 43:
+				t = "bigint"
+			default:
+				t = "intn"
+			}
+		case 66, 68:
+			t = "uint"
+			if colExt == 46 {
+				t = "ubigint"
+			}
+		case 191:
+			t = "bigint"
+		case 67:
+			t = "ubigint"
+		case 262:
+			t = "serial"
+		case 62:
+			t = "float"
+		case 109:
+			switch colExt {
+			case 8:
+				t = "double"
+			case 23:
+				t = "real"
+			default:
+				t = "float"
+			}
+		case 59:
+			t = "real"
+		case 63, 108:
+			t = "numeric"
+		case 55, 106:
+			t = "decimal"
+		case 60, 110:
+			t = "money"
+		case 122:
+			t = "smallmoney"
+		case 50:
+			t = "bit"
+		case 61:
+			t = "datetime"
+		case 111:
+			switch colExt {
+			case 12:
+				t = "datetime"
+			case 22:
+				t = "smalldatetime"
+			default:
+				t = "datetime"
+			}
+		case 58:
+			t = "smalldatetime"
+		case 37:
+			t = "timestamp"
+			switch colExt {
+			case 3:
+				t = "binary"
+			case 4:
+				t = "varbinary"
+			case 80:
+				t = "timestamp"
+			}
+		case 49, 123:
+			t = "date"
+		case 51, 147:
+			t = "time"
+		case 39:
+			t = "varchar"
+			if colExt == 1 {
+				t = "char"
+			}
+		case 47:
+			t = "char"
+		case 45:
+			t = "binary"
+		}
+		log.Printf("fields: %v, %v", colName, t)
 	}
 }
