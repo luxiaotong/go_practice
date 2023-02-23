@@ -23,6 +23,8 @@ const (
 	// mappingFile = "./shentong_test_type_mapping.json"
 	// mappingFile = "./mssql_test_type_mapping.json"
 	// mappingFile = "./informix_test_type_mapping.json"
+	// mappingFile = "./sybase_test_type_mapping.json"
+	// mappingFile = "./sybase_area_mapping.json"
 )
 
 var clientSession string
@@ -232,6 +234,15 @@ func testSetDBConn(t *testing.T) {
 			// 	Port: 59089,
 			// 	User: "test",
 			// 	Pass: "datassets",
+			// 	Db:   "testdb",
+			// },
+			// -- Sybase --
+			// Src: &dbConnect{
+			// 	Type: 9,
+			// 	Host: "139.9.119.21",
+			// 	Port: 55000,
+			// 	User: "tester",
+			// 	Pass: "guest1234",
 			// 	Db:   "testdb",
 			// },
 			Dst: &dbConnect{

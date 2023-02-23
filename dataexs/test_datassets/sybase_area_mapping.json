@@ -1,0 +1,114 @@
+[
+    {
+        "table_name": "area",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "id",
+                "mapping": "id",
+                "description": "field description"
+            },
+            {
+                "field_name": "area_code",
+                "mapping": "area_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "area_name",
+                "mapping": "area_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "city_code",
+                "mapping": "city_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "city_name",
+                "mapping": "city_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "province_code",
+                "mapping": "province_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "province_name",
+                "mapping": "province_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "country",
+                "mapping": "country",
+                "description": "the real name"
+            },
+            {
+                "field_name": "level2",
+                "mapping": "level2",
+                "description": "the real name"
+            },
+            {
+                "field_name": "longitude",
+                "mapping": "longitude",
+                "description": "the real name"
+            },
+            {
+                "field_name": "latitude",
+                "mapping": "latitude",
+                "description": "the real name"
+            }
+        ]
+    },
+    {
+        "table_name": "area_statistics",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "id",
+                "mapping": "id",
+                "description": "field description"
+            },
+            {
+                "field_name": "area_code",
+                "mapping": "area_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "area_name",
+                "mapping": "area_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "city_code",
+                "mapping": "city_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "city_name",
+                "mapping": "city_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "province_code",
+                "mapping": "province_code",
+                "description": "the real name"
+            },
+            {
+                "field_name": "province_name",
+                "mapping": "province_name",
+                "description": "the real name"
+            },
+            {
+                "field_name": "country",
+                "mapping": "country",
+                "description": "the real name"
+            },
+            {
+                "field_name": "level2",
+                "mapping": "level2",
+                "description": "the real name"
+            }
+        ]
+    }
+]

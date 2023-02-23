@@ -85,9 +85,15 @@ func main() {
 				t = "intn"
 			}
 		case 66, 68:
-			t = "uint"
-			if colExt == 46 {
+			switch colExt {
+			case 44:
+				t = "usmallint"
+			case 45:
+				t = "uint"
+			case 46:
 				t = "ubigint"
+			default:
+				t = "uint"
 			}
 		case 191:
 			t = "bigint"
@@ -113,7 +119,14 @@ func main() {
 		case 55, 106:
 			t = "decimal"
 		case 60, 110:
-			t = "money"
+			switch colExt {
+			case 11:
+				t = "money"
+			case 21:
+				t = "smallmoney"
+			default:
+				t = "money"
+			}
 		case 122:
 			t = "smallmoney"
 		case 50:
@@ -156,5 +169,38 @@ func main() {
 			t = "binary"
 		}
 		log.Printf("fields: %v, %v", colName, t)
+	}
+
+	q := fmt.Sprintf("select * from area")
+	log.Printf("query is %s", q)
+	rows, err = db.Query(q)
+	if err != nil {
+		log.Panicf("sybase query data error: %v", err)
+	}
+	defer rows.Close()
+
+	cols, err := rows.Columns()
+	if err != nil {
+		log.Panicf("sybase rows columns error: %v", err)
+	}
+	// log.Debug("cols: %v", cols)
+
+	vals := make([]interface{}, len(cols))
+
+	for rows.Next() {
+		for i := range cols {
+			vals[i] = &vals[i]
+		}
+
+		err = rows.Scan(vals...)
+		if err != nil {
+			log.Panicf("sybase scan data error: %v", err)
+		}
+		// log.Debug("vals: %v", vals)
+
+		for i, raw := range vals {
+			// log.Printf("k: %s, v: %#v, t: %v", cols[i], raw, colMap[cols[i]])
+			log.Printf("k: %s, v: %#v", cols[i], raw)
+		}
 	}
 }
