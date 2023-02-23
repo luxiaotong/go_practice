@@ -18,6 +18,7 @@ const (
 	// tableName = "test_type"
 
 	mappingFile = "./area_mapping.json"
+	// mappingFile = "./postgres_test_type_mapping.json"
 	// mappingFile = "./kingbase_mapping.json"
 	// mappingFile = "./shentong_area_mapping.json"
 	// mappingFile = "./shentong_test_type_mapping.json"

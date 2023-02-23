@@ -1,0 +1,118 @@
+[
+    {
+        "table_name": "test_type",
+        "description": "this is test_type table",
+        "mapping": [
+            {
+                "field_name": "test_smallint",
+                "mapping": "test_smallint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_integer",
+                "mapping": "test_integer",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bigint",
+                "mapping": "test_bigint",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_smallserial",
+                "mapping": "test_smallserial",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_serial",
+                "mapping": "test_serial",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bigserial",
+                "mapping": "test_bigserial",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_decimal",
+                "mapping": "test_decimal",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_numeric",
+                "mapping": "test_numeric",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_real",
+                "mapping": "test_real",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_double_precision",
+                "mapping": "test_double_precision",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_money",
+                "mapping": "test_money",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_char",
+                "mapping": "test_char",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_varchar",
+                "mapping": "test_varchar",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_text",
+                "mapping": "test_text",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bytea",
+                "mapping": "test_bytea",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_date",
+                "mapping": "test_date",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_time",
+                "mapping": "test_time",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_timestamp",
+                "mapping": "test_timestamp",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_interval",
+                "mapping": "test_interval",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_json",
+                "mapping": "test_json",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_boolean",
+                "mapping": "test_boolean",
+                "description": "field description"
+            },
+            {
+                "field_name": "test_bit",
+                "mapping": "test_bit",
+                "description": "field description"
+            }
+        ]
+    }
+]
