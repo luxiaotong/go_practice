@@ -199,7 +199,7 @@ func main() {
 	} else if len(ss) == 2 {
 		_ = pdf.Text(ss[0])
 		pdf.SetX(80)
-		pdf.SetY(242 + 46)
+		pdf.SetY(pdf.GetY() + 46)
 		_ = pdf.Text(ss[1])
 		w, _ := pdf.MeasureTextWidth(ss[1])
 		remainW = 435 - w
