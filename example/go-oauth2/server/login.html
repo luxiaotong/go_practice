@@ -1,0 +1,41 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SSO Login</title>
+</head>
+
+<body>
+
+    <h1>SSO Login</h1>
+    <form action="/oauth2/login" method="post">
+        <label for="username"> username</label>
+        <input type="text" name="username" >
+        <br>
+        <label for="password"> password</label>
+        <input type="text" name="password" >
+        <br>
+        <button type="submit">login</button>
+
+        <input id="client_id" type="hidden" name="client_id" value="">
+    </form>
+</body>
+
+<script>
+function getQueryString(name) {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return decodeURIComponent(r[2]);
+    };
+    return null;
+}
+client_id = getQueryString("client_id")
+const element = document.getElementById("client_id");
+element.getAttributeNode("value").value = client_id;
+console.log()
+</script>
+
+</html>
+
