@@ -28,6 +28,12 @@ func main() {
 	pdf := gopdf.GoPdf{}
 	pdf.Start(gopdf.Config{
 		PageSize: *gopdf.PageSizeA4, //595.28, 841.89 = A4
+		Protection: gopdf.PDFProtectionConfig{
+			UseProtection: true,
+			Permissions:   gopdf.PermissionsPrint,
+			// OwnerPass:     []byte("123456"),
+			// UserPass:      []byte("123456789"),
+		},
 	})
 
 	if err := pdf.AddTTFFont("Regular", FontRegular); err != nil {
