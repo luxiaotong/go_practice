@@ -18,6 +18,7 @@ import (
 
 const (
 	TplBackground = "background_tpl.pdf"
+	Background    = "background.png"
 	Stamp         = "stamp.png"
 	Logo          = "logo.png"
 	FontRegular   = "SourceHanSansCN-Regular.ttf"
@@ -44,9 +45,10 @@ func main() {
 	}
 
 	printer := message.NewPrinter(language.English)
-	tplBg := pdf.ImportPage(TplBackground, 1, "/MediaBox")
+	// tplBg := pdf.ImportPage(TplBackground, 1, "/MediaBox")
 	pdf.AddPage()
-	pdf.UseImportedTemplate(tplBg, 0, 0, 0, 0)
+	// pdf.UseImportedTemplate(tplBg, 0, 0, 0, 0)
+	_ = pdf.Image(Background, 0, 0, gopdf.PageSizeA4)
 
 	_ = pdf.Image(Logo, 299, 70, &gopdf.Rect{W: 236, H: 25})
 	pdf.SetX(82)
@@ -122,7 +124,8 @@ func main() {
 
 	// Add New Page
 	pdf.AddPage()
-	pdf.UseImportedTemplate(tplBg, 0, 0, 0, 0)
+	// pdf.UseImportedTemplate(tplBg, 0, 0, 0, 0)
+	_ = pdf.Image(Background, 0, 0, gopdf.PageSizeA4)
 
 	pdf.SetX(80)
 	pdf.SetY(130)
